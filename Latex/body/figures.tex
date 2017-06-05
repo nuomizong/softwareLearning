@@ -1,0 +1,245 @@
+% !Mode:: "TeX:UTF-8"
+
+\chapter{Insert figures}
+\section{Figure environment Specifier and rules}
+To create a figure that floats, use the \textbf{figure} environment.
+
+\begin{lstlisting}[language={[LaTeX]TeX}]
+\begin{figure}[placement specifier]
+... figure contents ...
+\end{figure}
+\end{lstlisting}
+
+The previous section mentioned how floats are used to allow \LaTeX{} to handle figures, while maintaining the best possible presentation. However, there may be times when you disagree, and a typical example is with its positioning of figures. The \emph{placement specifier} parameter exists as a compromise, and its purpose is to give the author a greater degree of control over where certain floats are placed.
+
+\begin{table}
+	\begin{tabular}{|l|p{12cm}|}
+		\hline
+		\multicolumn{1}{|c|}{\textbf{Specifier}} & \multicolumn{1}{|c|}{\textbf{Permission}}\\
+		\hline
+		h & Place the float \emph{here}, i.e., \emph{approximately} at the same point it occurs in the source text (however, not \emph{exactly at the spot})\\
+		\hline
+		t & Position at the \emph{top} of the page.\\
+		\hline
+		b & Position at the \emph{bottom} of the page.\\
+		\hline
+		p & Put on a special \emph{page} for floats only.\\
+		\hline
+		! & Override internal parameters \LaTeX{} uses for determining "good" float positions.\\
+		\hline
+		H & Places the float at precisely the location in the \LaTeX{} code. Requires the \textbf{float} package, e.g., \textbf{\textbackslash usepackage{float}}. \newline This is somewhat equivalent to \textbf{h!}.\\
+		\hline
+	\end{tabular}
+\end{table}
+
+\section{Tips: figure name}
+If figure name contains \textbf{space}, like \textbf{Figure of a dog}, then use \textbf{""} to include the figure name in this way: \textbf{"Figure of a dog"}. Otherwise, just use the figure name.
+
+\section{Floating figure}
+Insert one figure which occupies a single line is shown as~\ref{fig:xml}
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.4\textwidth]{figures/XML.pdf}
+	\caption{Tree structure}\label{fig:xml}
+	\vspace{\baselineskip}
+\end{figure}
+
+The original codes for inserting figures and their explanations are:
+
+\begin{lstlisting}[language={[LaTeX]TeX}]
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.4\textwidth]{filename(.eps)}
+	\caption{Caption}\label{Label(usually fig:labelname)}
+	\vspace{\baselineskip}  % one line between figure and context
+\end{figure}
+\end{lstlisting}
+
+\begin{lstlisting}[language={[LaTeX]TeX}]
+	Optional parameters [htbp] in figure environment represent the position of placing flo-
+	at figure.
+	h (here) means present position.
+	t (top) means top of this page.
+	b (bottom) means bottom of this page. 
+	p (page) means a single page.
+	In software like Word, figures are inserted in current position. But if there is not e-
+	nough remain space, inserted figure will be moved to the next page, leaving huge blank 
+	in current page and it's quite inconvinence to modify manually. Thus LaTeX supports fl-
+	oating figure functionality, which adjusts figures automatically according to the sequ-
+	ence of h->t->b->p, reducing workloads greatly.
+	\centering makes each line after centers in the middle.
+	Optional parameters of "\includegraphics" can be used to set horizontal width, normally
+	it is multiply of textwidth or linewidth (\textwidth or \linewidth)
+	\caption set caption of figures, always stick with figures
+	\vspace generate a certain height of vertical space. If required parametes is minus th-
+	en following words will move up. em is length unit which equals to the width of capita-
+	l letter M. \vspace{\baselineskip} means one line between figure and context.
+	\ref{fig:figname} means reference of a figure
+\end{lstlisting}
+
+\section{Floating figures in one line}
+If~2~or more figures need to be inserted in one line, \verb|minipage| environment can fulfill this task. See figure~\ref{fig:dd}~and figure~\ref{fig:ds}.
+\begin{figure}[htbp]
+	\centering
+	\begin{minipage}{0.4\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/dataDimensions.pdf}
+		\caption{Data dimensions}\label{fig:dd}
+	\end{minipage}
+	\begin{minipage}{0.4\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/dataSize.pdf}
+		\caption{Data size}\label{fig:ds}
+	\end{minipage}
+	\vspace{\baselineskip}
+\end{figure}
+
+The corresponding is shown bellow:
+\begin{lstlisting}[language={[LaTeX]TeX}]
+	\begin{figure}[htbp]
+	\centering
+	\begin{minipage}{0.4\textwidth}
+	\centering
+	\includegraphics[width=\textwidth]{filename}
+	\caption{caption}\label{fig:f1}
+	\end{minipage}
+	\begin{minipage}{0.4\textwidth}
+	\centering
+	\includegraphics[width=\textwidth]{filename}
+	\caption{caption}\label{fig:f2}
+	\end{minipage}\vspace{\baselineskip}
+	\end{figure}
+\end{lstlisting}
+
+\begin{lstlisting}[language={[LaTeX]TeX}]
+required parameter in minipage environment is used for setting minipage width. If ins-
+ert n equivalent figures, each minipage width should slightly less than (1/n)\textwidth.
+\end{lstlisting}
+
+\noindent\hrule
+
+\section{Inset floating subfigures}
+If subfigures are included in a figure~caption~and~subcaption~package are needed, like~\ref{fig:subfig}.
+\begin{figure}[htbp]
+	\centering
+	\begin{subfigure}[b]{0.45\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/dataDimensions.pdf}
+		\caption{Data dimensions}\label{fig:subfig:datadim}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.45\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/dataSize.pdf}
+	\caption{Data Size}\label{fig:subfig:datasize}
+	\end{subfigure}
+	\caption{Scalability of data}
+	\vspace{\baselineskip}
+\end{figure}
+
+The original codes are:
+
+\begin{lstlisting}[language={[LaTeX]TeX}]
+\begin{figure}[htbp]
+	\centering
+	\begin{subfigure}[b]{0.45\textwidth} % b means alignment at the bottom
+		\centering
+		\includegraphics[width=\textwidth]{dataDimensions}
+		\caption{Data dimensions}\label{fig:subfig:datadim}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.45\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{dataSize}}
+		\caption{Data Size}\label{fig:subfig:datasize}
+	\end{subfigure}
+	\caption{Scalability of data}
+	\vspace{\baselineskip}
+\end{figure}
+\end{lstlisting}
+
+\begin{lstlisting}[language={[LaTeX]TeX}]
+The captions of subfigures can be set at will as long as not repeated. For better read-
+ibility it is recommended using fig:subfig:subsubfig format to name them, thus we can 
+tell whether it is a reference of subfigure.
+\end{lstlisting}
+
+Reference of subfigure example: figure~\ref{fig:subfig:datadim}~and figure~\ref{fig:subfig:datasize}.
+
+\section{Insert one Non-floating figures in content}
+An \verb|\includegraphics| doesn't need a surrounding figure environment. A figure like this \includegraphics[width=0.1\textwidth]{figures/tju.pdf} can be insert into content using \verb|\includegraphics|.
+
+\section{Insert one Non-floating figure in a single line}
+Insert one figure which occupies a single line is shown as~\ref{fig:xml_nonfloating}
+\begin{center}
+	\includegraphics[width=0.4\textwidth]{figures/XML.pdf}
+	\captionof{figure}{Tree structure}\label{fig:xml_nonfloating}
+	\vspace{\baselineskip}
+\end{center}
+
+The original codes for inserting figures and their explanations are:
+
+\begin{lstlisting}[language={[LaTeX]TeX}]
+\begin{center}
+\includegraphics[width=0.4\textwidth]{XML}
+\caption{Tree structure}\label{fig:xml_nonfloating}
+\vspace{\baselineskip}
+\end{center}  % one line between figure and context
+\end{lstlisting}
+
+\section{Insert several Non-floating figures in one line}
+If~2~or more non-floating figures need to be inserted in one line, \verb|minipage| environment can fulfill this task. See figure~\ref{fig:dd_nonfloagting}~and figure~\ref{fig:ds_nonfloagting}.
+
+\begin{minipage}[b]{0.4\textwidth}
+	\centering
+	\includegraphics[width=\textwidth]{figures/dataDimensions.pdf}
+	\captionof{figure}{Data dimensions}\label{fig:dd_nonfloagting}
+\end{minipage}
+\begin{minipage}[b]{0.4\textwidth}
+	\centering
+	\includegraphics[width=\textwidth]{figures/dataSize.pdf}
+	\captionof{figure}{Data size}\label{fig:ds_nonfloagting}
+\end{minipage}
+\vspace{\baselineskip}
+
+The corresponding is shown bellow:
+\begin{lstlisting}[language={[LaTeX]TeX}]
+\begin{minipage}[b]{0.4\textwidth}
+\centering
+\includegraphics[width=\textwidth]{dataDimensions}
+\captionof{figure}{Data dimensions}\label{fig:dd_nonfloagting}
+\end{minipage}
+\begin{minipage}[b]{0.4\textwidth}
+\centering
+\includegraphics[width=\textwidth]{dataSize}
+\captionof{figure}{Data size}\label{fig:ds_nonfloagting}
+\end{minipage}
+\vspace{\baselineskip}
+\end{lstlisting}
+
+\section{A profound remark}
+There are several possibilities for controlling float placement. the question I see most here is along the lines of "How do I insert an image/table at the point I list in the source document?"
+
+I think it is important to note that you \emph{don't need to} use floats. An \textbf{includegraphics} does not need a surrounding \textbf{figure} and a \textbf{tabular} does not need a surrounding \textbf{table}. If captions are required, the \textbf{captionof} command from the \textbf{caption} package can be used (perhaps they need to be boxed up to prevent a pagebreak between content and caption).
+
+If a float environment is required, but the "amount of float" has to be limited to keep the content relatively close to the point where it was defined in the source, then the \textbf{floatBarrier} command from the \textbf{placeins} package can be used. This command specifies a barrier beyong which floats may not pass.
+
+Finally, if the content should be placed in the exact place it was defined in the source document, then the \textbf{H} float modifier from the \textbf{float} package can be used to accomplish this. This differs from the floatless solution discussed in the second paragraph in that it does use a float (even though it doesn't actually float anywhere). This can useful for instance if a certain floatstyle is used throughout the document (e.g. the ruled and boxed styles from the float package) and we wish to have a consistent look.
+
+\section{Figures arrangement}
+When there is not enough space for figures, they will be pushed together in the next page and affect the displaying result. One way to solve this problem is to use \lstinline[language = {[LaTeX]TeX}]|\includegraphics| directly outside figure environment. Another way is to insert \lstinline[language = {[LaTeX]TeX}]|\newpage| so that all the subsequent contents will be pushed to the new page making enough space for figures. Awesome.
+
+\section{Another good remark}
+The default behaviour of figures is to float, so that \LaTeX{} can find the best way to arrange them in your document and made it look better. If ou have a look, this is how books are often typeset. So, usally the best thing to do is just to let \LaTeX{} do its work and avoid using phrases such as "in the following figure: ", which requires the figure to be set a specific location, and use \verb|"in Figure~\ref(..)"| instead, taking advantage of \LaTeX's cross references.
+
+If for some reason you \emph{really} want some particular figure to be placed "HERE", and not where \LaTeX wants to put it, then use the \textbf{[H]} option of the "float" package which basically turns the floating figure into a regular non-float.
+
+Also note that, if you don't want to add a \textbf{caption} to your figure, then you don't need to use the \textbf{figure} environment at all! You can use the \verb|\includegraphics| command anywhere in your document to insert an image.
+
+\section{Insert a pdf image}
+\begin{lstlisting}[language={[LaTeX]TeX}]
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.7\linewidth]{linearTetrahedron.pdf} % the suffix can be omitted
+\caption{The four node tetrahedron element, also called the linear tetrahedron, or Tet4 in programming context: (a) element picture; (b) corner node numbering convention}
+\label{fig:linearTetrahedron}
+\end{figure}
+\end{lstlisting}

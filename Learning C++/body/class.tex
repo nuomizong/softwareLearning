@@ -1,0 +1,28 @@
+% !Mode:: "TeX:UTF-8"	% read in as utf8 file.
+
+\chapter{Class}
+\section{Initialize const members}
+There are couple of ways to initialize the const members inside the class.
+
+Definition of const member in general, needs initialization of variable too.
+
+\begin{enumerate}
+\item First way:
+\begin{lstlisting}[language=C++]
+class A
+{
+	static int const a; // declaration
+};
+
+int const A::a=10; //defining the static member outside the class.
+\end{lstlisting}
+
+\item Second way:
+\begin{lstlisting}[language=C++]
+class A
+{
+	const int b;
+	A(int c): b(c) {}// const member initialized in initialization list.
+};
+\end{lstlisting}
+\end{enumerate}

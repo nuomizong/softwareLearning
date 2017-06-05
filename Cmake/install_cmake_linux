@@ -1,0 +1,6 @@
+================== install cmake
+1. download source
+2. unzip and change to cmake root file. 
+./bootstrap
+  make      
+  make install

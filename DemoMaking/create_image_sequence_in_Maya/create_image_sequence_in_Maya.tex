@@ -1,0 +1,116 @@
+% !Mode:: "TeX:UTF-8"	% read in as utf8 file.
+\documentclass[10pt,a4paper]{article}
+
+\input{D:/Dropbox/myStyle.tex}
+
+\begin{document}
+\author{Anzong Zheng}
+\title{Maya Animation}
+\date{May 30, 2016}
+\maketitle
+
+\tableofcontents
+
+\newpage
+
+\section{Create Image Sequences in Maya}
+\subsection{Set Playback option}
+Change the \textbf{Playback option} like this:
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.7\linewidth]{playbackOption}
+\caption{set playback option}
+\label{fig:playbackOption}
+\end{figure}
+
+\subsection{Set, Mute, Delete specific Keys}
+\subsubsection{Set Key}
+Select \textbf{Camera} or \textbf{Object}, then goto \textbf{Attribute Editor}, \textbf{Right Click} at interested property and choose \textbf{Key Selected}. If selected, the property's background will turn to \textcolor{red}{Red}. Originally, they have \textcolor{black}{black} background.
+
+I choose \textbf{Rotation Y} as the selected key and set it as 0 at the keyframe 1, as shown in \ref{fig:selectedKey_frame1}
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.5]{selectedKey_frame1}
+\caption{selected key frame 1}
+\label{fig:selectedKey_frame1}
+\end{figure}
+
+I also set the \textbf{Rotation Y} key at the final keyframe as \ref{fig:selectedKey_framen}:
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.5]{selectedKey_framen}
+\caption{selected key frame n}
+\label{fig:selectedKey_framen}
+\end{figure}
+
+The interpreted \textbf{Rotation Y} key can be interpreted as \ref{fig:selectedKey_framex}:
+%\begin{figure}[h]
+%\centering
+\begin{center}
+\includegraphics[scale=0.5]{selectedKey_framex}
+\captionof{figure}{selected key frame}\label{fig:selectedKey_framex}
+\end{center}
+
+%\end{figure}
+
+\subsubsection{Mute Key}
+Muting lets you isolate and focus on a specific motion. For example, working with a model whose arms and legs are animated, you can use muting to turn off the animation of either the arms or legs.
+
+You can mute selected animation channels to temporarily disable the animation without disconnecting its curve from the animated object. See Mute channels. You can also mute keys for a selected object. See Mute keys.
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.3]{set_mute_del_keyframes}
+\caption{Set, Mute and Delete Key}
+\label{fig:set_mute_del_keyframes}
+\end{figure}
+
+\subsubsection{Select all Keys}
+After object or camera selected, press \textbf{s: Animate $ \rightarrow $ Set Key}, then all properties are selected.
+
+\subsection{file output option}
+To make an animation or do batch rendering, I will need to export multiple images, I choose to export \textbf{Jpeg} image format and set the output file name as the following \ref{fig:file_output_option}
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.5]{file_output_option}
+\caption{file output option}
+\label{fig:file_output_option}
+\end{figure}
+
+\subsection{Set Project location}
+Go to \textbf{File} and \textbf{Set Project...}, choose a folder and make it where the project saves.
+
+\subsection{Set frame range}
+Set the \textbf{Frame range} the same as the \textbf{Playback option}.
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.5]{frameRange}
+\caption{frame range}
+\label{fig:frameRange}
+\end{figure}
+
+\subsection{Set Renderable camera}
+Set the \textbf{Renderable camera} the same as the camera I am using.
+%\begin{figure}[h]
+%\centering
+\begin{center}
+\includegraphics[scale=0.4]{renderableCamera}
+\captionof{figure}{set renderable camera}
+\label{fig:renderableCamera}
+\end{center}
+
+%\end{figure}
+
+\subsection{Output images}
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.5]{outputImages}
+\caption{output images}
+\label{fig:outputImages}
+\end{figure}
+
+
+\end{document}

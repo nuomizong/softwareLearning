@@ -1,0 +1,32 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[latin1]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{natbib}
+
+\bibliographystyle{plain} %Choose a bibliograhpic style
+
+\begin{document}
+	
+	\author{nuomizong}
+	\title{Citing and referencing using Bibtex}
+	\date{July 22, 2015}
+	
+	\maketitle
+	
+	\newpage
+	
+	%
+	Note. This is the Postscript version with plain bibliographic style. 
+	Most of the academic staff in the School of Computer Science and Software Engineering have publications in their field of expertise or research. The majority of the publications appear in journals or proceedings of conferences. Articles appearing in journals may be written by a single author~\cite{Meyer2000}. Where there are multiple authors, the citation in the text usually names only the first author, for example Kim Marriott's article on logic programming~\cite{Codishetal2000}. The same fate befalls Henry Wu~\cite{Huetal2000}. Some authors contribute a chapter to edited books~\cite{WallaceandKorb1999}. Others, for example Christine Mingins, jointly publish a book~\cite{Jezequeletal2000}. Damian Conway is a world expert on Perl. As well as having written a book on this topic~\cite{Conway2000}, he has also been the subject of articles~\cite{Johnston2000}.
+	
+	\cite*{Meyer2000}
+	
+	\cite[Huetal2000]{Huetal2000}
+	%
+	\bibliography{Master}
+	
+\end{document}

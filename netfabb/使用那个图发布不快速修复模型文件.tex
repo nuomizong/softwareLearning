@@ -1,0 +1,136 @@
+% !Mode:: "TeX:UTF-8"	% read in as utf8 file.
+\documentclass[10pt,a4paper]{article}
+
+\input{D:/Dropbox/myStyle.tex}
+
+\begin{document}
+\begin{CJK*}{UTF8}{song} % CJK*环境
+
+\author{nuomizong}
+\title{使用netfabb快速修复模型文件}
+\date{May 17th, 2016}
+\maketitle
+
+\tableofcontents
+
+\newpage
+如果你尝试过3D打印，你可能知道3D打印对于模型文件是有特殊要求的。在建模软件中看上去非常完美的模型，在打印时可能会遇到问题，怎么样事先预知并且解决这些问题呢？netfabb Studio Basic 可以帮助我们。netfabb 是款常用的模型编辑软件，可以测量、修复以及检查模型文件。我们熟悉的 Shapeways，也是使用 netfabb 提供的服务，对用户上传的模型文件进行检查。
+
+这个例子中我们将使用 MeshLab 自带的海螺模型，MeshLab 是另一款常用的模型编辑软件，我们今后还会用到它。你可以在 MeshLab 安装目录中 samples 下找到 seashell.gts 这个文件。这个文件有小问题，我们来尝试修复它把。一般，快速修复包含下列几步，
+
+\begin{itemize}
+\item 在 netfabb 中加载模型并预检
+\item 进行标准检查
+\item 自动修正
+\item 采用修正结果并再次检查
+\item 输出修正结果
+\item aa
+\end{itemize}
+
+让我们开始吧。
+
+\section{加载模型并预检}
+直接把模型文件拖拽到netfabb 窗口中就能加载该模型。netfabb 在加载模型后，会自动对模型进行一系列检查。主要包括模型是否有未闭合空间，是否存在相反的法线，是否有孤立的边线等。如果发现问题，会在屏幕右下角显示感叹号。正如我们在下图中看到的。
+
+%\begin{figure}[h]
+%\centering
+\includegraphics[width=0.7\linewidth]{importModels}
+%\caption{importModels}
+%\label{fig:importModels}
+%\end{figure}
+
+如果加载模型后你没有看到红色感叹号，那么恭喜你，你的模型没有问题！
+
+\section{进行标准检查}
+在预检之后，让我们对模型进行一下更彻底的检查吧。
+我们从菜单中选择 Extras $ > $ New analysis $ > $ Standard analysis
+
+%\begin{figure}[h]
+%\centering
+\includegraphics[width=0.7\linewidth]{standardAnalysis}
+%\caption{standard analysis}
+%\label{fig:standardAnalysis}
+%\end{figure}
+
+检查结束后我们可以在右上角看到多了一个名为 “Part analysis” 的层，在画面中部，我们可以看到一个红色的 “No”，告诉我们该模型未关闭。模型未关闭的原因有很多，可能是因为模型中有没有吻合的边，或者面没有完全衔接上。这些问题可能在画面上看不出来，但是打印时会给3D打印机带来麻烦。除了这个 “No” 之外，我们看到还有个绿色的“Yes”，这表示我们的模型中不包含相反的法线，算是件好事。
+
+\section{自动修正}
+我们可以在菜单中选择 Extra $ > $ Repair parts 进行修正。在画面的右下方我们可以当前模型的一些统计信息，让我们直接点击 Automatic repair。
+
+%\begin{figure}[h]
+%\centering
+\includegraphics[width=0.7\linewidth]{automaticRepair}
+%\caption{automatic repair}
+%\label{fig:automaticRepair}
+%\end{figure}
+
+在弹出的对话框中选择 Default repair。然后执行。
+
+%\begin{figure}[h]
+%\centering
+\includegraphics[width=0.7\linewidth]{defaultRepair}
+%\caption{default repair}
+%\label{fig:defaultRepair}
+%\end{figure}
+
+我们可以看到模型的一些参数有了变化，最主要的 Holes 现在变为 0 了。
+
+%\begin{figure}[h]
+%\centering
+\includegraphics[width=0.7\linewidth]{noHoles}
+%\caption{no holes}
+%\label{fig:noHoles}
+%\end{figure}
+
+\section{采用修正结果并再次检查}
+让我们点击右下角的 Apply repair。这个操作会移除之前添加的 Part analysis 和 Part repair 层，并且将修正的结果应用于我们原来的模型。
+
+%\begin{figure}[h]
+%\centering
+\includegraphics[width=0.7\linewidth]{repairResult}
+%\caption{repair result}
+%\label{fig:repairResult}
+%\end{figure}
+
+保险起见我们可以再次运行标准检查，这次我们可以看到两个绿色的“Yes”了。
+
+%\begin{figure}[h]
+%\centering
+\includegraphics[width=0.7\linewidth]{doubleCheck}
+%\caption{double check}
+%\label{fig:doubleCheck}
+%\end{figure}
+
+\section{输出修正结果}
+需要注意的时，直到此时我们都未改动原有的文件，只是在原有模型的基础上建立了新的模型。所以如果我们觉得修复效果不错的话，需要将修复结果另外导出。你可以在 Part $ > $ Export part 菜单中选择你想要导出的模型文件类型。
+
+%\begin{figure}[h]
+%\centering
+\includegraphics[width=0.7\linewidth]{exportResult}
+%\caption{export result}
+%\label{fig:exportResult}
+%\end{figure}
+
+有时候，在你导出模型时可能会遇到对话框告知模型仍有错误。
+
+%\begin{figure}[h]
+%\centering
+\includegraphics[width=0.7\linewidth]{exportRepair}
+%\caption{export repair}
+%\label{fig:exportRepair}
+%\end{figure}
+
+这是因为你将要导出的文件类型有着更严格的检查，此时你可以点击对话框中的 Repair 按钮，让 netfabb 针对该种文件类型进行额外的修复，通常这都能解决问题。
+
+%\begin{figure}[h]
+%\centering
+\includegraphics[width=0.7\linewidth]{exportDone}
+%\caption{export done}
+%\label{fig:exportDone}
+%\end{figure}
+
+导出模型后，你就能进行下一步的打印。
+\newpage
+
+\end{CJK*}
+\end{document}

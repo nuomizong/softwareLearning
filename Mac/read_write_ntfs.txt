@@ -1,0 +1,16 @@
+
+1. Disable System Integrity Protection (SIP) 
+Rootless doesn't seem to be the issue in later versions of El Capitan (after the first few public betas or so). To enable writing to /sbin you need to run csrutil disable in a recovery mode terminal. csrutil enable will re-lock the system directories.
+
+To get to recovery mode you can hold command-R during the boot process, and you can run a terminal from the menu.
+
+2. install ntfs-3g
+ brew update && brew install homebrew/fuse/ntfs-3g
+
+3. replace mount_ntfs
+sudo mv /sbin/mount_ntfs /sbin/mount_ntfs.original
+
+4. link to mount_ntfs from ntfs-3g
+sudo ln -s /usr/local/sbin/mount_ntfs "/Volumes/Macintosh HD/sbin/mount_ntfs"
+
+5. enable SIP

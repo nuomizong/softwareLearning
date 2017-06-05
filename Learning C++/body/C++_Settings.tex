@@ -1,0 +1,113 @@
+	\chapter{C++ Settings}
+
+	\section{Compile C++ file in Visual studio}
+	The problem is, Visual studio doesn't really know, what to do with your .cpp file. Is it a program? Try the following:\\
+	
+	\begin{itemize}
+		\item \textbf{File} | \textbf{New project}
+		\item \textbf{Visual C++} | \textbf{Win32} | \textbf{Win32 Project}
+		\item Select a name and location for the project
+		\item Next
+		\item Choose \textbf{Console application}
+		\item Choose \textbf{Deselect} \textbf{Precompiled header}
+		\item (optionally) Deselect \textbf{SDL checks}
+		\item Finish
+		\item Right-click on \textbf{Source files} and choose \textbf{Add} | \textbf{New Item...}
+		\item choose \textbf{C++ File}
+		\item Choose name for this file
+		\item Write the following inside:
+	\end{itemize}
+	
+	\begin{verbatim}
+	#include <sdtio.h>
+	
+	int main(int argc, char * argv[])
+	{
+	printf("Hello, world!\n");
+	return 0;
+	}
+	\end{verbatim}
+	
+	If precompile headers, it should write:
+	\begin{verbatim}
+	#include <sdtio.h>
+	
+	int _tmain(int argc, _TCHAR* argv[])
+	{
+	printf("Hello, world!\n");
+	return 0;
+	}
+	\end{verbatim}
+	
+	
+	
+
+
+	\section{Stop C++ console application from  existing immediately}
+	From \url{http://stackoverflow.com/questions/2529617/how-to-stop-c-console-application-from-exiting-immediately}.\\
+	
+	At the end of \textcolor{blue}{main} function, call \textcolor{blue}{std::getchar()}. This will get a single character from \textcolor{blue}{stdin}, thus giving the "press any key to continue" sort of behavior (if you actually want a "press any key" message, you'll have to print one yourself).
+	
+	\textcolor{blue}{\#include <stdio>} need to be included for \textcolor{blue}{getchar}
+	
+	\begin{verbatim}
+	#include "stdafx.h"
+	#include <cstdio>  // getchar().
+	
+	int equal_strings(char *s1, char *s2);
+	
+	int _tmain(int argc, _TCHAR* argv[])
+	{
+	printf("Hello world!\n");
+	std::getchar();
+	
+	return 0;
+	}	
+	\end{verbatim}
+	
+	\section{Debugging Multiple Programs}
+	\subsection{Introduction}
+	With the visual Studio debugger, you can debug programs running in multiple processes. You can think of a process as an instance of a program running in its own memory space with its own object code, data, and resources. When you start a program by launching an EXE, for example, the system scheduler creates a new process for that program. If you launch multiple instances of the program, it creates multiple processes. The operating system creates other processes automatically, for its own purpose.\\
+	
+	\subsection{Techniques for Debugging Multiple Process}
+	In Visual Studio .NET, you can debug multiple processes within a \textbf{Visual Studio solution}. In this case, each process is created by \textbf{a separate project} within the solution, so you can think of this as debugging multiple projects. You can do this by \textbf{setting multiple startup projects}, or you can \textbf{start debugging one project and then start additional projects from Solution Explorer}.\\
+	
+	\subsection{Starting Additional projects}
+	to start one project when another is already running, both projects must be \textbf{in the same solution}. You can use Solution Explorer to start the additional project or projects:\\
+	
+	\textbf{To start a project in Solution Explorer}\\
+	\begin{enumerate}
+		\item In Solution explorer,select the project you want to debugging.
+		\item Right-click the project name or icon.
+		\item From the shortcut menu, choose \textbf{Debug} and click \textbf{Start new instance}.
+	\end{enumerate}
+	
+	\subsection{Switching Between Running Projects}
+	When you are debugging two or more projects in a solution, you can switch between them in either of two ways:\\
+	
+	\textbf{To switch between projects while debugging}
+	\begin{itemize}
+		\item On the \textbf{Debug Location} toolbar, select the program you want to switch to from the \textbf{Program} list box.
+	\end{itemize}
+	
+	\textbf{To display the Debug Location toolbar}
+	\begin{enumerate}
+		\item From the \textbf{Tools} menu, choose \textbf{Customize}.
+		\item In the \textbf{Property} dialog box, choose the \textbf{Toolbars} tab and select \textbf{Location}.
+		\item Click \textbf{OK}.
+	\end{enumerate}
+	
+	Switching to a project makes it the current process for debugging purposes. Any command you select from the \textbf{Debug} menu (such as \textbf{Break} or \textbf{Continue}) will affect the current process as well as the other processes running under control of the debugger.\\
+	
+	\subsection{Stopping the Current Process}
+	\textbf{To stop the current peocess only}\\
+	
+	\begin{enumerate}
+		\item From the \textbf{Tools} menu, choose \textbf{Options}.
+		\item In the \textbf{Options} dialog box, open the \textbf{Debugging} folder and choose the \textbf{General} category.
+		\item Select \textbf{In break mode, only stop execution of the current process}.
+	\end{enumerate}
+	
+	
+
+	

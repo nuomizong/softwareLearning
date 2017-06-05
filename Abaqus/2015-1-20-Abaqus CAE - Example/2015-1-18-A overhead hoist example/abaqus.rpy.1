@@ -1,0 +1,89 @@
+# -*- coding: mbcs -*-
+#
+# Abaqus/CAE Release 6.12-1 replay file
+# Internal Version: 2012_03_13-20.44.39 119612
+# Run by Anzong on Sat Jan 17 23:07:16 2015
+#
+
+# from driverUtils import executeOnCaeGraphicsStartup
+# executeOnCaeGraphicsStartup()
+#: Executing "onCaeGraphicsStartup()" in the site directory ...
+from abaqus import *
+from abaqusConstants import *
+session.Viewport(name='Viewport: 1', origin=(0.0, 0.0), width=189.999997615814, 
+    height=126.824998408556)
+session.viewports['Viewport: 1'].makeCurrent()
+session.viewports['Viewport: 1'].maximize()
+from caeModules import *
+from driverUtils import executeOnCaeStartup
+executeOnCaeStartup()
+openMdb('test.cae')
+#: The model database "C:\Users\Anzong\Desktop\test.cae" has been opened.
+session.viewports['Viewport: 1'].setValues(displayedObject=None)
+session.viewports['Viewport: 1'].partDisplay.geometryOptions.setValues(
+    referenceRepresentation=ON)
+p = mdb.models['Model-1'].parts['Frame']
+session.viewports['Viewport: 1'].setValues(displayedObject=p)
+session.viewports['Viewport: 1'].view.setValues(nearPlane=4.08176, 
+    farPlane=4.81824, width=2.58042, height=1.20274, viewOffsetX=0.147989, 
+    viewOffsetY=0.0505581)
+p = mdb.models['Model-1'].parts['Frame']
+s = p.features['Wire-1'].sketch
+mdb.models['Model-1'].ConstrainedSketch(name='__edit__', objectToCopy=s)
+s1 = mdb.models['Model-1'].sketches['__edit__']
+g, v, d, c = s1.geometry, s1.vertices, s1.dimensions, s1.constraints
+s1.setPrimaryObject(option=SUPERIMPOSE)
+p.projectReferencesOntoSketch(sketch=s1, upToFeature=p.features['Wire-1'], 
+    filter=COPLANAR_EDGES)
+s1.delete(objectList=(c[21], c[18], c[19], c[20]))
+s1.ParallelConstraint(entity1=g[5], entity2=g[3])
+s1.ObliqueDimension(vertex1=v[3], vertex2=v[0], textPoint=(-0.46073442697525, 
+    0.235897645354271), value=1.0)
+s1.ObliqueDimension(vertex1=v[1], vertex2=v[2], textPoint=(-0.0454802215099335, 
+    -0.346006095409393), value=2.0)
+s1.ObliqueDimension(vertex1=v[0], vertex2=v[1], textPoint=(-0.264971762895584, 
+    -0.100577317178249), value=1.0)
+s1.ObliqueDimension(vertex1=v[2], vertex2=v[3], textPoint=(0.705932080745697, 
+    0.10526616871357), value=1.0)
+mdb.save()
+#: The model database has been saved to "C:\Users\Anzong\Desktop\test.cae".
+s1.Line(point1=(-0.592598379855856, 0.366025403784599), point2=(0.3, -0.5))
+s1.CoincidentConstraint(entity1=v[4], entity2=g[3], addUndoState=False)
+s1.Line(point1=(0.3, -0.5), point2=(0.407401620144144, 0.366025403784599))
+session.viewports['Viewport: 1'].view.setValues(nearPlane=4.11253, 
+    farPlane=4.78746, width=2.37664, height=1.17042, cameraPosition=(0.107215, 
+    0.00915964, 4.45), cameraTarget=(0.107215, 0.00915964, 0))
+mdb.save()
+#: The model database has been saved to "C:\Users\Anzong\Desktop\test.cae".
+session.viewports['Viewport: 1'].view.setValues(nearPlane=4.13278, 
+    farPlane=4.76722, width=2.23404, height=1.10019, cameraPosition=(0.0620912, 
+    0.0226937, 4.45), cameraTarget=(0.0620912, 0.0226937, 0))
+s1.breakCurve(curve1=g[3], point1=(-0.383875876665115, -0.498442471027374), 
+    curve2=g[6], point2=(0.0305368974804878, -0.247876018285751))
+#: Warning: Same line was selected.
+session.viewports['Viewport: 1'].view.setValues(nearPlane=3.78347, 
+    farPlane=5.11653, width=4.69415, height=2.31172, cameraPosition=(0.491396, 
+    0.485232, 4.45), cameraTarget=(0.491396, 0.485232, 0))
+s1.ObliqueDimension(vertex1=v[1], vertex2=v[4], textPoint=(1.0, 0.0), 
+    value=1.0)
+session.viewports['Viewport: 1'].view.fitView()
+s1.delete(objectList=(d[4], ))
+#: Warning: Select two or more lines.
+s1.EqualLengthConstraint(entity1=g[8], entity2=g[9])
+s1.unsetPrimaryObject()
+p = mdb.models['Model-1'].parts['Frame']
+p.features['Wire-1'].setValues(sketch=s1)
+del mdb.models['Model-1'].sketches['__edit__']
+#: The contents of viewport "Viewport: 1" have been copied to the clipboard.
+#: The contents of viewport "Viewport: 1" have been copied to the clipboard.
+p = mdb.models['Model-1'].parts['Frame']
+p.regenerate()
+mdb.save()
+#: The model database has been saved to "C:\Users\Anzong\Desktop\test.cae".
+#: The contents of viewport "Viewport: 1" have been copied to the clipboard.
+session.viewports['Viewport: 1'].partDisplay.setValues(sectionAssignments=ON, 
+    engineeringFeatures=ON)
+session.viewports['Viewport: 1'].partDisplay.geometryOptions.setValues(
+    referenceRepresentation=OFF)
+mdb.save()
+#: The model database has been saved to "C:\Users\Anzong\Desktop\test.cae".

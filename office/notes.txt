@@ -1,0 +1,14 @@
+
+
+========== crop to circles.
+1. set crop ratio 1:1
+2. select shape ellipse.
+
+========== insert figure reference
+1. insert caption
+2. cross-reference
+
+========= insert bibliography
+1. insert bookmarks
+2. hyper link.
+

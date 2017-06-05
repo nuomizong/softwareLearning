@@ -1,0 +1,872 @@
+% !Mode:: "TeX:UTF-8"	% read in as utf8 file.
+
+\chapter{User Interface}
+
+\section{Windows}
+mel is primarily used within Maya to control every aspect of the User Interface. There are a great number of user interface elements available to you, however i shall only deal with 3 general groups; \textbf{windows}, \textbf{layouts} and \textbf{controls}.
+
+The following example demonstrates the purpose of each GUI element type.
+
+\subsection{A simple GUI}
+The mel command \textit{window} allow us to create (suprisingly) a window. Within the window we will want to place controls, however first we must tell Maya how we want the controls to be laid out. In this case I am using \textit{columnLayout} to place all controls in a column. There are a number of other Layouts available which can be used to arrange your GUI's far better than this simple example ;)
+
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width=0.3\linewidth]{figures/GUI/simple_window}
+	\caption{A simple window}
+	\label{fig:simplewindow}
+\end{figure}
+
+\begin{lstlisting}[language=C++]
+{
+	// create a window
+	window -title "Mermaid" -widthHeight 300 200 winMermaid;
+	
+		// define the layout of controls added to the window.
+		columnLayout;
+		
+		// create a couple of buttons
+		button -label "button1";
+		button -label "button2";
+	
+	// show the window we last created
+	showWindow winMermaid;
+}
+\end{lstlisting}
+
+\textbf{To make sure only one instance of the window is opened:}
+Use the "deleteUI" command to remove a window (or even a control).
+
+\begin{lstlisting}
+if (`window -exists myWindow`) deleteUI myWindow;
+window -title "new window" -widthHeight 300 200 myWindow;
+showWindow myWindow;
+\end{lstlisting}
+
+\textbf{Maya will always remember the size and position of a window if the user changes it.
+If you want to ensure the window opens at the original size, use the "windowPref" command:}
+
+\begin{lstlisting}
+window -title "new window" -widthHeight 300 200 myWindow;
+	if (`windowPref -exists myWindow`) windowPref -remove myWindow;
+	columnLayout;
+	button;
+	button;
+showWindow myWindow;
+\end{lstlisting}
+
+\subsection{Changing GUI Colours}
+we can make use of the -bgc (background colour) flag to change the colours of the user interface elements (only works under Win32 i believe). This can be really useful to colour co-ordinate your GUI elements for different parts of the pipeline. (green for exporter, blue for sound plugins, yellow for modelling etc)
+
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width=0.3\linewidth]{figures/GUI/colored_window}
+	\caption{change background color of window}
+	\label{fig:coloredwindow}
+\end{figure}
+
+\begin{lstlisting}[language = C++]
+{
+// create a window
+window -title "Mermaid";
+
+// define the layout of controls added to the window.
+columnLayout -bgc 1 0 0;
+
+// create a couple of buttons
+button -bgc 0 1 0 -label "button1";
+button -bgc 0 0 1 -label "button2";
+
+// show the window we last created
+showWindow;
+}
+\end{lstlisting}
+
+\subsection{Commands and deleting the GUI}
+To delete any user interface element is simply a case of calling
+
+\begin{lstlisting}[language = C++]
+deleteUI "uiElementName" ;
+\end{lstlisting}
+
+If we delete a window, all of it's child controls will be deleted also.
+
+In addition, we can also assign commands to most control types. In this example we will use the -command flag to specify some mel code to be executed whenever the button is clicked. The command that we will execute will simply delete the window that was created.
+
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width=0.2\linewidth]{figures/GUI/delete_window}
+	\caption{delete window}
+	\label{fig:deletewindow}
+\end{figure}
+
+
+\begin{lstlisting}[language = C++]
+{
+// create a window and store the name
+$win = `window`;
+
+// define the layout of controls added 
+// to the window.
+columnLayout;
+
+// create a command to delete the window
+$command = ("deleteUI " + $win);
+
+// create a couple of buttons
+button -label "quit" -command $command;
+
+// show the window we last created
+showWindow;
+}
+\end{lstlisting}
+
+\section{Layouts}
+When placing User Interface controls into your window's, need need to specify a layout for those items. Maya contains a number of different layout controls for different purposes. This page will examine a few of the basic types.
+
+\subsection{columnLayout}
+he simplest of all layouts is the columnLayout. This simply places all controls in a vertical column.
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width=0.3\linewidth]{figures/GUI/columnLayout}
+	\caption{columnLayout}
+	\label{fig:columnlayout}
+\end{figure}
+
+\begin{lstlisting}[language=C++]
+{
+	// create a window
+	window -title "new window" -widthHeight 300 200 myWindow;;
+	
+		// define the layout of controls added 
+		// to the window.
+		columnLayout;
+		
+		 // columnLayout -adjustableColumn true;
+		columnLayout -columnAttach "both" 5 -rowSpacing 5 -columnWidth 100;
+		button -label "button1";
+		button -label "button2";
+		button -label "button3";
+	
+	// show the window we last created
+	showWindow myWindow;
+}
+\end{lstlisting}
+
+
+\subsection{rowLayout}
+The rowLayout simply places all controls in a horizontal row. We need to specify the number of columns to be used in the row (ie, how many controls we wish to place underneath it). In this example the width of the 3 colums is also specified
+
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width=0.2\linewidth]{figures/GUI/rowLayout}
+	\caption{rowLayout}
+	\label{fig:rowlayout}
+\end{figure}
+
+\begin{lstlisting}[language=C++]
+{
+	// create a window
+	window -title "new window" -widthHeight 300 200 myWindow;
+		rowLayout 
+			-numberOfColumns 3 
+			-columnWidth3 120 120 120
+			-columnAlign3 "center" "center" "center";
+			
+			button -label "make sphere" -command "sphere";
+			button -label "button2";
+			button -label "button3";
+	
+	// show the window we last created
+	showWindow myWindow;
+}
+\end{lstlisting}
+
+\subsection{grid layout}
+
+\begin{lstlisting}
+{
+	window -title "new window" -widthHeight 300 200 myWindow;
+		gridLayout -numberOfColumns 2 -cellWidthHeight 80 20; 
+			button -label "make sphere" -command "sphere";
+			button -label "make cone" -command "cone";
+			button -label "make cube" -command "polyCube";
+			button -label "make circle" -command "circle";
+	showWindow myWindow;
+}
+\end{lstlisting}
+
+\subsection{frameLayout}
+A frameLayout creates a collapsable layout. The frame can only hold a single user interface item. Therefore if you want more than one control inside the frame, you will need to nest another layout inside the frame layout.
+
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width=0.3\linewidth]{figures/GUI/frameLayout}
+	\caption{}
+	\label{fig:framelayout}
+\end{figure}
+
+\begin{lstlisting}[language=C++]
+{
+	// create a window
+	window;
+		// create a collapsible frame layout
+		frameLayout -collapsable true -label "my frame" -borderStyle "etchedIn"; 
+		
+			// define the layout of controls added 
+			// to the window.
+			columnLayout;
+			
+			// create a couple of buttons
+			button -label "button1";
+			button -label "button2";
+			button -label "button3";
+			
+	// show the window we last created
+	showWindow;
+}	
+\end{lstlisting}
+
+\subsection{setParent}
+As soon as we create a layout, all new GUI elements will automatically be added underneath the new layout. Often though we want to change the default layout underwhich controls get parented.
+
+The following example places 2 frame layouts underneath a columnLayout. Within each frame layout is a columnLayout which contains some controls. So, having finished adding controls to frame 1, we need to set the highest columnLayout as the current parent so that frame2 will be added underneath that rather than frame1.
+
+to do this, we could either use \lstinline|setParent $ui_name| or we can use setParent .. which takes us up a single level in the GUI.
+
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width=0.3\linewidth]{figures/GUI/setParent}
+	\caption{setParent}
+	\label{fig:setparent}
+\end{figure}
+
+\begin{lstlisting}[language=C++]
+{		
+	// create a window
+	window;
+	
+	// two frame layouts will be laid out in a column
+	columnLayout;
+	
+		// create a collapsible frame layout
+		frameLayout -collapsable true -label "frame1";
+		
+			// define the layout of controls added 
+			// to the window.
+			columnLayout;
+			
+			// create a couple of buttons
+			button -label "button1";
+			button -label "button2";
+			button -label "button3";
+			
+			setParent ..;
+		setParent ..;
+		
+		// create a collapsible frame layout
+		frameLayout -collapsable true -label "frame2";
+		
+			// define the layout of controls added 
+			// to the window.
+			columnLayout;
+			
+			// create a couple of buttons
+			button -label "buttonA";
+			button -label "buttonB";
+			
+			setParent ..;
+		setParent ..;
+	
+	// show the window we last created
+	showWindow;
+}
+\end{lstlisting}
+
+
+
+\section{Controls}
+\subsection{Simple Text}
+The mel command text allows us to specify some simple text within the user interface.
+
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width=0.2\linewidth]{figures/GUI/simple_text}
+	\caption{Simple Text}
+	\label{fig:simpletext}
+\end{figure}
+
+
+\begin{lstlisting}[language = C++]
+{
+	// create a window
+	window;
+	
+		// define the layout of controls added 
+		// to the window.
+		columnLayout;
+		
+		// create some text
+		text -label "hello mermaid";
+	
+	// show the window we last created
+	showWindow;
+}
+\end{lstlisting}
+
+\subsection{Simple Button}
+Buttons are the most basic of all user interface controls. This example simply attachs a command to the button.
+
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width=0.2\linewidth]{figures/GUI/simple_button}
+	\caption{Simple Button}
+	\label{fig:simplebutton}
+\end{figure}
+
+\begin{lstlisting}[language = C++]
+// a function to be called when the button gets clicked.
+proc func()
+{
+	print("button clicked\n");
+}
+
+// create a window
+window;
+
+	// define the layout of controls added 
+	// to the window.
+	columnLayout;
+	
+	// create a button
+	button -label "click me" -command "func";
+
+// show the window we last created
+showWindow;
+\end{lstlisting}
+
+\subsection{Symbol Button}
+Symbol buttons work in the same way as normal buttons except that they display an image instead of a text label. Use the -image flag to specify the image to use; you may use either bmp or xpm images (gimp can create xpm images).
+
+\begin{lstlisting}[language = C++]
+	// create window
+	window;
+	
+		columnLayout;
+		
+		// create three symbol buttons with related mel command
+		symbolButton -image "circle.xpm" -command "circle";
+		symbolButton -image "sphere.xpm" -command "sphere";
+		symbolButton -image "cube.xpm" -command "polyCube";
+		
+	showWindow;
+\end{lstlisting}
+
+\subsection{Simple Checkbox}
+Checkboxes simply store an on/off value. You can either set up commands to run when the state changes, or you can manually query the value from the checkbox.
+
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width=0.2\linewidth]{figures/GUI/checkbox}
+	\caption{checkbox}
+	\label{fig:checkbox}
+\end{figure}
+
+\begin{lstlisting}[language = C++]
+// a function to be called when the checkbox gets checked.
+proc on_func() 
+{
+	print("checkbox on!\n");
+}
+
+// a function to be called when the checkbox gets unchecked.
+proc off_func() 
+{
+	print("checkbox on!\n");
+}
+
+{
+	// create a window
+	window;
+	
+		// define the layout of controls added 
+		// to the window.
+		columnLayout;
+		
+		// create a checkbox
+		$c = `checkBox -label "thingy" 
+		-onCommand "on_func" 
+		-offCommand "off_func"`;
+		
+		// show the window we last created
+	showWindow;
+	
+	// to get the current value of the checkBox, use the -query flag
+	$value = `checkBox -query -value $c`;
+	
+	print("check_box value = "+ $value +"\n");
+}
+\end{lstlisting}
+
+\subsection{Radio Button}
+Radio Buttons require the use of both the radioButton and radioCollection mel commands. First we create a radioCollection and then create the radioButtons that need to be part of the collection. The following example creates two radio collections.....
+
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width=0.4\linewidth]{figures/GUI/radioButton}
+	\caption{radioButton}
+	\label{fig:radiobutton}
+\end{figure}
+
+\begin{lstlisting}[language = C++]
+{
+	window;
+	
+		columnLayout;
+		
+		// create the first radio collection
+		$radio1 = `radioCollection`;
+		
+		// add some radio buttons to the collection
+		$on  = `radioButton -label "On"`;
+		$off = `radioButton -label "Off"`;
+		
+		separator -w 50 -style "single";
+		
+		// create the second radio collection
+		$radio2 = `radioCollection`;
+		
+		// add some radio buttons to the collection
+		$X = `radioButton -label "X"`;
+		$Y = `radioButton -label "Y"`;
+		$Z = `radioButton -label "Z"`;
+		
+		// edit the radio collections to set the required radio button
+		radioCollection -edit -select $on $radio1;
+		radioCollection -edit -select $X $radio2;
+	
+	// now show the window
+	showWindow;
+	
+	// If you need to query the selected radio button, use...
+	$selected = `radioCollection -query -select`;
+}
+\end{lstlisting}
+
+\subsection{Float Fields}
+Float fields can be used to provide numerical text input into your user interfaces. For integers you will need an intField, for strings you can use the textField control.
+
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width=0.3\linewidth]{figures/GUI/floatFields}
+	\caption{float fields}
+	\label{fig:floatfields}
+\end{figure}
+
+\begin{lstlisting}
+// Global Data and Functions. The callbacks need
+// to be global for the user interface command to be 
+// able to call them. Any user interface event will occur
+// AFTER the script has finished executing. Any commands
+// you call must therefore be available within any scope,
+// ie they must be global.
+
+// the name of the float field 
+global string $floatFieldName=""; 
+
+global proc floatValueChanged() 
+{
+global string $floatFieldName;
+
+// query the value from the float field
+$value = `floatField -query -value $floatFieldName`;
+
+// print value
+print("newValue="+ $value +"\n");
+}
+
+// window creation scoped to prevent unesseccary
+// globals being defined
+{
+string $window = `window`;
+columnLayout;
+floatField;
+floatField -editable false;
+floatField -minValue -10 -maxValue 10 -value 3;
+floatField -precision 4 -step .01;
+$floatFieldName =
+`floatField -changeCommand "floatValueChanged();"`;
+showWindow $window;
+}
+\end{lstlisting}
+
+\subsection{Int Fields}
+Int fields can be used to provide numerical text input into your user interfaces. For floats you will need a floatField, for strings you can use the textField control.
+
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width=0.2\linewidth]{figures/GUI/intFields}
+	\caption{intFields}
+	\label{fig:intfields}
+\end{figure}
+
+\begin{lstlisting}
+// Global Data and Functions. The callbacks need
+// to be global for the user interface command to be 
+// able to call them. Any user interface event will occur
+// AFTER the script has finished executing. Any commands
+// you call must therefore be available within any scope,
+// ie they must be global. 
+// 
+//	There are a couple of ways we can get around having 
+// a global variable, but more on that later...
+global string $intFieldName=""; 
+
+global proc intValueChanged()
+ {
+	global string $intFieldName;
+	
+	// query the value from the float field
+	$value = `intField -query -value $intFieldName`;
+	
+	// print value
+	print("newValue="+ $value +"\n");
+}
+
+// window creation scoped to prevent unesseccary
+// globals being defined
+{
+	string $window = `window`;
+		columnLayout;
+		intField;
+		intField -editable false;
+		intField -minValue -10 -maxValue 10 -value 3;
+		intField -changeCommand "intValueChanged();";
+	showWindow $window;
+}
+\end{lstlisting}
+
+\subsection{Text Fields}
+Text fields can be used to provide text input into your user interfaces. For floats you will need a floatField, for int's you can use the intField control. If you require larger multi-line text input then look at the Scroll Field example.
+
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width=0.2\linewidth]{figures/GUI/textField}
+	\caption{text fields}
+	\label{fig:textfield}
+\end{figure}
+
+\begin{lstlisting}
+// a procedure to be called when the text 
+// value changes in the textField
+global proc textValueChanged(string $control)
+{
+
+	// query the value from the float field
+	$value = `textField -query -value $control`;
+	
+	// print value
+	print("newValue="+ $value +"\n");
+}
+
+{	
+	window;
+		columnLayout;
+		
+		// create the text field
+		$field = `textField`;
+		
+		// sets the command to call when the text changes.
+		// Note that we add the name of the control directly
+		// into the command string. This negates the need 
+		// for a global variable to store the textField name
+		textField -edit 
+		-changeCommand ("textValueChanged("+$field+")")
+		$field;
+	showWindow;
+}
+\end{lstlisting}
+
+\subsection{Scroll Fields}
+The scroll field defines a large mulit-line text edit control. For example, Maya's script editor is composed out of two scroll fields; one for the results, one for the code being edited.
+
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width=0.4\linewidth]{figures/GUI/scrollFields}
+	\caption{scroll fields}
+	\label{fig:scrollfields}
+\end{figure}
+
+\begin{lstlisting}
+{		
+	// create the window
+	window;
+	
+		// create a pane layout to hold the 4 scroll fields
+		paneLayout -configuration "horizontal4";
+		
+		// create 4 scroll fields
+		scrollField -wordWrap true 
+		-text "Non editable with word wrap" -editable false;
+		scrollField -wordWrap false 
+		-text "Non editable with no word wrap" -editable false;
+		scrollField -wordWrap true 
+		-text "Editable with word wrap";
+		scrollField -wordWrap false 
+		-text "Editable with no word wrap";
+	showWindow;
+}
+\end{lstlisting}
+
+\subsection{Float Sliders}
+Float Sliders tend to be used less than the float slider group controls available in mel. This is mainly because a simple slider with no label has *limited* uses.
+
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width=0.2\linewidth]{figures/GUI/floatSliders}
+	\caption{float sliders}
+	\label{fig:floatsliders}
+\end{figure}
+
+\begin{lstlisting}
+{
+	window;
+		columnLayout -adjustableColumn true;
+		floatSlider;
+		floatSlider -min -100 -max 100 -value 0 -step 1;
+	showWindow;
+}
+\end{lstlisting}
+
+\subsection{Int Sliders}
+Int Sliders tend to be used less than the int slider group controls available in mel. This is mainly because a simple slider with no label has *limited* uses.
+
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width=0.2\linewidth]{figures/GUI/intSliders}
+	\caption{int sliders}
+	\label{fig:intsliders}
+\end{figure}
+
+\begin{lstlisting}
+{
+	window;
+		columnLayout -adjustableColumn true;
+		intSlider;
+		intSlider -min -100 -max 100 -value 0 -step 1;
+	showWindow;
+}
+\end{lstlisting}
+
+\subsection{Float Slider Group}
+The floatSliderGrp mel command creates a float slider with a text label and a float field input box. This tends to be more useful than the floatSlider on it's own.
+
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width=0.3\linewidth]{figures/GUI/floatSliderGrp}
+	\caption{float slider grp}
+	\label{fig:floatslidergrp}
+\end{figure}
+
+\begin{lstlisting}
+{
+	window;
+		columnLayout;
+		floatSliderGrp -label "Slide Me" -field true;
+		floatSliderGrp -label "Limits" -field true
+			-fieldMinValue -50 -fieldMaxValue 50
+			-minValue -10 -maxValue 10 -value 0;
+	showWindow;
+}
+\end{lstlisting}
+
+\subsection{Int Slider Group}
+The intSliderGrp mel command creates an int slider with a text label and an int field input box. This tends to be more useful than the intSlider on it's own.
+
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width=0.3\linewidth]{figures/GUI/intSliderGrp}
+	\caption{int slider group}
+	\label{fig:intslidergrp}
+\end{figure}
+
+\begin{lstlisting}
+{
+	window;
+		columnLayout;
+		intSliderGrp -label "Slide Me" -field true;
+		intSliderGrp -label "Limits" -field true
+			-fieldMinValue -50 -fieldMaxValue 50
+			-minValue -10 -maxValue 10 -value 0;
+	showWindow;
+}
+\end{lstlisting}
+
+\section{A simple menu}
+This little example creates a menu and attaches it to a window.
+
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width=0.2\linewidth]{figures/GUI/menu}
+	\caption{menu}
+	\label{fig:menu}
+\end{figure}
+
+\begin{lstlisting}
+{
+	// create a window with a menu bar
+	window -menuBar true -width 200;
+	
+		// create a tearOff menu
+		menu -label "File" -tearOff true;
+		
+		// add the menu items
+		menuItem -label "New";
+		menuItem -label "Open";
+		menuItem -label "Save";
+		menuItem -divider true;
+		menuItem -label "Quit";
+		
+		// add a help menu
+		menu -label "Help" -helpMenu true;
+		menuItem -label "About Application...";
+		
+		// add the other controls
+		columnLayout;
+		button; button; button;
+	
+	showWindow;
+}
+\end{lstlisting}
+
+\section{Attribute Controls}
+There are a set of user interface controls that are designed to directly manipulate attributes contained within nodes. This means that you don't have to provide callbacks for them to update your attribute values.
+
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width=0.4\linewidth]{figures/GUI/attribute_controls}
+	\caption{Attribute editor}
+	\label{fig:attributecontrols}
+\end{figure}
+
+\begin{lstlisting}[language = C++]
+{	
+	// create a sphere and a shading node
+	$sphere = `sphere`;
+	$phong = `shadingNode -asShader phong`;
+	
+	// create a window to hold the controls		
+	window -title "Attribute Controls";
+	columnLayout;
+	
+	// attach a colour control to the phong colour
+	attrColorSliderGrp -at ($phong+".color");
+	
+	// attach a field group to the scale attribute
+	attrFieldGrp -attribute ($sphere[0] + ".scale");
+	
+	// attach a float slider to the translate X of the sphere
+	attrFieldSliderGrp -min -10.0 -max 10.0 -at ($sphere[0]+".tx");
+	showWindow;
+}
+\end{lstlisting}
+
+\section{Dialogs}
+
+\subsection{Colour dialog}
+
+\begin{lstlisting}[language=C++]
+// create a colour editor dialog box
+colorEditor;
+
+// query the result
+if (`colorEditor -query -result`)
+{
+	float $rgb[], $alpha;
+	
+	// get RGB
+	$rgb = `colorEditor -query -rgb`;
+	print("Colour = "+ $rgb[0] +" "+ $rgb[1] +" "+ $rgb[2] +"\n");
+	
+	// get alpha
+	$alpha = `colorEditor -query -alpha`;
+	print("Alpha  = "+ $alpha +"\n");
+}
+else
+{
+	print("Editor was dismissed\n");
+}
+
+\end{lstlisting}
+
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width=0.5\linewidth]{figures/dialog_color}
+	\caption{colour dialog}
+	\label{fig:dialogcolor}
+\end{figure}
+
+\subsection{Confirm dialog}
+
+The mel command confirmDialog brings up a simple little yes/no; ok/cancel type of dialog box. Simply check the return argument from the command to see what was chosen.
+
+\begin{lstlisting}[language=C++]
+// create a colour editor dialog box
+colorEditor;
+
+// query the result
+if (`colorEditor -query -result`)
+{
+float $rgb[], $alpha;
+
+// get RGB
+$rgb = `colorEditor -query -rgb`;
+print("Colour = "+ $rgb[0] +" "+ $rgb[1] +" "+ $rgb[2] +"\n");
+
+// get alpha
+$alpha = `colorEditor -query -alpha`;
+print("Alpha  = "+ $alpha +"\n");
+}
+else
+{
+print("Editor was dismissed\n");
+}
+
+\end{lstlisting}
+
+\subsection{Prompt Dialog}
+The prompt dialog in mel allows you to bring up a small window into which can be used to request a specific value from the user.
+
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width=0.3\linewidth]{figures/GUI/promptDialog}
+	\caption{prompt dialog}
+	\label{fig:promptdialog}
+\end{figure}
+
+
+\begin{lstlisting}
+{
+	string $text;
+	
+	// create a prompt dialog to request the users name
+	string $result = `promptDialog 
+	-title "Hello Window"
+	-message "Enter Name:"
+	-button "OK" -button "Cancel"
+	-defaultButton "OK" -cancelButton "Cancel"
+	-dismissString "Cancel"`;
+
+	// if OK pressed
+	if ($result == "OK")
+	{
+		// query the entry typed by the user
+		$text = `promptDialog -query -text`;
+		print("HELLO to "+ $text +"\n");
+	}				  
+	else
+	{
+		print("fine. I won't say hello then :(\n");
+	}
+}
+\end{lstlisting}

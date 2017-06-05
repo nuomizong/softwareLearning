@@ -1,0 +1,110 @@
+	\chapter{String and Encoding}	
+
+	\section{Compare two strings}
+	\noindent\vspace{1em}\hrule
+	\begin{verbatim}
+	/******************************************************************************
+	Compare two strings.  Returns 1 if they are the same, 0 if not.
+	******************************************************************************/
+	
+	int equal_strings(char *s1, char *s2)
+	{
+	while (*s1 && *s2)
+	if (*s1++ != *s2++)
+	return (0);
+	
+	if (*s1 != *s2)
+	return (0);
+	else
+	return (1);
+	}
+	\end{verbatim}
+	\noindent\hrule\vspace{1em}
+
+	\section{Difference between std::strlen() and sizeof()}
+	\begin{itemize}
+		\item \textbf{strlen()} is used to get the length of an array
+		\item \textbf{sizeof()} is used to get the actual size of any type of data in bytes.
+	\end{itemize}
+	
+	Besides, \textbf{sizeof()} is a compile-time expression giving you the size of a type or a variable's type. It doesn't care about the value of the variable.
+	
+	\textbf{strlen()} is a function that takes a pointer to a character, and walks the memory from this character on, looking for a \textbf{'\textbackslash 0'} character. It counts the number of characters before it finds the \textbf{'\textbackslash 0'} character. In other words, it gives you the length of a C-style \textbf{NULL-terminated string}.
+	
+	The two are almost different. In C++, you do not need either very much, \textbf{strlen()} is for C-style strings, which should be replaced by C++-style \textbf{std::strings}, whereas the primary application for \textbf{sizeof()} in C is an argument to functions like \textbf{malloc(), memcpy(),} or \textbf{memset()}, all of which you shouldn't use in C++ (use new, \textbf{std::copy()}, and \textbf{std::fill()} or \textbf{constructors}).
+	
+	\textbf{NOTE:} I think C-string is better than C++-string.
+	
+	\section{Difference between \textless cstring \textgreater, \textless string.h \textgreater, \textless string \textgreater}
+	\begin{itemize}
+		\item \textbf{\textless cstring \textgreater} will usually import the same things as \textbf{\textless string.h \textgreater}, but into the \textbf{std} namespace
+		\item \textbf{\textless string.h \textgreater} will usually import everything into the global namespace.
+	\end{itemize}
+	
+	\textbf{NOTE:} \textbf{\textless string.h \textgreater} contains C-library string functions. \textbf{strlen()}, \textbf{strcmp()}, etc. while \textbf{\textless string \textgreater} is C++'s header file.
+	
+	\section{Split string by a delimiter using vector}
+	The string can be assumed to be composed of words separated by a delimiter. An elegant and efficient way to fulfil this goal:
+	\begin{verbatim}
+	#include <string>
+	#include <vector>
+	#include <sstream>
+	
+	std::vector<std::string> split(const std::string &s, char delim) 
+	{
+	std::vector<std::string> elems;
+	
+	std::stringstream ss(s);
+	std::string item;
+	
+	
+	while (std::getline(ss, item, delim)) 
+	{
+	if (!item.empty())  /* skipping empty tokens, like "::" using delimiter ':' */
+	elems.push_back(item);
+	}
+	
+	return elems;
+	}
+	
+	int main(int argc, char* argv[])
+	{
+	std::vector<std::string> x = split("one:two::three", ':');
+	return 0;
+	}
+	\end{verbatim}
+
+	\section{Difference between '\textbackslash 0' and "\textbackslash 0"}
+	\textbf{'\textbackslash 0'} is the \textbf{null termination character}. It marks the end of the string. Without it, the computer has no way to know how long that group of characters goes. When you print/copy/whatever a string, it just keeps printging/copying chars until it finds that null char... That's when it knows to stop.\\	Note that when using \textbf{double quotes ""} they automatically add the \textbf{\textbackslash 0}. So:\\
+	
+	\begin{verbatim}
+	char cAlphabet[] = "I know all about programming!";
+	\end{verbatim}
+	
+	is the same as
+	\begin{verbatim}
+	char cAlphabet[] = {'I',' ', 'k','n','o','w',' ','a','l','l',' ','a','b','o','u','t',' ','p','r','o','g','r','a','m','m','i','n','g','!','\0'};
+	\end{verbatim}
+	
+	\section{Convert from char to wchar\_t}
+	\textbf{Simple example:}
+	
+	\noindent\vspace{1em}\hrule
+	\begin{verbatim}
+	/* Convert from char to wide-char */
+	wchar_t* charToWChar(char* text)
+	{
+	    size_t size = strlen(text) + 1;
+	    wchar_t* wa = new wchar_t[size];
+	
+	    /* size_t mbstowcs (wchar_t* dest, const char* src, size_t max);
+	    Convert multibyte string to wide-character string*/
+	    mbstowcs(wa,text,size);
+	
+	    return wa;
+	}
+	\end{verbatim}
+	\noindent\hrule\vspace{1em}
+	
+	\section{Difference between char * and LPSTR in windows}
+	

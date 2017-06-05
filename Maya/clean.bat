@@ -1,0 +1,1 @@
+DEL *.aux *.log *.bbl *.blg *.out *.bak *.sav *.gz *.brf *.lbl *.toc

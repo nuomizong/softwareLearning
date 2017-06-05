@@ -1,0 +1,7 @@
+CMAKE_MINIMUM_REQUIRED( VERSION 2.6 )
+
+PROJECT( Square-It )
+
+INCLUDE_DIRECTORIES( include )
+
+ADD_EXECUTABLE( square-it square.c )

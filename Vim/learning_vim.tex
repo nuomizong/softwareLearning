@@ -1,0 +1,53 @@
+% !Mode:: "TeX:UTF-8"	% read in as utf8 file.
+\documentclass[10pt,a4paper]{book}
+
+\input{D:/360Sync/Dropbox/myStyle.tex}
+%\input{/Users/nuomizong/Dropbox/myStyle.tex}
+
+\begin{document}
+% title page.
+\author{Anzong Zheng}
+\title{Learning Vim}
+\date{March 1, 2016}
+\maketitle
+\newpage
+
+% table of contents.
+
+\tableofcontents
+\newpage
+
+%clearpage for 
+\chapter{Get Vim}
+\begin{itemize}
+	\item Windows: gvim.exe
+	\item Mac: \lstinline{brew install macvim}
+\end{itemize}
+\chapter{Shortcuts}
+\begin{itemize}
+\item dd: delete a line
+\item cw: change a word
+\item <5><page up>: move 5 pages up.
+\item x: delete a character under cursor
+\item v: (move curosr and select characters)	d(cut)	p(paste after cursor) or P(paste before cursor)
+\item gg: go to beginning of the file
+\item G: go to end of the file
+\item <n>gg or <n>G or <:><n><cr>:	go to line number
+\item <n>gt: goto tab n
+\item ctrl f: page up
+\item ctrl b: page down
+\item In UNIX system, ~/.vim doesn't exist at first place. so we should create it. cd ~/ and then mkdir .vim and then we can cd .vim
+\item +: move to first non-whitespace character of previous line
+\item -: move to first non-whitespace character of following line
+\end{itemize}
+
+\section{Vimrc}
+\subsection{Swap files.}
+In Mac Osx terminal, write \colorbox{red}{ mkdir $ \sim $/.vim} and return. Then \colorbox{red}{cd $ \sim $/.vim} and create three more folders: \colorbox{red}{mkdir backup}, \colorbox{red}{mkdir swap}, \colorbox{red}{mkdir undo}. After all these things, put three lines in the \textbf{./vimrc}:
+\begin{lstlisting}
+set backupdir=~/.vim/backup//
+set directory=~/.vim/swap//
+set undodir=~/.vim/undo//
+\end{lstlisting}
+
+\end{document}

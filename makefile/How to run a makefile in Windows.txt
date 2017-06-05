@@ -1,0 +1,4 @@
+If you have Visual Studio, run the Visual Studio Command prompt from the Start menu, change to the directory containing Makefile.win and type this:
+
+nmake -f Makefile.win
+You can also use the normal command prompt and run vsvars32.bat (c:\Program Files (x86)\Microsoft Visual Studio 9.0\Common7\Tools for VS2008). This will set up the environment to run nmake and find the compiler tools.

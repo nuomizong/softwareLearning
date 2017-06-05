@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<!-- saved from url=(0101)http://www.starming.com/index.php?action=plugin&v=wave&tpl=union&ac=viewgrouppost&gid=34498&tid=18551 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style type="text/css"></style>
+
+<meta property="qc:admins" content="32672426776341251676375">
+<link rel="icon" href="http://www.starming.com/img/64.png" sizes="64x64">
+<link title="最新更新-Starming星光社" href="http://www.starming.com/index.php?action=plugin&v=club&rss=all" type="application/rss+xml" rel="alternate">
+<title>How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray</title>
+<link rel="stylesheet" type="text/css" href="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/aero.css"><link href="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/share.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/jquery.js"></script>
+	<script type="text/javascript" src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/handle_smallimg.js"></script>
+	<meta content="
+	More often than not, students come to me asking for a good method of creating wireframe renders, so in this tutorial I’m going to explain two different methods of achieving a wireframe render with Ambient Occlusion in Maya using Mentalray.
+
+
+	Step 1
+
+	This is the model I’ll be using to create the Wireframe render with Ambient Occlusion.
+
+	
+
+
+	Step 2
+
+	Since I’m going to be using Mentalray for this tutorial, make sure it’s loaded in Maya. If it’s not, go to Window&gt;Settings/Preferences&gt;Plugin Manager.
+
+	
+		
+
+
+
+	Step 3
+
+	From the Plugin M" name="description">
+	<meta content="" name="keywords">
+	
+<script type="text/javascript" src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/relatedItems"></script><link href="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/bdsstyle.css" rel="stylesheet" type="text/css"></head>
+<body><iframe style="display: none; " frameborder="0"></iframe><div id="bdshare_s"><iframe id="bdsIfr" style="position:absolute;display:none;z-index:9999;" frameborder="0"></iframe><div id="bdshare_l" style="display: none; "><div id="bdshare_l_c"><h6>分享到</h6><ul><li><a href="http://www.starming.com/index.php?action=plugin&v=wave&tpl=union&ac=viewgrouppost&gid=34498&tid=18551#" class="bds_qzone qqkj">QQ空间</a></li><li><a href="http://www.starming.com/index.php?action=plugin&v=wave&tpl=union&ac=viewgrouppost&gid=34498&tid=18551#" class="bds_tsina xlwb">新浪微博</a></li><li><a href="http://www.starming.com/index.php?action=plugin&v=wave&tpl=union&ac=viewgrouppost&gid=34498&tid=18551#" class="bds_baidu bdsc">百度搜藏</a></li><li><a href="http://www.starming.com/index.php?action=plugin&v=wave&tpl=union&ac=viewgrouppost&gid=34498&tid=18551#" class="bds_renren rrw">人人网</a></li><li><a href="http://www.starming.com/index.php?action=plugin&v=wave&tpl=union&ac=viewgrouppost&gid=34498&tid=18551#" class="bds_tqq txwb">腾讯微博</a></li><li><a href="http://www.starming.com/index.php?action=plugin&v=wave&tpl=union&ac=viewgrouppost&gid=34498&tid=18551#" class="bds_kaixin001 kxw">开心网</a></li><li><a href="http://www.starming.com/index.php?action=plugin&v=wave&tpl=union&ac=viewgrouppost&gid=34498&tid=18551#" class="bds_tqf txpy">腾讯朋友</a></li><li><a href="http://www.starming.com/index.php?action=plugin&v=wave&tpl=union&ac=viewgrouppost&gid=34498&tid=18551#" class="bds_hi bdkj">百度空间</a></li><li><a href="http://www.starming.com/index.php?action=plugin&v=wave&tpl=union&ac=viewgrouppost&gid=34498&tid=18551#" class="bds_douban db">豆瓣网</a></li><li><a href="http://www.starming.com/index.php?action=plugin&v=wave&tpl=union&ac=viewgrouppost&gid=34498&tid=18551#" class="bds_tsohu shwb">搜狐微博</a></li><li><a href="http://www.starming.com/index.php?action=plugin&v=wave&tpl=union&ac=viewgrouppost&gid=34498&tid=18551#" class="bds_msn msn">MSN</a></li><li><a href="http://www.starming.com/index.php?action=plugin&v=wave&tpl=union&ac=viewgrouppost&gid=34498&tid=18551#" class="bds_qq qqsc">QQ收藏</a></li><li><a href="http://www.starming.com/index.php?action=plugin&v=wave&tpl=union&ac=viewgrouppost&gid=34498&tid=18551#" class="bds_taobao tjh">淘宝</a></li><li><a href="http://www.starming.com/index.php?action=plugin&v=wave&tpl=union&ac=viewgrouppost&gid=34498&tid=18551#" class="bds_tieba bdtb">百度贴吧</a></li><li><a href="http://www.starming.com/index.php?action=plugin&v=wave&tpl=union&ac=viewgrouppost&gid=34498&tid=18551#" class="bds_sohu shbsh">搜狐白社会</a></li><li><a href="http://www.starming.com/index.php?action=plugin&v=wave&tpl=union&ac=viewgrouppost&gid=34498&tid=18551#" class="bds_more">更多...</a></li></ul><p><a href="http://www.starming.com/index.php?action=plugin&v=wave&tpl=union&ac=viewgrouppost&gid=34498&tid=18551#" class="goWebsite">百度分享</a></p></div></div></div>
+
+	<style>
+	#Top{background-image:url("css/plugin/wave/tpl/union/bg_top_light.png");background-color:#F0F0F0;heigth:40px;}
+	#TopMain {height:40px;margin:0 auto;text-align:center;width:960px;}
+	#Top a:link,#Top a:visited,#Top a:active {color:#000000;text-decoration:none;}
+	#Navigation {color:#FFFFFF;float:right;font-size:14px;line-height:14px;margin-top:13px;text-align:right;}
+	#Navigation ul {list-style:none outside none;}
+	#Navigation ul li {float:left;list-style:none outside none;margin-left:15px;}
+	.top{font-size:14px;}
+	a.top:link,a.top.visited, a.top:active {color:#778087;font-weight:500;text-decoration:none;text-shadow:0 1px 0 #FFFFFF;}
+	#Search {margin:0 200px 0 120px;padding:6px 0 0;text-align:left;}
+	#Search form{display:inline;}
+	#q {background-color:transparent;border:medium none;font-family:"Helvetica Neue","Luxi Sans","DejaVu Sans",Tahoma,"Hiragino Sans GB",STHeiti !important;font-size:12px;height:26px;line-height:20px;margin:1px 0 1px 30px;outline:medium none;width:222px;}
+	</style>
+	<div id="Top">
+		<div id="TopMain">
+			<a href="http://www.starming.com/index.php?action=plugin&v=wave&tpl=union&tpl=union&ac=oindex"><img border="0" style="display:block;float:left;margin-top:5px;margin-right:22px;" src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/logo_20120126.png"></a>
+			<div id="Navigation">
+				<ul>
+	<li><a class="top" href="http://www.starming.com/index.php?action=plugin&v=wave&tpl=union&tpl=union&ac=oindex">首页</a></li>
+	<li><a class="top" href="http://www.starming.com/index.php?action=plugin&v=wave&tpl=fav">收藏秀</a></li>
+	<li><a class="top" href="http://www.starming.com/index.php?action=plugin&v=wave&tpl=co&c=lf&ac=promote">淘宝贝</a></li>
+	<li><a class="top" href="http://www.starming.com/index.php?action=plugin&v=wave&tpl=union&tpl=union&ac=login">登录</a></li><li><a class="top" href="http://www.starming.com/index.php?action=plugin&v=wave&tpl=union&tpl=union&ac=regist">注册</a></li>
+	<li><a class="top" href="http://www.starming.com/index.php?action=plugin&v=club&rss=all"><img src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/rss.png"></a></li></ul>
+			</div>
+			<script type="text/javascript">
+				var dispatch = function() {
+					q = document.getElementById("q");
+					if(q.value != "") {
+						window.open("http://www.google.com/search?q=site:www.starming.com " + q.value, "_blank");
+						return false;
+					} else {
+						return false;
+					}
+				}
+			</script>
+			<div id="Search">
+				<form onsubmit="return dispatch();">
+					<div style="width:276px;height:28px;background-image:url(css/plugin/wave/tpl/union/qbar.png);background-repeat:no-repeat;display:inline-block;"><input id="q" type="text" value="" name="q" maxlength="40" style="box-shadow:none;padding:0;"></div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div id="content"><div class="layoutA">
+	<div class="dside">
+	<div class="grouph1">
+		
+		<span class="grouph1right">
+			<div style="float:left;"></div> 
+			<a class="magenta buttonadv" href="http://www.starming.com/index.php?action=plugin&v=wave&tpl=union&ac=groupaddpost&gid=34498">发帖</a> 
+			
+		</span>
+		<span class="grouph1left">
+			<h1><a href="http://www.starming.com/index.php?action=plugin&v=wave&tpl=union&ac=group&gid=34498"><img src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/34498.gif">3d小组</a></h1>
+		</span>
+	</div>
+	<div class="dside">
+
+		<div class="columnD">
+			<dl>
+				<dd>
+					<div class="main" style="width:600px;float:left;margin-bottom:70px;">
+						<div class="maintitle">How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray</div>
+						<div class="subtitle"> <a href="http://www.starming.com/index.php?action=plugin&v=wave&tpl=union&ac=followfd&uid=10025">关注</a>戴铭  <form action="" method="post">添加标签：<input name="union_tagname" class="input1"> <input type="submit" name="union_tagname_submit" class="buttonadv" value="添加"></form></div>
+						
+						<div id="main_post"><p>
+	More often than not, students come to me asking for a good method of creating wireframe renders, so in this tutorial I’m going to explain two different methods of achieving a wireframe render with Ambient Occlusion in Maya using <span data-scayt_word="Mentalray" data-scaytid="1">Mentalray</span>.</p>
+<hr>
+<h3>
+	Step 1</h3>
+<p>
+	This is the model I’ll be using to create the Wireframe render with Ambient Occlusion.</p>
+<div>
+	<img alt="Step 1 Image" src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/img_1323790973_0.jpg" style="width: 540px; height: 366px; "></div>
+<hr>
+<h3>
+	Step 2</h3>
+<p>
+	Since I’m going to be using <span data-scayt_word="Mentalray" data-scaytid="2">Mentalray</span> for this tutorial, make sure it’s loaded in Maya. If it’s not, go to <em>Window&gt;Settings/Preferences&gt;Plugin Manager.</em></p>
+<div>
+	<p>
+		<img height="313" src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/img_1323790974_1.jpg" width="381"></p>
+</div>
+<hr>
+<h3>
+	Step 3</h3>
+<p>
+	From the <span data-scayt_word="Plugin" data-scaytid="4">Plugin</span> Manager window, check the ‘Loaded’ and ‘Auto load’ options for "Mayatomr.mll", to enable it.</p>
+<div>
+	<p>
+		<img height="496" src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/img_1323790976_2.jpg" width="458"></p>
+</div>
+<hr>
+<h3>
+	Step 4</h3>
+<p>
+	Now open up "<span data-scayt_word="Hypershade" data-scaytid="5">Hypershade</span>", by going to <em>Window&gt;Rendering Editors&gt;Hypershade.</em></p>
+<div>
+	<p>
+		<img height="268" src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/img_1323790976_3.jpg" width="437"></p>
+</div>
+<hr>
+<h3>
+	Step 5</h3>
+<p>
+	Click on the ‘Surface Shader’ as shown in the image below.</p>
+<div>
+	<img height="450" src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/img_1323790981_4.jpg" width="600" style="width: 540px; height: 405px; "></div>
+<hr>
+<h3>
+	Step 6</h3>
+<p>
+	Now from mental ray’s “Textures”, click on "<span data-scayt_word="mib_amb_occlusion" data-scaytid="6">mib_amb_occlusion</span>".</p>
+<div>
+	<p>
+		<img height="329" src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/img_1323790981_5.jpg" width="600" style="width: 540px; height: 296px; "></p>
+</div>
+<hr>
+<h3>
+	Step 7</h3>
+<p>
+	Middle mouse drag and drop the "<span data-scayt_word="mib_amb_occlusion" data-scaytid="7">mib_amb_occlusion</span>" onto the surface shader created in step 6, and select ‘Default’ from the options box that comes up.</p>
+<div>
+	<img height="246" src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/img_1323790982_6.jpg" width="600" style="width: 540px; height: 221px; "></div>
+<hr>
+<h3>
+	Step 8</h3>
+<p>
+	Next assign the Surface shader to the model by "Right Clicking" on it, and selecting the option "Assign Material To Selection".</p>
+<div>
+	<p>
+		<img height="383" src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/img_1323790982_7.jpg" width="407"></p>
+</div>
+<hr>
+<h3>
+	Step 9</h3>
+<p>
+	Now double click on the "<span data-scayt_word="mib_amb_occlucion" data-scaytid="8">mib_amb_occlucion</span>" node, and from the settings, change the&nbsp;"Samples", "Spread" and "Falloff" values as specified in the image below. The Samples control the quality of AO, so more samples equals better quality, but at the cost of additional rendering time.</p>
+<div>
+	<p>
+		<img height="763" src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/img_1323790984_8.jpg" width="467"></p>
+</div>
+<hr>
+<h3>
+	Step 10</h3>
+<p>
+	Select&nbsp;"mental ray" as the renderer and hit render. The Ambient Occlusion is now set, so let’s start working on the wireframe.</p>
+<div>
+	<p>
+		<img height="496" src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/img_1323791007_9.jpg" width="600" style="width: 540px; height: 446px; "></p>
+</div>
+<hr>
+<h3>
+	Step 11</h3>
+<p>
+	Select the surface shader, and click on the "Input and Output Connection’ button in <span data-scayt_word="Hypershade" data-scaytid="9">Hypershade</span>.</p>
+<div>
+	<p>
+		<img height="508" src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/img_1323791011_10.jpg" width="526"></p>
+</div>
+<hr>
+<h3>
+	Step 12</h3>
+<p>
+	Now select the "Surface Shader <span data-scayt_word="1SG" data-scaytid="11">1SG</span>" node (which has just come up after clicking on the create input and output connection.)</p>
+<div>
+	<p>
+		<img height="519" src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/img_1323791015_11.jpg" width="531"></p>
+</div>
+<hr>
+<h3>
+	Step 13</h3>
+<p>
+	From the "Attributes" of the "Surface shader <span data-scayt_word="1SG" data-scaytid="13">1SG</span>" node, go to the Mental ray options, and check on "Enable Contour Rendering" in the "Contours" rollout.</p>
+<div>
+	<p>
+		<img height="763" src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/img_1323791019_12.jpg" width="467"></p>
+</div>
+<hr>
+<h3>
+	Step 14</h3>
+<p>
+	And from the "Draw By Property Difference" options, check on the "Around all poly faces" option.</p>
+<div>
+	<p>
+		<img height="715" src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/img_1323791022_13.jpg" width="474"></p>
+</div>
+<hr>
+<h3>
+	Step 15</h3>
+<p>
+	Hit "Render" again and this is the result we’re going to get, for this smooth is on (by pressing the <span data-scayt_word="“3″" data-scaytid="16">“3″</span> key.)</p>
+<div>
+	<p>
+		<img height="542" src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/img_1323791025_14.jpg" width="600" style="width: 540px; height: 488px; "></p>
+</div>
+<hr>
+<h3>
+	Step 16</h3>
+<p>
+	Now go back to the "Surface Shader <span data-scayt_word="1SG" data-scaytid="17">1SG</span>" shading group Attributes, and under "Contours" change the "Color" and "Width" as specified in the following image.</p>
+<div>
+	<p>
+		<img height="763" src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/img_1323791027_15.jpg" width="467"></p>
+</div>
+<hr>
+<h3>
+	Step 17</h3>
+<p>
+	Hit render again to view the result.</p>
+<div>
+	<p>
+		<img height="414" src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/img_1323791029_16.jpg" width="600" style="width: 540px; height: 373px; "></p>
+</div>
+<hr>
+<h3>
+	Step 18</h3>
+<p>
+	From the "Render" settings, select "Production" from the "Quality" tab.</p>
+<div>
+	<p>
+		<img height="288" src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/img_1323791032_17.jpg" width="437"></p>
+</div>
+<hr>
+<h3>
+	Step 19</h3>
+<p>
+	By selecting the "Production" preset for quality, the "Around all poly faces" option in the "Features" tab gets deselected, so you’ll have to turn it ‘ON’ again. Under "Contours", set the "Over-Sample" to <em>4</em> to improve the quality of <span data-scayt_word="wireframes" data-scaytid="20">wireframes</span>.</p>
+<div>
+	<p>
+		<img height="378" src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/img_1323791034_18.jpg" width="461"></p>
+</div>
+<hr>
+<h3>
+	Step 20</h3>
+<p>
+	For changing the background of the rendered image. Go to <em>View&gt;Select Camera</em> from the Perspective <span data-scayt_word="viewport" data-scaytid="21">viewport</span> menu and press "CTRL+A".</p>
+<div>
+	<p>
+		<img height="331" src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/img_1323791037_19.jpg" width="326"></p>
+</div>
+<hr>
+<h3>
+	Step 21</h3>
+<p>
+	Or press the button shown below.</p>
+<div>
+	<p>
+		<img height="270" src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/img_1323791039_20.jpg" width="595" style="width: 540px; height: 245px; "></p>
+</div>
+<hr>
+<h3>
+	Step 22</h3>
+<p>
+	From the "Attribute Editor" window, under "Environment" change the "Background color" to medium Grey.</p>
+<div>
+	<p>
+		<img height="763" src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/img_1323791044_21.jpg" width="467"></p>
+</div>
+<hr>
+<h3>
+	Step 23</h3>
+<p>
+	Render again, and here is our final result.</p>
+<div>
+	<p>
+		<img height="480" src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/img_1323791045_22.jpg" width="531"></p>
+</div>
+<hr>
+<h3>
+	Step 24</h3>
+<p>
+	The same results can also be achieved using the contour node. To do this, select the "Contour_shader_simple" node from the "Contour Shader".</p>
+<div>
+	<p>
+		<img height="708" src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/img_1323791049_23.jpg" width="432"></p>
+</div>
+<hr>
+<h3>
+	Step 25</h3>
+<p>
+	Double click on the "Surface Shader" shading group node in <span data-scayt_word="Hypershade" data-scaytid="22">Hypershade</span>.</p>
+<div>
+	<p>
+		<img height="289" src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/img_1323791052_24.jpg" width="306"></p>
+</div>
+<hr>
+<h3>
+	Step 26</h3>
+<p>
+	Expand the "Custom <span data-scayt_word="Shaders" data-scaytid="26">Shaders</span>" rollout from the "Attribute Editor", and middle mouse drag and drop the "contour_shader_simple" onto the Contour Shader slot.</p>
+<div>
+	<p>
+		<img height="398" src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/img_1323791053_25.jpg" width="600" style="width: 540px; height: 358px; "></p>
+</div>
+<hr>
+<h3>
+	Step 27</h3>
+<p>
+	For changing the Color and Width of the wireframe, double click on "contour_shader_simple" and change the color and width accordingly.</p>
+<div>
+	<p>
+		<img height="763" src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/img_1323791055_26.jpg" width="467"></p>
+</div>
+<hr>
+<p>
+	And that concludes the tutorial, I hope you enjoyed it!</p>
+</div>
+						
+						<!-- Baidu Button BEGIN -->
+							<div id="bdshare" class="bdshare_t bds_tools_32 get-codes-bdshare">
+								<a class="bds_qzone" title="分享到QQ空间"></a>
+								<a class="bds_tsina" title="分享到新浪微博"></a>
+								<a class="bds_tqq" title="分享到腾讯微博"></a>
+								<a class="bds_renren" title="分享到人人网"></a>
+								<span class="bds_more">更多</span>
+							</div>
+						<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=615669" src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/bds_s_v2.js"></script>
+						<script type="text/javascript" id="bdshell_js" src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/shell_v2.js"></script>
+						<script type="text/javascript">
+							document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?t=" + new Date().getHours();
+						</script>
+						<!-- Baidu Button END -->
+						<a class="black buttonadv" href="http://www.starming.com/index.php?action=plugin&v=wave&tpl=union&ac=login" style="float:right;font-size:16px;padding:10px;">收藏</a>
+						<script type="text/javascript">
+    var wumiiPermaLink = ""; //请用代码生成文章永久的链接 
+    var wumiiTitle = ""; //请用代码生成文章标题 
+    var wumiiTags = ""; //请用代码生成文章标签，以英文逗号分隔，如："标签1,标签2"
+    var wumiiSitePrefix = "http://www.starming.com/";
+</script>
+<div class="wumii-hook"><div id="wumiiBtnDiv" style="clear:both;overflow:hidden;margin:0;padding:10px 0 0;text-shadow: none;text-indent:0;">
+    <div id="wumiiLikeBtnDiv" style="position: static; float: left; display: inline; width: 89px; height: 28px; margin: 0px 0px 0px 218px; padding: 0px; background-image: url(http://static.wumii.com/images/blogWidget/widget_buttons_lightGray.png); text-indent: 0px; background-position: 0px 0px; background-repeat: no-repeat no-repeat; " onmouseover="this.style.backgroundPosition=&#39;-89px 0&#39;;" onmouseout="this.style.backgroundPosition=&#39;0 0&#39;;">
+        <span id="wumiiNumLikes" style="float:left;width:45px;height:19px;line-height:21px;*line-height:19px;margin:4px 0 0 0;padding:0;color:#444444;letter-spacing:0;text-align:center;text-indent:0;font-size:12px;">0</span>
+        <span style="float:left;width:40px;height:29px;margin:0;padding:0;outline:none;cursor:pointer;" id="wumiiLikeBtn" hidefocus="true"></span>
+    </div>
+    <div id="wumiiRecommendBtnDiv" style="position:static;clear:none;float:left;display:inline;height:28px;margin:0;padding:0 5px;text-indent:0;">
+        <span id="wumiiRecommendBtn" hidefocus="true" style="float:left;display:inline;width:60px;height:28px;margin:0 0 0 5px;padding:0;background:url(&#39;http://static.wumii.com/images/blogWidget/widget_buttons_lightGray.png&#39;) no-repeat -267px 0;cursor:pointer;outline:none;" onmouseover="this.style.backgroundPosition=&#39;-328px 0&#39;;" onmouseout="this.style.backgroundPosition=&#39;-267px 0&#39;;"></span>
+        <img src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/loading.gif" id="wumiiLoading" style="clear: none; display: none; height: 15px; margin: 7px 0px 0px 8px; padding: 0px; border: 0px; background-image: none; cursor: default; background-position: initial initial; background-repeat: initial initial; " alt="正在加载推荐文章">
+    </div>
+</div>
+<div class="wumii-related-items-div" style="margin: 0; border: none; padding: 0; clear: both; overflow: hidden; *zoom: 1; *position: relative;">
+    <div class="wumii-internal" style="padding: 0; margin: 0; border: none; clear: both; display: block;">
+        <div class="wumii-widget-title" style="margin: 0; border: none; padding: 20px 0 5px; _padding-top:10px; text-indent: 0; text-align: left; font-weight: bold; ">您可能也喜欢Starming的：</div>
+            <div class="wumii-image-row" style="clear: both; border: none; margin: 0 0 0 -1px; padding: 0; overflow: hidden; _zoom: 1;">
+                    <a class="wumii-image-block" hidefocus="true" title="Non-Determinism and Statistical Outcomes in OPERATION FLASHPOINT 2 (aka. You Shot My Pilot!) 非决定和统计结果" onmouseout="this.style.backgroundColor=&#39;&#39;" onmouseover="this.style.backgroundColor=&#39;#E3E4FA&#39;" style="display: block; float: left; text-decoration: none; border-bottom: none; cursor: pointer; position: relative; margin: 5px 0; padding: 5px; width: 102px; text-align: left; outline: none; background-image: none; border-left: 1px solid #DDDDDD !important;" href="http://www.starming.com/index.php?action=plugin&v=wave&tpl=union&ac=viewgrouppost&gid=56&tid=4972" onmousedown="this.href=&#39;http://app.wumii.com/ext/redirect?url=http%3A%2F%2Fwww.starming.com%2Findex.php%3Faction%3Dplugin%26v%3Dwave%26tpl%3Dunion%26ac%3Dviewgrouppost%26gid%3D56%26tid%3D4972&amp;ts=&#39; + (new Date()).getTime() + &#39;&amp;from=http%3A%2F%2Fwww.starming.com%2Findex.php%3Faction%3Dplugin%26v%3Dwave%26tpl%3Dunion%26ac%3Dviewgrouppost%26gid%3D34498%26tid%3D18551&#39; + &#39;&amp;ref=relatedItems&#39;; return true;" onmouseup="t=this; setTimeout(function() {t.href=&#39;http://www.starming.com/index.php?action=plugin&amp;v=wave&amp;tpl=union&amp;ac=viewgrouppost&amp;gid=56&amp;tid=4972&#39;;}, 50); return true;">
+                        <div class="wumii-image-border" style="margin: 0; padding: 0; width: auto; height: 100px; border: 1px solid #DDDDDD;"></div>
+                        <img class="wumii-image" onload="wumiiImageResize(this, 96);" onerror="wumiiImageError(this);" src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/1758354.jpg" style="position: absolute; border: none; background-image: none; visibility: visible; padding: 0px; margin: 0px; width: 96px; height: 96px; clip: rect(0px 96px 96px 0px); left: 8px; top: 8px; background-position: initial initial; background-repeat: initial initial; ">
+                        <div class="wumii-image-title" style="height: 60px; width: 100%; margin: 3px 0 0 0; padding: 0; text-indent: 0; border: none; font: 12px/15px arial; color: #333333; overflow: hidden;">Non-Determinism and Statistical Outcomes in OPERATION FLASHPOINT 2 (aka. You Shot My Pilot!) 非决定和统计结果</div>
+                    </a>
+                    <a class="wumii-image-block" hidefocus="true" title="一淘网技术简介" onmouseout="this.style.backgroundColor=&#39;&#39;" onmouseover="this.style.backgroundColor=&#39;#E3E4FA&#39;" style="display: block; float: left; text-decoration: none; border-bottom-style: none; cursor: pointer; position: relative; margin: 5px 0px; padding: 5px; width: 102px; text-align: left; outline: none; background-image: none; border-left-width: 1px !important; border-left-style: solid !important; border-left-color: rgb(221, 221, 221) !important; " href="http://www.starming.com/index.php/img/img/index.php?action=plugin&v=wave&tpl=union&ac=viewgrouppost&gid=34483&tid=11104" onmousedown="this.href=&#39;http://app.wumii.com/ext/redirect?url=http%3A%2F%2Fwww.starming.com%2Findex.php%2Fimg%2Fimg%2Findex.php%3Faction%3Dplugin%26v%3Dwave%26tpl%3Dunion%26ac%3Dviewgrouppost%26gid%3D34483%26tid%3D11104&amp;ts=&#39; + (new Date()).getTime() + &#39;&amp;from=http%3A%2F%2Fwww.starming.com%2Findex.php%3Faction%3Dplugin%26v%3Dwave%26tpl%3Dunion%26ac%3Dviewgrouppost%26gid%3D34498%26tid%3D18551&#39; + &#39;&amp;ref=relatedItems&#39;; return true;" onmouseup="t=this; setTimeout(function() {t.href=&#39;http://www.starming.com/index.php/img/img/index.php?action=plugin&amp;v=wave&amp;tpl=union&amp;ac=viewgrouppost&amp;gid=34483&amp;tid=11104&#39;;}, 50); return true;">
+                        <div class="wumii-image-border" style="margin: 0; padding: 0; width: auto; height: 100px; border: 1px solid #DDDDDD;"></div>
+                        <img class="wumii-image" onload="wumiiImageResize(this, 96);" onerror="wumiiImageError(this);" src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/29997291.png" style="position: absolute; border: none; background-image: none; visibility: visible; padding: 0px; margin: 0px; width: 96px; height: 96px; clip: rect(0px 96px 96px 0px); left: 8px; top: 8px; background-position: initial initial; background-repeat: initial initial; ">
+                        <div class="wumii-image-title" style="height: 60px; width: 100%; margin: 3px 0 0 0; padding: 0; text-indent: 0; border: none; font: 12px/15px arial; color: #333333; overflow: hidden;">一淘网技术简介</div>
+                    </a>
+                    <a class="wumii-image-block" hidefocus="true" title="iPhone开发技巧之环境篇（11） — 让Xcode对应多个版本的iOS SDK" onmouseout="this.style.backgroundColor=&#39;&#39;" onmouseover="this.style.backgroundColor=&#39;#E3E4FA&#39;" style="display: block; float: left; text-decoration: none; border-bottom-style: none; cursor: pointer; position: relative; margin: 5px 0px; padding: 5px; width: 102px; text-align: left; outline: none; background-image: none; border-left-width: 1px !important; border-left-style: solid !important; border-left-color: rgb(221, 221, 221) !important; " href="http://www.starming.com/index.php?action=plugin&v=wave&tpl=union&ac=viewgrouppost&gid=34493&tid=18425" onmousedown="this.href=&#39;http://app.wumii.com/ext/redirect?url=http%3A%2F%2Fwww.starming.com%2Findex.php%3Faction%3Dplugin%26v%3Dwave%26tpl%3Dunion%26ac%3Dviewgrouppost%26gid%3D34493%26tid%3D18425&amp;ts=&#39; + (new Date()).getTime() + &#39;&amp;from=http%3A%2F%2Fwww.starming.com%2Findex.php%3Faction%3Dplugin%26v%3Dwave%26tpl%3Dunion%26ac%3Dviewgrouppost%26gid%3D34498%26tid%3D18551&#39; + &#39;&amp;ref=relatedItems&#39;; return true;" onmouseup="t=this; setTimeout(function() {t.href=&#39;http://www.starming.com/index.php?action=plugin&amp;v=wave&amp;tpl=union&amp;ac=viewgrouppost&amp;gid=34493&amp;tid=18425&#39;;}, 50); return true;">
+                        <div class="wumii-image-border" style="margin: 0; padding: 0; width: auto; height: 100px; border: 1px solid #DDDDDD;"></div>
+                        <img class="wumii-image" onload="wumiiImageResize(this, 96);" onerror="wumiiImageError(this);" src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/13302539.png" style="position: absolute; border: none; background-image: none; visibility: visible; padding: 0px; margin: 0px; width: 96px; height: 96px; clip: rect(0px 96px 96px 0px); left: 8px; top: 8px; background-position: initial initial; background-repeat: initial initial; ">
+                        <div class="wumii-image-title" style="height: 60px; width: 100%; margin: 3px 0 0 0; padding: 0; text-indent: 0; border: none; font: 12px/15px arial; color: #333333; overflow: hidden;">iPhone开发技巧之环境篇（11） — 让Xcode对应多个版本的iOS SDK</div>
+                    </a>
+                    <a class="wumii-image-block" hidefocus="true" title="閒聊蘋果App Store排行榜的規則" onmouseout="this.style.backgroundColor=&#39;&#39;" onmouseover="this.style.backgroundColor=&#39;#E3E4FA&#39;" style="display: block; float: left; text-decoration: none; border-bottom-style: none; cursor: pointer; position: relative; margin: 5px 0px; padding: 5px; width: 102px; text-align: left; outline: none; background-image: none; border-left-width: 1px !important; border-left-style: solid !important; border-left-color: rgb(221, 221, 221) !important; " href="http://www.starming.com/index.php?action=plugin&v=wave&tpl=union&ac=viewgrouppost&gid=1000003388&tid=1000002025&viewtype=tags" onmousedown="this.href=&#39;http://app.wumii.com/ext/redirect?url=http%3A%2F%2Fwww.starming.com%2Findex.php%3Faction%3Dplugin%26v%3Dwave%26tpl%3Dunion%26ac%3Dviewgrouppost%26gid%3D1000003388%26tid%3D1000002025%26viewtype%3Dtags&amp;ts=&#39; + (new Date()).getTime() + &#39;&amp;from=http%3A%2F%2Fwww.starming.com%2Findex.php%3Faction%3Dplugin%26v%3Dwave%26tpl%3Dunion%26ac%3Dviewgrouppost%26gid%3D34498%26tid%3D18551&#39; + &#39;&amp;ref=relatedItems&#39;; return true;" onmouseup="t=this; setTimeout(function() {t.href=&#39;http://www.starming.com/index.php?action=plugin&amp;v=wave&amp;tpl=union&amp;ac=viewgrouppost&amp;gid=1000003388&amp;tid=1000002025&amp;viewtype=tags&#39;;}, 50); return true;">
+                        <div class="wumii-image-border" style="margin: 0; padding: 0; width: auto; height: 100px; border: 1px solid #DDDDDD;"></div>
+                        <img class="wumii-image" onload="wumiiImageResize(this, 96);" onerror="wumiiImageError(this);" src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/14174371.png" style="position: absolute; border: none; background-image: none; visibility: visible; padding: 0px; margin: 0px; width: 96px; height: 96px; clip: rect(0px 96px 96px 0px); left: 8px; top: 8px; background-position: initial initial; background-repeat: initial initial; ">
+                        <div class="wumii-image-title" style="height: 60px; width: 100%; margin: 3px 0 0 0; padding: 0; text-indent: 0; border: none; font: 12px/15px arial; color: #333333; overflow: hidden;">閒聊蘋果App Store排行榜的規則</div>
+                    </a>
+                    <a class="wumii-image-block" hidefocus="true" title="Using Stock References in the Creation of Vector Art 艺术创作" onmouseout="this.style.backgroundColor=&#39;&#39;" onmouseover="this.style.backgroundColor=&#39;#E3E4FA&#39;" style="display: block; float: left; text-decoration: none; border-bottom-style: none; cursor: pointer; position: relative; margin: 5px 0px; padding: 5px; width: 102px; text-align: left; outline: none; background-image: none; border-left-width: 1px !important; border-left-style: solid !important; border-left-color: rgb(221, 221, 221) !important; " href="http://www.starming.com/index.php?action=plugin&v=wave&tpl=union&ac=viewgrouppost&gid=34465&tid=9958" onmousedown="this.href=&#39;http://app.wumii.com/ext/redirect?url=http%3A%2F%2Fwww.starming.com%2Findex.php%3Faction%3Dplugin%26v%3Dwave%26tpl%3Dunion%26ac%3Dviewgrouppost%26gid%3D34465%26tid%3D9958&amp;ts=&#39; + (new Date()).getTime() + &#39;&amp;from=http%3A%2F%2Fwww.starming.com%2Findex.php%3Faction%3Dplugin%26v%3Dwave%26tpl%3Dunion%26ac%3Dviewgrouppost%26gid%3D34498%26tid%3D18551&#39; + &#39;&amp;ref=relatedItems&#39;; return true;" onmouseup="t=this; setTimeout(function() {t.href=&#39;http://www.starming.com/index.php?action=plugin&amp;v=wave&amp;tpl=union&amp;ac=viewgrouppost&amp;gid=34465&amp;tid=9958&#39;;}, 50); return true;">
+                        <div class="wumii-image-border" style="margin: 0; padding: 0; width: auto; height: 100px; border: 1px solid #DDDDDD;"></div>
+                        <img class="wumii-image" onload="wumiiImageResize(this, 96);" onerror="wumiiImageError(this);" src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/1742808.jpg" style="position: absolute; border: none; background-image: none; visibility: visible; padding: 0px; margin: 0px; width: 96px; height: 96px; clip: rect(0px 96px 96px 0px); left: 8px; top: 8px; background-position: initial initial; background-repeat: initial initial; ">
+                        <div class="wumii-image-title" style="height: 60px; width: 100%; margin: 3px 0 0 0; padding: 0; text-indent: 0; border: none; font: 12px/15px arial; color: #333333; overflow: hidden;">Using Stock References in the Creation of Vector Art 艺术创作</div>
+                    </a>
+            </div>
+    </div>
+        <div style="margin: 0px; border: none; padding: 5px 0px; clear: both; text-align: right; width: 564px; ">
+            <a href="http://www.wumii.com/widget/relatedItems" target="_blank" title="无觅相关文章插件" style="font-family: arial; font-size: 12px; font-style: normal; font-variant: normal; font-weight: normal; line-height: normal; color: rgb(187, 187, 187); border-bottom-style: none; word-wrap: normal; display: inline; ">无觅</a>
+            
+        </div>
+</div>
+
+</div><script type="text/javascript" id="wumiiRelatedItems" src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/relatedItemsWidget.htm"></script>
+<a href="http://www.wumii.com/widget/relatedItems.htm" style="border:0;">
+    <img src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/pixel.png" alt="无觅相关文章插件" style="border:0;padding:0;margin:0;">
+</a>
+
+					</div>
+					<div class="aside">
+						
+						<dl>
+							<dt>3d-小组</dt>
+							<dd>
+								<table class="turnpage"><tbody><tr><td><b><span>1</span></b></td><td><a href="http://www.starming.com/index.php?action=plugin&v=wave&tpl=union&ac=viewgrouppost&gid=34498&tid=18551&pg=2">2</a></td><td><a href="http://www.starming.com/index.php?action=plugin&v=wave&tpl=union&ac=viewgrouppost&gid=34498&tid=18551&pg=3">3</a></td><td><a href="http://www.starming.com/index.php?action=plugin&v=wave&tpl=union&ac=viewgrouppost&gid=34498&tid=18551&pg=2">下页</a></td><td><span>共6页</span></td></tr></tbody></table>
+								<style>.aside_newlist p {padding:8px 2px;}</style>
+								<div class="aside_newlist"></div>
+								<table class="turnpage"><tbody><tr><td><b><span>1</span></b></td><td><a href="http://www.starming.com/index.php?action=plugin&v=wave&tpl=union&ac=viewgrouppost&gid=34498&tid=18551&pg=2">2</a></td><td><a href="http://www.starming.com/index.php?action=plugin&v=wave&tpl=union&ac=viewgrouppost&gid=34498&tid=18551&pg=3">3</a></td><td><a href="http://www.starming.com/index.php?action=plugin&v=wave&tpl=union&ac=viewgrouppost&gid=34498&tid=18551&pg=2">下页</a></td><td><span>共6页</span></td></tr></tbody></table>
+							</dd>
+						</dl>
+						<dl><dt><span class="more"><a href="http://www.starming.com/index.php?action=plugin&v=wave&tpl=co&c=lf&ac=promote">更多</a></span>星光社推荐</dt><dd>
+			<div style="padding:5px 0;margin:0 auto;width:150px;position:relative;overflow:hidden;">
+				<a href="http://www.starming.com/index.php?action=plugin&v=wave&tpl=union&ac=module&m=promote&do=goo&proid=202" target="_blank" title="【SAYA】Y11彩色小尖领  彼得潘 立领小翻领假领子古着11色"><i></i><img src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/T1.D1rXn0sXXX.zHg._081349.jpg_310x310.jpg" width="150"></a>
+				
+			
+			<span class="p" style="bottom:10px;display:block;height:22px;position:absolute;right:22px;">
+				<span style="background:url(&#39;css/plugin/wave/tpl/union/module/promote/imgwall_price_bg.png&#39;) no-repeat scroll left top transparent;color:#FFFFFF;display:block;float:left;height:20px;line-height:20px;padding-left:3px;">
+					<b style="color:#FFFFFF;font-family:arial,sans-serif;font-weight:normal;margin-right:2px;">¥</b>
+					9.00
+				</span>
+				<i style="background:url(&#39;css/plugin/wave/tpl/union/module/promote/imgwall_price_bg.png&#39;) no-repeat scroll left bottom transparent;display:block;float:left;height:20px;width:5px;"></i>
+			</span>
+			
+			</div>
+			</dd></dl>
+					</div>
+
+				</dd>
+				
+			</dl>
+		</div>
+		<div style="width:790px;float:left;">
+		<div class="columnD">
+			<dl>
+				<dt>有话想说</dt>
+				<dd>
+					<div class="main">请 <a href="http://www.starming.com/index.php?action=plugin&v=wave&tpl=union&ac=login">登录</a> 或 <a href="http://www.starming.com/index.php?action=plugin&v=wave&tpl=union&ac=regist">注册 </a>来评论:)</div>
+				</dd>
+			</dl>
+		</div></div>
+		<div class="clear"></div>
+	</div>
+	<div class="clear"></div></div>
+			<div class="aside">
+				<dl>
+					<dt>
+					<a class="black buttonadv" href="http://www.starming.com/index.php?action=plugin&v=wave&tpl=union&ac=group">小组首页</a> 
+					</dt>
+					<dd></dd>
+				</dl>
+				
+		<dl>
+			<dt><span class="more"><a href="http://www.starming.com/index.php?action=plugin&v=wave&tpl=union&ac=group">更多</a></span>推荐小组</dt>
+			<dd><ul class="mod_thumb_ul"><li class="mod_thumb_li"><p><a href="http://www.starming.com/index.php?action=plugin&v=wave&tpl=union&ac=group&gid=1000004203"><img src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/1000004203.gif">美好生活</a></p></li><li class="mod_thumb_li"><p><a href="http://www.starming.com/index.php?action=plugin&v=wave&tpl=union&ac=group&gid=32767"><img src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/32767.gif">公共讨论</a></p></li><li class="mod_thumb_li"><p><a href="http://www.starming.com/index.php?action=plugin&v=wave&tpl=union&ac=group&gid=34299"><img src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/34299.gif">设计资源</a></p></li><li class="mod_thumb_li"><p><a href="http://www.starming.com/index.php?action=plugin&v=wave&tpl=union&ac=group&gid=574"><img src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/574.gif">动漫</a></p></li><li class="mod_thumb_li"><p><a href="http://www.starming.com/index.php?action=plugin&v=wave&tpl=union&ac=group&gid=34465"><img src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/34465.gif">插画</a></p></li><li class="mod_thumb_li"><p><a href="http://www.starming.com/index.php?action=plugin&v=wave&tpl=union&ac=group&gid=34461"><img src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/34461.gif">网页设计</a></p></li><li class="mod_thumb_li"><p><a href="http://www.starming.com/index.php?action=plugin&v=wave&tpl=union&ac=group&gid=33784"><img src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/33784.gif">网站技术</a></p></li><li class="mod_thumb_li"><p><a href="http://www.starming.com/index.php?action=plugin&v=wave&tpl=union&ac=group&gid=33263"><img src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/33263.gif"> Linux</a></p></li><li class="mod_thumb_li"><p><a href="http://www.starming.com/index.php?action=plugin&v=wave&tpl=union&ac=group&gid=34493"><img src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/34493.gif"> iPhone</a></p></li><li class="mod_thumb_li"><p><a href="http://www.starming.com/index.php?action=plugin&v=wave&tpl=union&ac=group&gid=34464"><img src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/34464.gif"> jQuery</a></p></li><li class="mod_thumb_li"><p><a href="http://www.starming.com/index.php?action=plugin&v=wave&tpl=union&ac=group&gid=73"><img src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/73.gif"> Python</a></p></li><li class="mod_thumb_li"><p><a href="http://www.starming.com/index.php?action=plugin&v=wave&tpl=union&ac=group&gid=76"><img src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/76.gif">数据库</a></p></li><li class="mod_thumb_li"><p><a href="http://www.starming.com/index.php?action=plugin&v=wave&tpl=union&ac=group&gid=34494"><img src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/34494.gif">像素画</a></p></li><li class="mod_thumb_li"><p><a href="http://www.starming.com/index.php?action=plugin&v=wave&tpl=union&ac=group&gid=32786"><img src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/32786.gif">大图英语</a></p></li></ul></dd>
+		</dl>
+		
+		
+		<script type="text/javascript">/*160*600，创建于2012-2-2*/ var cpro_id = 'u754981';</script><script src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/c.js" type="text/javascript"></script><script type="text/javascript" charset="utf-8" src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/ecom"></script><div style="display:none">-</div> <iframe id="cproIframe1" src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/uijs.htm" width="160" height="600" align="center,center" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" allowtransparency="true"></iframe>
+				
+			</div>
+<div class="clear"></div></div></div><div id="footer">
+
+		<p><b>关注我们：</b> <a href="http://t.sina.com.cn/allstarming" target="_blank"><img src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/sina.gif">关注新浪微博</a> <a href="http://www.douban.com/group/starming/" target="_blank"><img src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/douban.ico"> 豆瓣小组</a> <a href="http://www.starming.com/index.php?action=plugin&v=club&rss=all"><img src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/rss(1).png" style="width:16px;height:16px;">RSS</a>
+		</p>
+		<p>星光社QQ群：第一区191430246 第二区2876441</p>
+		<p><a href="http://www.starming.com/index.php">Starming 星光社</a> 版本:0.09   hi@starming.com <a href="http://www.starming.com/index.php?action=plugin&v=wave&tpl=union&ac=module&m=about" target="_blank">关于我们</a> <a href="http://www.starming.com/xml/starming_extension-0.1-fx.xpi">火狐扩展</a> <a href="http://dianpu.tao123.com/?pid=mm_24519958_2340396_9063541&eventid=102167">淘店铺</a> 鄂ICP备11004199</p>
+		<div style="display:none;"><script language="javascript" type="text/javascript" src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/2249678.js"></script><a href="http://www.51.la/?2249678" target="_blank" title="51.la 专业、免费、强健的访问统计">网站统计</a>
+<img style="width:0px;height:0px" src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/go.asp">
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F818f494cbc112107d3041ee3e1e37f25' type='text/javascript'%3E%3C/script%3E"));
+</script><script src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/h.js" type="text/javascript"></script><a href="http://tongji.baidu.com/hm-web/welcome/ico?s=818f494cbc112107d3041ee3e1e37f25" target="_blank"><img border="0" src="./How To Render Wireframes With Ambient Occlusion In Maya, Using Mentalray_files/21.gif" width="20" height="20"></a>
+</div>
+
+ </div>
+ 
+ <div class="clear"></div>
+
+</body></html>

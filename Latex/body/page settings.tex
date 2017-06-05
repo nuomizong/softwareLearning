@@ -1,0 +1,15 @@
+% !Mode:: "TeX:UTF-8"
+
+
+\section{page settings}
+\subsection{Set Page Counter}
+After the title page, put
+
+\noindent\vspace{1em}\hrule
+\begin{verbatim}
+\clearpage
+\setcounter{page}{1}
+\end{verbatim}
+\noindent\hrule\vspace{1em}
+
+This is ok if you are using \textbf{oneside} option. But for \textbf{twoside}, it is better to \textbf{\textbackslash cleardoublepage}.

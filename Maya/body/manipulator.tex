@@ -1,0 +1,357 @@
+% !Mode:: "TeX:UTF-8"	% read in as utf8 file.
+
+\chapter{Manipulator}
+
+\section{Basic operations}
+
+\subsection{Move, Rotate and Scale view port}
+
+\subsubsection{Windows}
+\begin{enumerate}
+	\item Move
+	The \textbf{Move} operation is done by hold \textcolor{red}{ALT} and \textcolor{red}{Middle} button;
+	\item Rotate
+	The \textbf{Rotate} operation is done by holding \textcolor{red}{ALT} and \textcolor{red}{Left} button;
+	\item Scale
+	The \textbf{Scale} operation is done by holding \textcolor{red}{ALT} and \textcolor{red}{Right} button.		
+\end{enumerate}
+
+\subsubsection{Mac}
+\lstinline{Maya>Preference>Interface>device}
+\begin{enumerate}
+	\item roll mouse: deactivate
+	\item track mouse: one button
+	\item multi-touch gesture: deactivate
+	\item touchpad: cursor control
+\end{enumerate}
+
+option + mouse = rotate.
+option + control + mouse = scale.
+option + command+mouse = move.
+
+option + force pad down = rotate
+option + force pad down up or downwards = scale
+option + alt = move
+
+\subsubsection{oversized}
+Use \textcolor{red}{+/-} keys in keyboard to increase/decrease arrows' length 
+
+\subsection{Change view port numbers}
+Four views and one view can be achieved simply by press \textcolor{red}{Space Bar}.
+
+\subsection{Outliner - Objects list and selection}
+To see a list of all these objects and pick one easily, the \textcolor{red}{Outliner} is used. It is in the \textcolor{red}{Window Menu}.
+
+\subsection{Change polygon subdivisions}
+\textcolor{red}{Subdivisions} attributes of a polygon is lied in the \textcolor{red}{PolyXXX attribute}. Normally, there are three options: \textcolor{red}{subdivisions Axis}, \textcolor{red}{Subdivisions Height}, \textcolor{red}{Subdivisions Caps}.
+
+\subsection{Add divisions}
+Alternate to\textcolor{red}{changing polygon subdivisions}, \textcolor{red}{subdivisions of faces} can be changed directly using \textcolor{red}{Add divisions} options in the \textcolor{red}{Edit mesh} menu.
+
+\subsection{Hide and display objects}
+Select \textcolor{red}{objects} in the \textcolor{red}{Outliner} and use short key \textcolor{red}{Ctrl + h} to \textbf{hide} selected objects. Contrary, use \textcolor{red}{Shift + h} to \textbf{Show} selected objects.
+
+\subsection{Delete extra vertices, edges}
+Holding on \textcolor{red}{Left button} on the mouse to change to select \textcolor{red}{Vertice or Edge mode}.\\
+
+If vertices are deleted, the corresponding edges will be rebuilt. This operation has an effect on edges.\\
+
+If edges are deleted, the related faces will be reconstructed. This operation affects the division of faces. So can be adopted to eliminate extra divisions.
+
+\subsection{Using script editor}
+\textcolor{red}{Script Editor} is a powerful tool to see all former operations in a form of \textcolor{red}{Mel language}. Meanwhile, it contributes to find out:\\
+\begin{enumerate}
+	\item How many items, such as vertices, edges or faces etc, are selected.
+	\item the indices of selected items.
+	\item check operations and selections.
+\end{enumerate}
+
+\subsection{Move the centroid}
+Select a object or component, then choose \textcolor{red}{Move, Rotate or scale operation}, after that, press \textcolor{red}{Insert} to manipulate the \textcolor{red}{Pivot}.
+
+\subsection{Select specific vertex, edge or facet}
+\begin{itemize}
+	\item select one vertex
+	\textbf{select -r Mesh.vtx[1]}.
+	\item select one edge
+	\textbf{select -r Mesh.vtx[1]}.
+	\item Select one facet
+	\textbf{select -r Mesh.e[1]}.
+	\item Select several facet
+	\textbf{select -r Mesh.f[1]}.
+	\textbf{select -tgl Mesh.f[2]}.
+	\textbf{select -tgl Mesh.f[5]}.
+\end{itemize}
+
+\subsection{Snap / Move vertex to another vertex}
+In MAYA, change to \textbf{Vertex mode}, and go to the \textbf{Tool menu} and click \textbf{Snap to points} then use \textbf{Move operator} to \textbf{Snap this vertex to another vertex}.
+
+\subsection{Snap / Move pivot to specific vertex}
+After \textbf{Extrusion}, the pivot has been changed and if we move the \textbf{extrusion} right now, the profile will deform. So must make sure the pivot is in right place.
+
+\subsection{Duplicate objects}
+The easiest way to duplicate object is select \textbf{Move operator} then press \textbf{Ctrl+D}. After that, \textbf{move operator} changes to \textbf{Duplicate operator}. to exit \textbf{Duplicate operator}, press \textbf{d}.
+
+\subsection{Connect vertices}
+\textbf{Connect vertices} will connect two vertices to create a new edge. This tool locates in \textbf{Top-right corner} named \textbf{Show/Hide Modeling toolkit}.
+
+\subsection{Select visible vertices, edges and faces}
+You can use \textbf{backface culling}, it's under \textbf{Display-\textless Polygon} or you can open the tool settings for any transformation tool (select, move, scale etc) and check \textbf{camera based selection}. The two methods are shown in figure~\ref{fig: backface culling} and figure~\ref{fig:camera based selection}.
+
+\begin{figure}[htb]
+	\centering
+	\begin{minipage}[b]{0.45\textwidth}
+		\includegraphics[width=\textwidth]{"figures/backface culling"}
+		\caption{backface culling}\label{fig: backface culling}
+	\end{minipage}
+	\begin{minipage}[b]{0.45\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{"figures/camera based selection"}
+		\caption{camera based selection}\label{fig:camera based selection}
+	\end{minipage}
+	\vspace{\baselineskip}
+\end{figure}
+
+\subsection{View component information}
+Polygon elements, such as facets, edges are composed of vertex components. These component information can be seen via \textbf{Component Editor} under \textbf{general Editors} of \textbf{Window}, see figure~\ref{fig:view component information}.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\linewidth]{"figures/View component information"}
+	\caption{Vew component information}\label{fig:view component information}
+\end{figure}
+
+\subsection{Invert section}
+In order to invert the selection to pick unselected faces, hold down \textbf{shift} and mass select the object...\textbf{shift} is a toggle select thus selecting the inverse.
+
+\subsection{Deleted dangling vertices}
+Delete dangling vertices, which mean there are no edges connecting to these vertices, select the whole object and press delete.
+
+\subsection{Merge mass vertices}
+Select the object and use \textbf{Edit Mesh -\textgreater Merge Components}.
+
+\subsection{Symmetric selection}
+If the \textbf{Symmetry} option is set to be \textbf{Object}, then whenever you select a element (vertex, face), the symmetric element will also be selected at the same time! To turn it off, go to \textbf{Select tool settings} and under \textbf{Symmetry Settings tab}, change the option to \textbf{Off}. Done!
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width = 0.5\textwidth]{figures/symmetric_selection}
+	\caption{Symmetric selection} \label{fig: Symmetric selection}
+\end{figure}
+
+
+\section{Modeling Toolkit}
+To show or hide \textbf{Modeling Toolkit} click the first icon of \includegraphics{"figures/Modeling Toolkit"}.
+
+\subsection{Multi-Cut Tool}
+Tools to cut, slice, and insert edges on polygons.
+
+\subsubsection{Slice a mesh}
+See figure \ref{fig: slice a mesh}.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\textwidth]{"figures/slice a mesh"}
+	\caption{slice a mesh}\label{fig: slice a mesh}
+\end{figure}
+
+\subsubsection{Cut faces}
+See figure \ref{fig: cut faces}.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\textwidth]{"figures/cut faces"}
+	\caption{cut faces}\label{fig: cut faces}
+\end{figure}
+
+
+\subsubsection{Slice a mesh with the Multi-cut tool}
+You can use the Multi-cut tool to slice polygons along a plane, and then extract or delete faces above or bellow the cut.
+
+To slice a mesh using a custom plane:
+\begin{enumerate}
+	\item Select the mesh you want to slice.
+	\item Open the Multi-cut Tool.
+	\item Click on either side of your mesh to define two slice points.\\
+	An orange slice preview line appears between the slice points. This line represents the slice plane.
+	\item edit your slice plane by doing the following:
+	\begin{itemize}
+		\item \includegraphics[scale=0.6]{"figures/reposition using mouse"}-drag to reposition the plane.
+		\item Drag to reposition slice points.
+	\end{itemize}
+	\item (Optional) In the \textbf{Modeling Toolkit window}, select \textbf{Delete faces or extract Faces} in the \textbf{Slice Tool options}. A dotted line perpendicular to the slice preview appears, indicating the side of the mesh that will be deleted or extracted. see figure \ref{fig: multi-cut slice line}.
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{"figures/multi-cut slice line"}
+		\caption{multi-cut slice line}\label{fig: multi-cut slice line}
+	\end{figure}
+	
+	\item Press \textbf{Enter} or \includegraphics[scale=0.6]{"figures/cut plane using mouse"}-click to cut the mesh along the slice plane.
+	
+	\begin{center}
+		\includegraphics[width=\textwidth]{"figures/multi-cut slice"}
+	\end{center}
+	
+\end{enumerate}
+
+
+
+\subsection{Bridge Tool}
+Creates bridging faces between selected edges or faces.
+
+Click \textbf{Bridge} button to toggle it on and multi-select polygon components. Or holding down \textbf{Shift Key} to select polygon components then click \textbf{Bridge} button. See figure \ref{fig: Bridge Tool}.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\textwidth]{"figures/Bridge Tool"}
+	\caption{Bridge Tool}\label{fig: Bridge Tool}
+\end{figure}
+
+\subsection{Connect Tool}
+Connects the selected polygon components by inserting an edge between them.
+
+Click \textbf{Connect} button to toggle it on and multi-select polygon components. Or holding down \textbf{Shift Key} to select polygon components then click \textbf{Connect} button. See figure \ref{fig: Connect Tool}.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\textwidth]{"figures/Connect Tool"}
+	\caption{Connect Tool}\label{fig: Connect Tool}
+\end{figure}
+
+\section{Differences between Extrude and Scale}
+Sometimes geometry is transformed. It can be done via \textcolor{red}{Extrude} or \textcolor{red}{Scale}. The difference between these two methods is \textcolor{red}{Extrude changes the geometry}. On the other hand, \textcolor{red}{Scale keeps the geometry ratio}.
+
+\section{Import an image plane}
+In order to import an image, an image plane should be created firstly. Click \textcolor{red}{View} in the view port panel and then click \textcolor{red}{Camera Attribute editor}. In the \textcolor{red}{Attribute editor}, find the \textcolor{red}{Environment} section and press \textcolor{red}{create}. After that select an image file to create a background image.\\
+
+Another way is to click \textcolor{red}{Free Image plane} inside \textcolor{red}{Create Menu}.
+
+\section{X-Ray}
+\textcolor{red}{X-ray} is quite useful in viewing interior geometry or interactions between two objects. To turn on this function, follow \textcolor{red}{each view port-\textgreater Shading-\textgreater X-Ray}.
+
+\section{make shull geometry of surfaces}
+In order to create a thin shull of original surfaces, \textcolor{red}{Extrude} is required. The trick lies in after selecting the object, go to the \textcolor{red}{Edit Mesh for Face-\textgreater Extrude}. In the pop-up menu, input the \textcolor{red}{Thickness} you need and then apply.
+
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width=0.5\linewidth]{"figures/Making shull by Extrude"}
+	\caption{Finding distance in Maya}
+	\label{fig:Making shell by Extrude}
+\end{figure}
+
+\section{Finding distances in Maya}
+Go to \textbf{Create-\textgreater measure tools-\textgreater distance tool}. Now click anywhere on the grid twice to define two distance points.\\
+
+When you're done, it will create two locators and the distance node. The distance node displays the distance of Maya units in the view port.
+
+\begin{figure}[tbh]
+	\centering
+	\includegraphics[width=0.5\linewidth]{"figures/Finding distances in maya"}
+	\caption{Finding distance in Maya}
+	\label{fig:Finding distances in maya}
+\end{figure}
+
+\section{Clear holes}
+\textcolor{red}{Fill hole} can be done simply by click \textcolor{red}{fill hole} of \textcolor{red}{Mesh menu}. A more delicate way is to select all these edges around the hole and apply the \textcolor{red}{Fill hole} command.
+
+\section{Clear intersections}
+Previously, I thought intersections can be solved simply by \textcolor{red}{deleting intersected polygons} and then \textcolor{red}{fill hole}. Thanks to \textbf{Ezhaz}, he told me that \textcolor{red}{\textit{intersections should be operated simply by deleting and filling hole due to topology. If an important vertex is eliminated, the whole model may collapse. It's like a neck connecting head and body.}}. The solution to this problem, according to \textcolor{red}{Ezhaz}, is to \textcolor{red}{\textit{manually edit vertices or edges, like delete edges and vertices while keep faces or merge some very close vertices}}. The merge option needs two vertices to be close enough. so he used \textcolor{red}{Snap to points} and \textcolor{red}{Move operations} to successfully merge two vertices into one, thus solve this problem without changing the topology.
+
+\section{Clear Non-manifold elements}
+While modelling, due to deleting vertices or edges or extrude, some non-manifold elements will be created. All these elements perform badly during post-process and tetrahedron. It is wise to check and clear these elements all the time to make sure the mesh in good condition.\\
+
+The best way to deal with \textbf{Non-manifolds} is almost the same with dealing with \textbf{Clear intersections}. Besides \textbf{moving and merging vertices}, one more thing has to be done is to \textbf{add more edges} to clear non-manifolds.\\
+
+\section{Blueprint modeling}
+Use three cameras to capture \textbf{Front, Side and Top} views of a model, then position these photos in corresponding places in Maya and use them to build model manually. See figure \ref{fig: Blueprint modeling}.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{"figures/Blueprint modeling"}
+	\caption{Blueprint modeling}\label{fig: Blueprint modeling}
+\end{figure}
+
+Another related technique is using \textbf{3D Scanner}. The principle is shown via figures:
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}[b]{0.45\textwidth} % b means alignment at the bottom
+		\centering
+		\includegraphics[width=\textwidth]{figures/3dscanner1}
+		\caption{3dscanner1}\label{fig:subfig:3dscanner1}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.45\textwidth}
+		\centering
+		%	\includegraphics[width=\textwidth]{3dscanner2}
+		\caption{3dscanner2}\label{fig:subfig:3dscanner2}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.45\textwidth} % b means alignment at the bottom
+		\centering
+		%	\includegraphics[width=\textwidth]{3dscanner3}
+		\caption{3dscanner3}\label{fig:subfig:3dscanner3}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.45\textwidth}
+		\centering
+		%\includegraphics[width=\textwidth]{3dscanner4}
+		\caption{3dscanner4}\label{fig:subfig:3dscanner4}
+	\end{subfigure}
+	\caption{3D scanner}
+	\vspace{\baselineskip}
+\end{figure}
+
+\section{Smooth rendering}
+I tried \textbf{Maya Smooth}, \textbf{Mental ray Smooth} and \textbf{Soften Edge}. Personally, I prefer \textbf{Soften Edge}, as \textbf{Maya Smooth} is always to smooth all mesh regardless of what I have selected, and \textbf{Mental ray Smooth} is hard to control the light and the result. Damn it, \textbf{Mental ray} rendering can use \textbf{Soften Edge} as well.
+
+\subsection{Soften Edge}
+Select all edges will be soften and go to \textbf{Normals}, apply \textbf{Soften Edge}, then selected edges are softened! Bravo!
+
+\subsection{Partly soften Edge}
+Sometimes, I need to keep sharp corners and borders sharp so, select these edges or \textcolor{red}{convert from face selections to edges} and \textcolor{red}{Inverse} selection to select all edges need to be softened.
+
+\subsection{Maya Smooth}
+The smooth method is under \textbf{Mesh}. Number of subdivisions and method can also be set here. But more subdivisions slower the computation is. I can't bear with it. Meanwhile, I cant apply \textbf{Maya Smooth} to selected faces, what a shame!
+
+\subsection{Mental ray Smooth}
+\textbf{Mental ray Smooth} seems to be a smooth method taking effect during real time rendering. It's faster than \textbf{Maya Smooth} but the result seems almost the same as it does smooth the whole mesh. by the way, it is hard to cope with.
+
+The \textbf{Mental ray Smooth} Editor is under \textbf{Window $ \rightarrow $ Rendering Editors $ \rightarrow $ Mental ray $ \rightarrow $ Approximation Editor}. Then select Object and create subdivisions and assign it to the object.
+
+\section{User defined Shelf}
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.7\linewidth]{"figures/User-defined shelf"}
+	\caption{User defined shelf}
+	\label{fig:user-defined-shelf}
+\end{figure}
+
+\section{Wireframe rendering}
+Use Maya Vector to render edges.
+
+Edge style:
+\begin{itemize}
+	\item Outlines: can render Quad mesh.
+	\item Entire Mesh: if is a quad mesh will be converted to tri mesh implicitly.
+\end{itemize}
+
+\section{Curving editing}
+To add more points and smooth curve, go to \textbf{edit curves -- rebuild curve} and change \textbf{number of spans} to wanted values.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.5\linewidth]{figures/rebuild_curve_menu}
+	\caption{ rebuild curve}
+	\label{fig:rebuildcurvemenu}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.5\linewidth]{figures/rebuild_curve_option}
+	\caption{change number of spans}
+	\label{fig:rebuildcurveoption}
+\end{figure}
+
+\section{Quad draw}
+
+\section{z up}
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{figures/z_up/maya_z_up}
+	\caption{z up}
+	\label{fig:mayazup}
+\end{figure}

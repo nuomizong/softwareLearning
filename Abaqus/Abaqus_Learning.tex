@@ -1,0 +1,168 @@
+% !Mode:: "TeX:UTF-8"	% read in as utf8 file.
+\documentclass[10pt,a4paper]{article}
+
+\input{D:/360Sync/Dropbox/myStyle.tex}
+%\input{/Users/nuomizong/Dropbox/myStyle.tex}
+
+\begin{document}
+\author{Anzong Zheng}
+\title{Learning Abaqus}
+\date{January 20, 2015}
+\maketitle
+
+\tableofcontents
+
+\newpage
+
+\section{Operations}
+\begin{itemize}
+	\item Move object: \textbf{Ctrl + alt + middle button of Mouse}
+	\item Rotate object: \textbf{Ctrl + alt + left button of Mouse}
+\end{itemize}
+
+\section{A simple introduction to Python}
+\subsection{Start the Python interpreter}
+Python is an interpreted language. This means you can type a statement and view the results without having to compile and link your scripts.
+
+If youhave Abaqus installed on your UNIX or Windows workstation, type \textbf{abaqus python} at the system prompt. Python enters its interpretive mode and displays the \textgreater \textgreater \textgreater prompt.
+
+\subsection{See the value of a variable or expression}
+You can enter Python statements at the \textgreater \textgreater \textgreater prompt. To see the value of a variable or expression, type the variable name or expression at the Python prompt. 
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.7\linewidth]{"Start Python interpretive mode"}
+\caption{Start Python interpretive mode} \label{fig:StartPythoninterpretivemode}
+\vspace{\baselineskip}
+\end{figure}
+
+\subsection{Exit Python interpreter}
+To exit the Python Interpreter, type \textbf{[Ctrl+D]} on UNIX systems or \textbf{[Ctrl]+Z[Enter]} on Windows systems.
+
+\section{Run Abaqus Python for results}
+\subsection{Run Python script}
+You can also use Python to run a script directly by typing \textbf{abaqus python} \textit{scriptname}\textbf{.py} at the system prompt. Abaqus will run the script through the Python interpreter and return you to the system prompt.
+
+\section{Import job via .inp file}
+In \textbf{Model module}, double click \textbf{Jobds} under \textbf{Analysis} to create a new job. In the \textbf{Drop-down arrow of Source}, choose \textbf{Input File} then select the targeted .inp file.
+
+\textbf{NOTE:} this method not only can import the whole model, but also can specify the job.
+
+\section{Running a script when you start Abaqus/CAE}
+You can run a script when you start an Abaqus/CAE session by typing the following command:
+
+\noindent\vspace{1em}\hrule
+\begin{verbatim}
+abaqus cae script=myscript.py
+\end{verbatim}
+\noindent\hrule\vspace{1em}
+
+where \textbf{myscript.py} is the name of the file containing the script. The equivalent command for Abaqus/Viewer is
+
+\begin{lstlisting}[language=command.com]
+abaqus viewer script=myscript.py
+\end{lstlisting}
+
+Arguments can be passed into the script by entering -- on the command line, followed by the arguments separated by one or more spaces. These arguments will be ignored by the Abaqus/CAE execution procedure, but they will be accessible within the script. For more information, see "Abaqus/CAE execution," Section 3.2.5 of the Abaqus Analysis User's Manual, and "Abaqus/Viewer execution," Section 3.2.6 of the Abaqus Analysis User's Manual.
+
+\section{Export stiffness matrix}
+By adding following lines in the inp file  just after \lstinline|** STEP: staticAnalysis|
+\begin{lstlisting}
+*STEP, name=exportmatrix
+*MATRIX GENERATE, STIFFNESS
+*MATRIX OUTPUT, STUFFNESS, FORMAT=COORDINATE
+*END STEP
+\end{lstlisting}
+\section{Abaqus/CAE execution}
+\subsection{Overview}
+Abaqus/CAE, an interactive environment for creating, submitting, monitoring, and evaluating results from Abaqus simulations, is executed by runing the Abaqus execution procedure and specifying the \textbf{cae} parameter.
+
+\subsection{Command summary}
+\begin{lstlisting}[language=command.com]
+abaqus cae       [database=databse-file]
+                 [replay=replay-file]
+                 [recover=journal-file]
+                 [startup=startup-file]
+                 [script=script-file]
+                 [noGUI=[noGUI-file]]
+                 [noenvstartup]
+                 [noSavedOptions]
+                 [noSavedGuiOptions]
+                 [noStartupDialog]
+                 [custom=script-file]
+                 [guiTester[GUI-script]]
+                 [guiRecord]
+                 [guiNoRecord]
+\end{lstlisting}
+
+\section{beam}
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.7\linewidth]{beam_crosssection}
+\caption{beam cross-setion}
+\label{fig:beamcrosssection}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.7\linewidth]{export_beam}
+\caption{export beam obj}
+\label{fig:exportbeam}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.7\linewidth]{view_beam_1}
+\caption{view beam 1}
+\label{fig:viewbeam1}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.7\linewidth]{view_beam_2}
+\caption{view beam 2}
+\label{fig:viewbeam2}
+\end{figure}
+
+\section{View}
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.5\linewidth]{view_tools2}
+	\caption{view tools 2}
+	\label{fig:viewstool}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.5\linewidth]{views_tool}
+\caption{view tools}
+\label{fig:viewstool}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.5\linewidth]{view_continuous}
+	\caption{view continuous}
+	\label{fig:viewstool}
+\end{figure}
+
+Use \textbf{Ctrl} + print and choose corresponding format, like png or others.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.5\linewidth]{Savefigure}
+\caption{save figure.}
+\label{fig:savefigure}
+\end{figure}
+
+No edges:
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.5\linewidth]{no_edges}
+\caption{no edges}
+\label{fig:noedges}
+\end{figure}
+
+
+\end{document}

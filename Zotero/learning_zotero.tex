@@ -1,0 +1,35 @@
+% !Mode:: "TeX:UTF-8"	% read in as utf8 file.
+\documentclass[10pt,a4paper]{article}
+
+\input{D:/Git/softwareLearning/Latex/myStyle.tex}
+
+\begin{document}
+\author{Anzong Zheng}
+\title{Learning Zotero}
+\date{June 5th, 2016}
+\maketitle
+
+\tableofcontents
+
+\newpage
+\section{Add files as links}
+Drag file to Zotero with \textbf{Ctrl + Shift}.
+
+Linked files are not copied, and are not synced by Zotero.
+
+\subsection{File links with relative paths.}
+By default, Zotero uses absolute paths to keep track of linked files. However, in the \textbf{Files and Folders} tab of the \textbf{Advanced} tab in the Zotero preferences, you can select a base directory for linked files from which Zotero forms relative paths instead. This makes it possible to use a third-party solution (such as Dropbox) to sync (large) files between different computers and operating systems.
+
+For example, you can save some files to a “Zotero Files” directory in your Dropbox folder, and add these files to your Zotero library as links. If you have two computers that are synced through Zotero Sync and through Dropbox, you will be able to access your linked files from within Zotero on either computer, once you have selected the “Zotero Files” directory in the Zotero preferences on both computers.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\linewidth]{file_link_with_relative_paths}
+\caption{file links with relative paths}
+\label{fig:file_link_with_relative_paths}
+\end{figure}
+
+\section{change language}
+In Zotero Standalone, the interface language defaults to matching the operating system's language. To override this and use English instead of the operating system's language, open \textbf{Preferences} $ \rightarrow $ \textbf{Advanced} $ \rightarrow $ Open \textbf{about:config}), and set \textcolor{red}{intl.locale.matchOS} to false. To choose a language other than English, search for \textcolor{red}{general.useragent.locale} and change it to the appropriate language code (e.g., fr-FR for French). Once you've made the necessary changes, restart Zotero.
+
+\end{document}

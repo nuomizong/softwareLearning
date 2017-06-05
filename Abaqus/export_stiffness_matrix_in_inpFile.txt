@@ -1,0 +1,19 @@
+
+------------- export stiffness matrix --------------
+** STEP: staticAnalysis
+** 
+*STEP, name=exportmatrix
+*MATRIX GENERATE, STIFFNESS
+*MATRIX OUTPUT, STIFFNESS, FORMAT=COORDINATE
+*END STEP
+**
+*Step, name=staticAnalysis
+*Static
+1., 1., 1e-05, 1.
+
+------------- export nodal stress --------------
+*ELEMENT OUTPUT, POSITION=NODES
+(1.POSITION=AVERAGED AT NODES if the values being printed are the averages of values extrapolated to the nodes of the elements in the set. Since variables may be discontinuous between elements with different properties, Abaqus/Standard breaks the output into separate tables for different element property definitions within the element set specified. Abaqus/Standard will also output elements of differing types separately. Thus, averaging will occur only over elements that contribute to a node that have the same type.
+2. Set POSITION=CENTROIDAL if values are being printed at the centroid of the element (the centroid of the reference surface of a shell element, the midpoint between the end nodes of a beam element).
+3. Set POSITION=INTEGRATION POINTS (default) if values are being printed at the integration points at which the variables are actually calculated.
+4. Set POSITION=NODES if the values being written are extrapolated to the nodes of each element in the set but not averaged at the nodes.)

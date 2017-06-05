@@ -1,0 +1,34 @@
+
+=============================== for gui under windows
+1. revert operations:
+	git log
+	git revert <several front characters from log>
+
+2. Retrieve deleted files.
+	git checkout origin/master
+
+3. add ssh key from git gui.
+4. git fetch and git merge.
+
+# clone a reposity from remote.
+Choose Clone and Copy from remote like: git@github.com:nuomizong/Test_Models.git
+and in the target input an empty folder like: D:/Git/Test_Models
+
+
+========================== for commands under linux
+1. sudo apt-get install git
+2. config --global user.email "nuomizong@qq.com"
+3. config --global user.name "nuomizong"
+4. gt init --bare Git
+5. git clone git@github.com:nuomizong/C_library.git
+6. git commit -a
+7. git push origin master
+
+6. # Change into home directory:
+	cd ~
+	# Generate a key pair:
+7. ssh-keygen -t rsa
+8. # Concatenate the key:
+cat ~/.ssh/id_rsa.pub
+
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC0vAehXj64vlmHgEw3rRNHPlrdl/OMaskSO5D6MGtvU2B0On+DcaOf8lCVx+HYKiw7kUK256mjCPJkHcr5aK4IqUrs8RrL/icJF7S8RBurtmOr2kwyshwwY0Xao1s/LbzvYekSixVYT8pKvhxwX/Za8dNworBre211hUGL2n2ZGKH9xU4AANfA97K9+ZwtpOmKltH2Sp8O/dz8sHbSRJ8ROG8jJsuj+pdky6QWwvAbJgYm5RHKG6ijyZT9lXK5Tdr6rBPqscn1ff7WRI4tVmwko8DWldtOmvATLJfUg9AWt/f6stQmgvlk2EAAmncUJUa781ZYkNDnNg3h68yoge0N

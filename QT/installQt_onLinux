@@ -1,0 +1,6 @@
+================= install qt using .run
+1. download name.run
+2. cd to name.run
+3. chmod +x name.run
+4. ./ name.run
+

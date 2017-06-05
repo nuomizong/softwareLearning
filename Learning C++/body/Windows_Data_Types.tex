@@ -1,0 +1,91 @@
+	\chapter{Windows Data Types}
+	
+	Link: \url{https://msdn.microsoft.com/en-us/library/windows/desktop/aa383751(v=vs.85).aspx}	
+	
+	The data types supported by \textbf{Windows} are used to define function return values, function and message parameters, and structure members. They define the size and meaning of these elements. For more information about the underlying C/C++ data types, seee \textbf{Data Type Ranges}.
+	
+	The following table contains the following types:character, integer, Boolean, pointer, and handle. The character, integer, and Boolean types are common to most C compilers. Most of the pointer-type begin with a prefix of P or LP. Handles refer to a resource that has been loaded into memory.
+	
+	For more information about handling 64-bit integers, see \textbf{Large Integers}.
+	
+	\begin{longtable}{|l|l|}
+		\caption{Windows Data Types} \label{table: Windows Data Types} \\
+		
+		\hline Data types & Description \\ \hline 
+		\endfirsthead
+		
+		\hline {{\bfseries \tablename\ \thetable{} -- continued from previous page}} \\
+		\hline Data types & Description \\ \hline 
+		\endhead
+		
+		\hline \multicolumn{2}{|r|}{{Continued on next page}} \\ \hline
+		\endfoot
+		
+		\hline \hline
+		\endlastfoot
+		
+		\textbf{BOOL} & \parbox{8cm}{A \textbf{Boolean} variable (should be \textbf{TRUE} or \textbf{FALSE}).\\ This type is declared in \textbf{WinDef.h} as follows:\\ \textcolor{blue}{typedef int BOOL;}\\ *Comment: C doesn't have a boolean type.}\\
+		\hline
+		\textbf{BOOLEAN} & \parbox{8cm}{A \textbf{Boolean} variable (should be \textbf{TRUE} or \textbf{FALSE}).\\ This type is declared in \textbf{WinNT.h} as follows:\\ \textcolor{blue}{typedef BYTE BOOL;}\\ *Comment: C doesn't have a boolean type.}\\
+		\hline
+		\textbf{BYTE} & \parbox{8cm}{A \textbf{byte (8 bits)}\\ This type is declared in \textbf{WinDef.h} as follows:\\ \textcolor{blue}{typedef unsigned char BYTE}}\\
+		\hline
+		\textbf{CALLBACK} & \parbox{8cm}{The calling convention for callback functions.\\ This type is declared in \textbf{WinDef.h} as follows:\\ \textbf{\#define CALLBACK \_\_stdcall;}\\ \textbf{CALLBACK}, \textbf{WINAPI}, and \textbf{APIENTRY} are all used to define functions with the \_\_stdcall calling convention. Most functions in the Windows API are declared using \textbf{WINAPI}. You may wish to use \textbf{CALLBACK} for the callback functions that you implement to help identify the function as a callback function.}\\
+		\hline
+		\textbf{CCHAR} & \parbox{8cm}{An 8-bit \textbf{Windows (ANSI)} character.\\ This type is declared in \textbf{WinNT.h} as follows:\\ \textcolor{blue}{typedef char CCHAR;}}\\
+		\hline	
+		\textbf{CHAR} & \parbox{8cm}{An 8-bit \textbf{Windows (ANSI)} character.\\ This type is declared in \textbf{WinNT.h} as follows:\\ \textcolor{blue}{typedef char CHAR;}}\\
+		\hline
+		\textbf{CONST} & \parbox{8cm}{A variable whose value is to remain constant during execution.\\ This type is declared in \textbf{WinDef.h} as follows:\\ \textcolor{blue}{\#define CONST const}}\\
+		\hline
+		\textbf{DWORD} & \parbox{8cm}{A 32-bit unsigned integer.\\ The range is 0 through 4294967295 decimal.\\ This type is declared in \textbf{IntSafe.h} as follows:\\ \textcolor{blue}{typedef unsigned long DWORD;}}\\
+		\hline
+		\textbf{FLOAT} & \parbox{8cm}{A floating-point variable.\\ This type is declared in \textbf{WinDef.h} as follows:\\ \textcolor{blue}{typedef float FLOAT;}}\\
+		\hline
+		\textbf{HANDLE} & \parbox{8cm}{A handle to an object.\\ This type is declared in \textbf{WinNT.h} as follows:\\ \textcolor{blue}{typedef PVOID HANDLE;}}\\
+		\hline
+		\textbf{HWND} & \parbox{8cm}{A handle to a \textbf{window}.\\ This type is declared in \textbf{WinDef.h} as follows:\\ \textcolor{blue}{typedef HANDLE HWND;}}\\
+		\hline
+		\textbf{INT} & \parbox{8cm}{A 32-bit signed integer. The range is -2147483648 through 2147483647 decimal.\\ This type is declared in \textbf{WinDef.h} as follows:\\ \textcolor{blue}{typedef int INT;}}\\
+		\hline
+		\textbf{LONG} & \parbox{8cm}{A 32-bit signed integer. The range is -2147483648 through 2147483647 decimal.\\ This type is declared in \textbf{WinDef.h} as follows:\\ \textcolor{blue}{typedef long LONG;}}\\
+		\hline
+		\textbf{LPCSTR} & \parbox{8cm}{A pointer to a constant null-terminated string of 8-bit Windows (ANSI) characters.\\ This type is declared in \textbf{WinNT.h} as follows:\\ \textcolor{blue}{typedef \_\_nullterminated CONST CHAR *LPCSTR;}}\\
+		\hline
+		\textbf{LPCTSTR} & \parbox{8cm}{An\textbf{ LPCWSTR} if \textbf{UNICODE} is defined, an \textbf{LPCSTR} otherwise. \\ This type is declared in \textbf{WinNT.h} as follows:\\ \textcolor{blue}{\#ifdef UNICODE\\
+					       typedef LPCWSTR LPCTSTR;\\
+					    \#else\\
+					       typedef LPCSTR LPCTSTR;\\
+					    \#endif}}\\
+		\hline
+		\textbf{LPCVOID} & \parbox{8cm}{A pointer to a constant of any type. \\ This type is declared in \textbf{WinDef.h} as follows:\\ \textcolor{blue}{typedef CONST void *LPCVOID;}}\\
+		\hline
+		\textbf{LPCWSTR} & \parbox{8cm}{A pointer to a constant null-terminated string of 16-bit Unicode characters. \\ This type is declared in \textbf{WinNT.h} as follows:\\ \textcolor{blue}{typedef CONST WCHAR *LPCWSTR;}}\\
+		\hline
+		\textbf{LPSTR} & \parbox{8cm}{A pointer to a null-terminated string of 8-bit Windows (ANSI) characters. \\ This type is declared in \textbf{WinNT.h} as follows:\\ \textcolor{blue}{typedef CHAR *LPSTR;}}\\
+		\hline
+		\textbf{LPTSTR} & \parbox{8cm}{An \textbf{LPWSTR} if \textbf{UNICODE} is defined, an \textbf{LPSTR} otherwise.  \\ This type is declared in \textbf{WinNT.h} as follows:\\ \textcolor{blue}{\#ifdef UNICODE\\
+				            typedef LPWSTR LPTSTR;\\
+				          \#else\\
+							typedef LPSTR LPTSTR;\\
+						  \#endif}}\\
+		\hline
+		\textbf{SHORT} & \parbox{8cm}{A 16-bit integer. The range is –32768 through 32767 decimal.\\ This type is declared in \textbf{WinNT.h} as follows:\\ \textcolor{blue}{typedef short SHORT;}}\\
+		\hline
+		\textbf{TCHAR} & \parbox{8cm}{A \textbf{WCHAR} if \textbf{UNICODE} is defined, a \textbf{CHAR} otherwise.\\ This type is declared in \textbf{WinNT.h} as follows:\\
+		\textcolor{blue}{\#ifdef UNICODE\\
+						   typedef WCHAR TCHAR;\\
+						 \#else\\
+							typedef char TCHAR;\\
+						 \#endif}}\\
+		\hline
+		\textbf{UINT} & \parbox{8cm}{An unsigned \textbf{INT}. The range is 0 through 4294967295 decimal.\\ This type is declared in \textbf{WinDef.h} as follows:\\ \textcolor{blue}{typedef unsigned int UINT;}}\\
+		\hline
+		\textbf{VOID} & \parbox{8cm}{Any type.\\ This type is declared in \textbf{WinNT.h} as follows:\\ \textcolor{blue}{\#define void VOID}}\\
+		\hline
+		\textbf{WCHAR} & \parbox{8cm}{A 16-bit Unicode character.\\ This type is declared in \textbf{WinNT.h} as follows:\\ \textcolor{blue}{typedef wchar\_t WCHAR;}}\\
+		\hline
+		\textbf{WINAPI} & \parbox{8cm}{The calling convention for system functions.\\ This type is declared in \textbf{WinNDef.h} as follows:\\ \textcolor{blue}{\#define WINAPI \_\_stdcall}\\ \textbf{CALLBACK}, \textbf{WINAPI}, and \textbf{APIENTRY} are all used to define functions with the \_\_stdcall calling convention. Most functions in the Windows API are declared using \textbf{WINAPI}. You may wish to use \textbf{CALLBACK} for the callback functions that you implement to help identify the function as a callback function.}\\
+		\hline
+		\textbf{WORD} & \parbox{8cm}{A 16-bit unsigned integer. The range is 0 through 65535 decimal.\\ This type is declared in \textbf{WinDef.h} as follows:\\ \textcolor{blue}{typedef unsigned short WORD;}}\\
+	\end{longtable}

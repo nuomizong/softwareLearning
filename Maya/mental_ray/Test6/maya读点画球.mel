@@ -1,0 +1,36 @@
+$filename = "e:\\pipeline\\fandisk\\Feature_fandisk_process_three.txt";
+$radius = 0.015;
+
+int $fileId = `fopen $filename r`;
+if( $fileId == 0 )
+  error ("Unable to open file " + $filename + " for reading");
+
+$sphereName = `polySphere -ch on -o on -r $radius` ;
+rename $sphereName[0] "pSphereTemp";
+rename $sphereName[1] "polySphereTemp";
+
+
+while ( !`feof $fileId` ) 
+{
+    string $nextWord = `fgetline $fileId`;
+    if ( size( $nextWord ) > 0 ) 
+    {
+       //print ( $nextWord + "\n" );
+       select -r "pSphereTemp";
+       instance;
+       $string = "move -a " + $nextWord ;
+       eval($string);
+	 scale -r 0.5 0.5 0.5;
+    }
+}
+
+delete "pSphereTemp";
+fclose $fileId;
+
+
+//group; xform -os -piv 0 0 0;
+//$sphereMaterial = `shadingNode -asShader lambert`;
+//rename $sphereMaterial "lambertTemp" ;
+//sets -e -forceElement $sphereMaterial;
+// 这一句可以修改所有球的半径大小
+//setAttr "polySphereTemp.radius" 0.005;

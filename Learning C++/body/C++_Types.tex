@@ -1,0 +1,549 @@
+	\chapter{C++ Types}	
+
+	\section{size\_t}
+	\textbf{Unsigned integral type}\\
+	
+	It is a type able to represent the size of any object in bytes: \textbf{size\_t} is the type of returned by the \textbf{sizeof} operator and is widely used in the standard library to represent sizes and counts.
+	
+	In \textbf{\textless cstring \textgreater}, it is used as the type of the parameter \textit{num} in the functions \textbf{memchr, memcmp, memcpy, memmove, memset, strncat, strncpy,} and \textbf{strxfrm}, which in all cases it is used to specify the maximum number of bytes or characters the function has to affect.
+	
+	It is also used as the return type for \textbf{strcspn, strlen, strspn} and \textbf{strxfrm} to return sizes and lengths.
+	
+	\section{Differences between main char* and \_tmain, \_TCHAR*}
+	\textbf{\_tmain} does not exist in C++. \textbf{main} does.\\
+	
+	\textbf{\_tmain} is a Microsoft extension.\\
+	
+	\textbf{main} is, according to the C++ standard, the program's entry point. It has one of these two signatures:\\
+	
+	\textbf{int main();\\
+		int main(int argc, char* argv[]);}\\
+	
+	Microsoft has added a \textbf{wmain} which replaces the second signature with this:
+	
+	\textbf{int wmain(int argc, wchar\_t* argv[]);}\\
+	
+	And then, to make it easier to switch between Unicode (UTF-16) and their multibyte character set, they've defined \textbf{\_tmain} which, if Unicode is enabled, is compiled as \textbf{wmain}, and otherwise as \textbf{main}.\\
+	
+	As for the second part of your question, the first part of the puzzle is that your main function is wrong. \textbf{wmain} should take a \textbf{wchar\_t} argument, not \textbf{char}. Since the compiler doesn't enforce this for the \textbf{main} function, you get a program where an array of \textbf{wchar\_t} strings are passed to the \textbf{main} function, which interprets them as \textbf{char} strings.\\
+	
+	Now, in UTF-16, the character set used by Windows when Unicode is enabled, all the ASCII characters are represented as the pair of bytes \textbf{\\0} followed by the ASCII value.\\
+	
+	And since the x86 CPU is little-endian, the order of these bytes are swapped, so that the ASCII value comes first, then followed by a null byte.\\
+	
+	And in a char string, how is the string usually terminated? Yep, by a null byte. So your program sees a bunch of strings, each one byte long.\\
+	
+	In general, you have three options when doing Windows programming:\\
+	
+	\begin{itemize}
+		\item Explicitly use Unicode (call \textbf{wmain}, and for every Windows API function which takes char-related arguments, call the \textbf{-W} version of the function. Instead of CreateWindow, call CreateWindowW). And instead of using \textbf{char} use \textbf{wchar\_t}, and so on
+		\item Explicitly disable Unicode. Call main, and CreateWindowA, and use \textbf{char for strings}.
+		\item Allow both. (call \textbf{\_tmain}, and CreateWindow, which resolve to main/\textbf{\_tmain} and CreateWindowA/CreateWindowW), and use TCHAR instead of char/wchar\_t.
+	\end{itemize}
+	
+	The same applies to the string types defined by windows.h: LPCTSTR resolves to either LPCSTR or LPCWSTR, and for every other type that includes char or wchar\_t, a -T- version always exists which can be used instead.\\
+	
+	Note that all of this is Microsoft specific. TCHAR is not a standard C++ type, it is a macro defined in windows.h. \textbf{wmain} and \textbf{\_tmain} are also defined by Microsoft only.\\
+	
+	\section{What are TCHAR, WCHAR, LPSTR, LPWSTR, LPCSTR etc.?}
+	Many C++ Windows programmers get confused over what bizarre identifiers like \textbf{TCHAR, LPCSTR} are. In this article, I would attempt by test to clear out the fog.\\
+	
+	In general, a character can be represented in 1 byte or 2 bytes. Let's say 1-byte character is \textbf{ANSI character} -all English characters are represented through this \textit{encoding}. And let's say a 2-byte character is \textbf{Unicode}, which can represent All languages in the world.\\
+	
+	the Visual C++ compiler supports \textbf{char} and \textbf{wchar\_t} as native data-types for \textbf{ANSI} and \textbf{Unicode} characters, respectively. Though there is more concrete definition of \textit{Unicode}, but for understanding assume it as two-byte character which Windows OS uses for multiple language support.\\
+	
+	\fcolorbox{yellow}{yellow}{\parbox{0.90\linewidth}{There is more Unicode than 2-bytes character representation Windows uses. Microsoft Windows us e UTF-16 charachter encoding.}}
+	
+	what if you want your C/C++ code to be independent of encoding/mode used?\\
+	
+	\textbf{Suggestion:} Use generic data-types and names to represent characters and string.
+	
+	For example, instead of replacing:
+	
+	\fcolorbox{yellow}{yellow}{\parbox{0.9\linewidth}{\textcolor{blue}{char} cResponse; \textcolor{green}{// 'Y' or 'N'} \\ \textcolor{blue}{char} sUsername[64]; \\ \textcolor{green}{// str* functions}}}
+	
+	with
+	
+	\fcolorbox{yellow}{yellow}{\parbox{0.9\linewidth}{\textcolor{blue}{wchar\_t} cResponse; \textcolor{green}{// 'Y' or 'N'} \\ \textcolor{blue}{wchar\_t} sUsername[64]; \\ \textcolor{green}{// wcs* functions}}}
+	
+	
+	In order to support multi-lingual (i.e., Unicode) in your language, you can simply code it in more generic manner:
+	
+	\colorbox{cyan}{\parbox{0.9\linewidth}{
+			\# include\textless TCHAR.H\textgreater //
+			Implicit or explicit include \\ TCHAR cResponse; //
+			'Y' or 'N' \\
+			TCHAR sUsername[64];\\
+			//\_tcs* functioins}}
+	
+	The following project setting in General page describes which Character Set is to be used for compilation: (\textit{General -\textgreater Character Set})
+	
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.7\linewidth]{TCHARWCHARLPSTR}
+		\caption{Character setting}
+		\label{fig:TCHARWCHARLPSTR}
+	\end{figure}
+	
+	
+	This way, when your project is being compiled as Unicode, the \textbf{TCHAR} would translate to \textbf{wchar\_t}  If it is being compiled as ANSI/MBCS, it would be translated to \textbf{char}. you are free to use \textbf{char and wchar\_t}, and project settings will not affect any direct use of these keywords.
+	
+	\textbf{TCHAR} is defined as:
+	
+	\colorbox{cyan}{\parbox{0.9\linewidth}{
+			\#ifdef \_UNICODE\\
+			typedef wchar\_t TCHAR;\\
+			\#else\\
+			typedef char TCHAR;\\
+			\#endif}}
+	
+	The macro\_UNICODE is defined when you set Character Set to \textit{"Use Unicode Character Set"}, and therefore \textbf{THCAR} would mean \textbf{wchar\_t}. When Character Set if set to \textit{"Use Multi-Byte Character Set"}, TCHAR would mean \textbf{char}.\\
+	
+	Likewise, to support multiple character-set using single code base, and possible supporting multi-language, use specific functions(macros). Instead of using \textbf{strcpy, strlen, strcat} (including the secure versions suffixed with\_s); or \textbf{wcscpy, wcslen, wcscat} (including secure), you should better use \textbf{\_tcscpy, \_tcslen, \_tcscat} functions.\\
+	
+	As you know \textbf{strlen} is prototyped as:
+	
+	\fcolorbox{yellow}{yellow}{size\_t strlen(const char*);}
+	
+	And, \textbf{wcslen} is prototyped as:
+	
+	\fcolorbox{yellow}{yellow}{size\_t wcslen(const wchar\_t*);}
+	
+	You may better use \textbf{\_tcslen}, which is \textit{logically} prototyped as:
+	
+	\fcolorbox{yellow}{yellow}{size\_t \_tcslen(const TCHAR*);}
+	
+	\textbf{WC} is for Wide Character. Therefore, \textbf{wcs} turns to be wide-character-string. This way, \textbf{\_tcs} would mean \textbf{\_T} Character String. And you know \textbf{\_T} may be \textbf{char} or \textbf{what\_t}, logically.\\
+	
+	
+	But, in reality, \textbf{\_tcslen} (and other \textbf{\_tch } functions) are \textbf{not} functions, but \textbf{macros}. They are defined simply as:
+	
+	\fcolorbox{yellow}{yellow}{\parbox{0.9\linewidth}{\#ifdef \_UNICODE\\ \#define \_tcslen wcslen\\ \#else \\ \#define \_tchlen strlen\\ \#endif} }
+	
+	You should refer \textbf{TCHAR.H} to lookup more macro definitions like this.\\
+	
+	You might ask why they are defined as macros, and not implemented as functions instead? The reason is simple: A library or DLL may export a single function, with same name and prototype (Ignore overloading concept of C++). For instance, when you export a function as:\\
+	
+	\fcolorbox{yellow}{yellow}{void \_TPrintChar(char);}
+	
+	How the client is supposed to call it as?\\
+	
+	\fcolorbox{yellow}{yellow}{void \_TPrintChar(wchar\_t);}
+	
+	\textbf{\_TPrintChar} cannot be magically converted into function taking 2-byte character. There has to be two separate functions:\\
+	
+	\fcolorbox{yellow}{yellow}{\parbox{0.9\linewidth}{void PrintCharA(char); // A = ANSI\\ void PrintCharw(wchar\_t); // W= Wide character}}
+	
+	And a simple macro, as defined below, would hide the difference:\\
+	
+	\fcolorbox{yellow}{yellow}{\parbox{0.9\linewidth}{\#ifdef \_UNICODE\\ void \_TPrintChar(wchar \_t);\\ \#else\\ void \_TPrintChar(char);\\ \#endif}}
+	
+	The client would simply call it as:\\
+	
+	\fcolorbox{yellow}{yellow}{\parbox{0.9\linewidth}{TCHAR cChar;\\ \_TPrintChar(cChar);}}
+	
+	Note that both \textbf{TCHAR} and \textbf{\_TPrintChar} would map to either Unicode or ANSI, and therefore \textbf{cChar} and the argument to function would be either char or \textbf{wchar\_t}.
+	
+	Macros do avoid these complications, and allows us to use either ANSI or Unicode function for characters and strings. Most of the Windows functions, that take string or a character are implemented this way, and for programmers convenience, only one function (a macro!) is good. SetWindowText is one example:
+	
+	\fcolorbox{yellow}{yellow}{\parbox{0.9\linewidth}{// winUser.H\\ \#ifdef UNICODE\\ \#define SetWindowText SetWindowTextW\\ \#else\\ \#define SetWindowText SetWindowTextA\\ \#endif // !UNICODE}}
+	
+	There are very few functions that do not have macros, and are available only with suffixed \textbf{W} or \textbf{A}. One example is \textbf{ReadDirectoryChangesW}, which doesn't have ANSI equivalent.\\
+	
+	You all know that we use double quotation marks to represent strings. The string represented in this manner is ANSI-string, having 1-byte each character. Example:\\
+	
+	
+	\fcolorbox{yellow}{yellow}{"This is ANSI String. Each letter takes 1 byte."}
+	
+	The string text given above is \textbf{not} Unicode, and would be quantifiable for multi-language support. To represent Unicode string, you need to use prefix \textbf{L}. An example:\\
+	
+	\fcolorbox{yellow}{yellow}{L"This is Unicode string. Each letter would take 2 bytes, including spaces."}
+	
+	Note the \textbf{L} at the beginning of string, which makes it a Unicode string. All characters (I repeat \textbf{all} characters) would take two bytes, including all English letters, spaces, digits, and the null character. Therefore, length of Unicode string would always be in multiple of 2-bytes. A Unicode string of length 7 characters would need 14 bytes, and so on. Unicode string taking 15 bytes, for example, would not be valid in any context.
+	
+	In general, string would be in multiple of \textbf{sizeof(TCHAR)} bytes!\\
+	
+	When you need to express hard-coded string, you can use:\\
+	
+	\fcolorbox{yellow}{yellow}{\parbox{0.9\linewidth}{"ANSI String"; // ANSI\\ L"Unicode String"; // Unicode\\ \\ \_T("Either string, depending on compilation"); // ANSI or Unicode\\ // or use TEXT macro, if you need more readability}}
+	
+	The non-prefixed string is ANSI string, the \textbf{L} prefixed string is Unicode, and string specified in \textbf{\_T} or \textbf{TEXT} would be either, depending on compilation. Again, \textbf{\_T} and \textbf{TEXT} are nothing but macros, and are defined as:
+	
+	\fcolorbox{yellow}{yellow}{\parbox{0.9\linewidth}{// SIMPLIFIED\\ \#ifdef \_UNICODE\\ \#define \_T(c) L\#\#c\\ \#define TEXT(c) L\#\#c\\ \#else\\ \#define \_T(c) c\\ \#define TEXT(c) c\\ \#endif}}
+	
+	The \#\# symbol is token pasting operator, which would turn\textbf{\_T("Unicode")} into \textbf{L"Unicode"}, where the string passed is argument to macro - If \textbf{\_UNICODE} is defined. If \textbf{\_UNICODE} is not defined, \textbf{\_T("Unicode")} would simply mean "\textbf{Unicode}". The token pasting operator did exist even in C language, and is not specific about VC++ or character encoding.\\
+	
+	Note that these macros can be used for strings as well as characters. \textbf{\_T('R')} would turn into \textbf{L'R'} or simple \textbf{'R'} - former is Unicode character, latter is ANSI character.\\
+	
+	\textbf{No}, you cannot use these macros to convert variables (string or character) into Unicode/non-Unicode text. Following is not valid:\\
+	
+	\fcolorbox{yellow}{yellow}{\parbox{0.9\linewidth}{char c = 'C';\\ char str[16] = "CodeProject";\\ \\ \_T(c);\\ \_T(str);}}
+	
+	The bold lines would get successfully compiled in ANSI (Multi-Byte) build, since \textbf{\_T(x)} would simply be x, and therefore \textbf{\_T(c)} and \textbf{\_T(str)} would come out to be \textbf{c} and \textbf{str}, respectively. But, when you build it with Unicode character set, it would fail to compile:\\
+	
+	fcolorbox{yellow}{yellow}{\parbox{0.9\linewidth}{error C2065: 'Lc': undeclared identifier\\ error C2065: 'Lstr': undeclared identifer}}
+	
+	I would not like to insult your intelligence by describing why and what those errors are.\\
+	
+	There exist set of conversion routine to convert MBCS to Unicode and vice versa, which I would explain soon.\\
+	
+	It is important to note that almost all functions that take string (or character), primarily in Windows API, would have generalized prototype in MSDN and elsewhere. The function \textbf{SetWindowTextA/W}, for instance, be classified as:\\
+	
+	\fcolorbox{yellow}{yellow}{BOOL SetWindowText(HWND, const TCHAR*);}
+	
+	
+	But, as you know, \textbf{SetWindowText} is just a macro, and depending on your build settings, it would mean either of following:\\
+	
+	\fcolorbox{yellow}{yellow}{\parbox{0.9\linewidth}{BOOL SetWindowTextA(HWND, const char*);\\ BOOL SetWindowTextW(HWND, const wchar\_t*);}}
+	
+	Therefore, don't be puzzled if following call fails to get address of this function!\\
+	
+	\fcolorbox{yellow}{yellow}{\parbox{0.9\linewidth}{HMODULE hDLLHandle;\\ FARPROC pFuncPtr;\\ \\ hDLLHandle = LoadLibrary(L"user32.dll");\\ \\ pFuncPtr = GetProcAddress(hDLLHandle, "SetWindowText");\\ //pFuncPtr will be null, since there doesn't exist any function with name SetWindowText !}}
+	
+	From \textbf{User32.DLL}, the two functions \textbf{SetWindowTextA} and \textbf{SetWindowTextW} are exported, not the function with generalized name.
+	
+	Interestingly, .NET Framework is smart enough to locate function from DLL with generalized name:\\
+	
+	\fcolorbox{yellow}{yellow}{\parbox{0.9\linewidth}{[DllImport("user32.dll")]\\ extern public static int SetWindowText(IntPtr hWnd, string lpString);}}
+	
+	No rocket science, just bunch of ifs and else around \textbf{GetProcAddress}!\\
+	
+	All of the functions that have ANSI and Unicode versions, would have actual implementation only in Unicode version. That means, when you call SetWindowTextA from your code, passing an ANSI string - it would convert the ANSI string to Unicode text and then would call SetWindowTextW. The actual work (setting the window text/title/caption) will be performed by Unicode version only!\\
+	
+	Take another example, which would retrieve the window text, using \textbf{GetWindowText}. You call GetWindowTextA, passing ANSI buffer as target buffer. \textbf{GetWindowTextA} would first call \textbf{GetWindowTextW}, probably allocating a Unicode string (a \textbf{wchar\_t} array) for it. Then it would convert that Unicode stuff, for you, into ANSI string.\\
+	
+	This ANSI to Unicode and vice-versa conversion is not limited to GUI functions, but entire set of Windows API, which do take strings and have two variants. Few examples could be:\\
+	
+	\begin{itemize}
+		\item CreateProcess
+		\item GetUserName
+		\item OpenDesktop
+		\item DeleteFile
+		\item etc
+	\end{itemize}
+	
+	
+	It is therefore very much recommended to call the Unicode version directly. In turn, it means you should \textbf{always} target for Unicode builds, and not ANSI builds - just because you are accustomed to using ANSI string for years. Yes, you may save and retrieve ANSI strings, for example in file, or send as chat message in your messenger application. The conversion routines do exist for such needs.
+	
+	Note: There exists another typedef: \textbf{WCHAR}, which is equivalent to \textbf{wchar\_t}.
+	
+	The \textbf{TCHAR} macro is for a single character. You can definitely declare an array of \textbf{TCHAR}. What if you would like to express a \textit{character-pointer}, or a \textit{const-character-pointer} - Which one of the following?\\
+	
+	\fcolorbox{yellow}{yellow}{\parbox{0.9\linewidth}{// ANSI characters\\ foo\_ansi(char*);\\ foo\_ansi(const char*);\\ /*const*/ char* pString;\\ \\// Unicode/wide-string\\ foo\_uni(WCHAR*);\\ wchar\_t* foo\_uni(const WCHAR*);\\ /*const*/ WCHAR* pString;\\ \\// Independent\\ foo\_char(TCHAR*);\\ foo\_char(const TCHAR*);\\ /*const*/ TCHAR* pString;}}
+	
+	After reading about \textbf{TCHAR} stuff, you would definitely select the last one as your choice. There are better alternatives available to represent strings. For that, you just need to include Windows.h. \textbf{Note}: If your project implicitly or explicitly includes Windows.h, you need not include TCHAR.H
+	
+	First, revisit old string functions for better understanding. You know \textbf{strlen}:\\
+	
+	\fcolorbox{yellow}{yellow}{size\_t strlen(const char*);}
+	
+	Which may be represented as:
+	
+	\fcolorbox{yellow}{yellow}{size\_t strlen(LPCSTR);}
+	
+	The meaning goes like:
+	
+	\begin{itemize}
+		\item \textbf{LP} - Long Pointer
+		\item \textbf{C} - Constant
+		\item \textbf{STR} - string
+	\end{itemize}
+	
+	Essentially, \textbf{LPCSTR} would mean (Long) Pointer to a Constant String.\\
+	
+	Let's represent \textbf{strcpy} using new style type-names:\\
+	
+	\fcolorbox{yellow}{yellow}{LPSTR strcpy(LPSTR szTarget, LPCSTR szSource);}
+	
+	The type of \textbf{szTarget} is \textbf{LPSTR}, without \textbf{C} in the type-name. It is defined as:
+	
+	\fcolorbox{yellow}{yellow}{typedef char* LPSTR;}
+	
+	Note that the \textbf{szSource} is \textbf{LPCSTR}, since \textbf{strcpy} function will not modify the source buffer, hence the const attribute. The return type is non-constant-string: \textbf{LPSTR}.
+	
+	Alright, these str-functions are for ANSI string manipulation. But we want routines for 2-byte Unicode strings. For the same, the equivalent wide-character str-functions are provided. For example, to calculate length of wide-character (Unicode string), you would use \textbf{wcslen}:\\
+	
+	\fcolorbox{yellow}{yellow}{\parbox{0.9\linewidth}{size\_t nLength;\\ nLength = wcslen(L"Unicode");}}
+	
+	The prototype of \textbf{wcslen} is:\\
+	
+	\fcolorbox{yellow}{yellow}{size\_t wcslen(const wchar\_t* szString); // Or WCHAR*}
+	
+	And that can be represented as:\\
+	
+	\fcolorbox{yellow}{yellow}{size\_t wcslen(LPCWSTR szString);}
+	
+	Where the symbol \textbf{LPCWSTR} is defined as:
+	
+	\fcolorbox{yellow}{yellow}{\parbox{0.9\linewidth}{typedef const WCHAR* LPCWSTR;\\ // const wchar\_t*}}
+	
+	Which can be broken down as:\\
+	
+	\begin{itemize}
+		\item \textbf{LP} - Long Pointer
+		\item \textbf{C} - Constant
+		\item \textbf{STR} - string
+	\end{itemize}
+	
+	
+	Similarly, \textbf{strcpy} equivalent is \textbf{wcscpy}, for Unicode strings:
+	
+	\fcolorbox{yellow}{yellow}{wchar\_t* wcscpy(wchar\_t* szTarget, const wchar\_t* szSource}
+	
+	Which can be represented as:\\
+	
+	\fcolorbox{yellow}{yellow}{LPWSTR wcscpy(LPWSTR szTarget, LPWCSTR szSource);}
+	
+	Where the target is non-constant wide-string (\textbf{LPWSTR}), and source is constant-wide-string.
+	
+	There exist set of equivalent wcs-functions for str-functions. The str-functions would be used for plain ANSI strings, and wcs-functions would be used for Unicode strings.
+	
+	Though, I already advised to use Unicode native functions, instead of ANSI-only or TCHAR-synthesized functions. The reason was simple - your application must only be Unicode, and you should not even care about code portability for ANSI builds. But for the sake of completeness, I am mentioning these generic mappings.
+	
+	To calculate length of string, you may use \textbf{\_tcslen} function (a macro). In general, it is prototyped as:\\
+	
+	\fcolorbox{yellow}{yellow}{size\_t \_tcslen(const TCHAR* szString); }
+	
+	Or, as:
+	
+	\fcolorbox{yellow}{yellow}{size\_t \_tcslen(LPCTSTR szString);}
+	
+	\begin{itemize}
+		\item \textbf{LP} - Long Pointer
+		\item \textbf{C} - Constant
+		\item \textbf{T = TCHAR}
+		\item \textbf{STR} - string
+	\end{itemize}
+	
+	Depending on the project settings, \textbf{LPCTSTR} would be mapped to either \textbf{LPCSTR (ANSI)} or \textbf{LPCWSTR (Unicode)}.
+	
+	\textbf{Note:} \textbf{strlen, wcslen} or \textbf{\_tcslen} will return number of c\textbf{haracters} in string, not the number of bytes.\\
+	
+	The generalized string-copy routine \textbf{\_tcscpy} is defined as:\\
+	
+	\fcolorbox{yellow}{yellow}{size\_t \_tcscpy(TCHAR* pTarget, const TCHAR* pSource); }
+	
+	Or, in more generalized form, as:\\
+	
+	\fcolorbox{yellow}{yellow}{size\_t \_tcscpy(LPTSTR pTarget, LPCTSTR pSource); }
+	
+	You can deduce the meaning of \textbf{LPTSTR}!
+	
+	\textbf{Usage Examples}
+	First, a broken code:
+	
+	\fcolorbox{yellow}{yellow}{\parbox{0.9\linewidth}{int main()\\ {\\ TCHAR name[] = "Saturn";\\ int nLen; // Or size\_t\\ \\ lLen = strlen(name);}}}
+	
+	On ANSI build, this code will successfully compile since \textbf{TCHAR} would be char, and hence name would be an array of char. Calling \textbf{strlen} against name variable would also work flawlessly.
+	
+	Alright. Let's compile the same with with \textbf{UNICODE/\_UNICODE} defined (i.e. "\textit{Use Unicode Character Set}" in project settings). Now, the compiler would report set of errors:
+	
+	\begin{itemize}
+		\item error C2440: 'initializing' : cannot convert from 'const char [7]' to 'TCHAR []'
+		\item error C2664: 'strlen' : cannot convert parameter 1 from 'TCHAR []' to 'const char *'
+	\end{itemize}
+	
+	
+	And the programmers would start committing mistakes by correcting it this way (first error):\\
+	
+	\fcolorbox{yellow}{yellow}{TCHAR name[] = (TCHAR*)"Saturn";}
+	
+	Which will not pacify the compiler, since the conversion is not possible from \textbf{TCHAR*} to \textbf{TCHAR[7]}. The same error would also come when native ANSI string is passed to a Unicode function:\\
+	
+	\fcolorbox{yellow}{yellow}{\parbox{0.9\linewidth}{nLen = wcslen("Saturn");\\ // ERROR: cannot convert parameter 1 from 'const char [7]' to 'const wchar\_t *'}}
+	
+	And you'd think you've attained one more experience level in pointers! You are wrong - the code would give incorrect result, and in most cases would simply cause Access Violation. Typecasting this way is like passing a float variable where a structure of 80 bytes is expected (logically).
+	
+	The string "\textbf{Saturn}" is sequence of 7 bytes:
+	
+	\begin{tabular}{|c|c|c|c|c|c|c|}
+		\hline  \textbf{'S'} (83) & textbf{'a'} (97) & textbf{'t'} (116) & textbf{'u'} (117) & textbf{'r'} (114) & textbf{'n'} (110) & textbf{'\textbackslash 0'} (0) \\ 
+		\hline 
+	\end{tabular} 
+	
+	But when you pass same set of bytes to wcslen, it treats each 2-byte as a single character. Therefore first two bytes [97, 83] would be treated as one character having value: 24915 (97<<8 | 83). It is Unicode character: ?. And the next character is represented by [117, 116] and so on.\\
+	
+	For sure, you didn't pass those set of Chinese characters, but improper typecasting has done it! Therefore it is very essential to know that type-casting \textbf{will not} work! So, for the first line of initialization, you must do:\\
+	
+	\fcolorbox{yellow}{yellow}{TCHAR name[] = \_T("Saturn");}
+	
+	Which would translate to 7-bytes or 14-bytes, depending on compilation. The call to wcslen should be:\\
+	
+	\fcolorbox{yellow}{yellow}{wcslen(L"Saturn");}
+	
+	In the sample program code given above, I used strlen, which causes error when building in Unicode. The non-working solution is C-sytle typecast:\\
+	
+	\fcolorbox{yellow}{yellow}{lLen = strlen ((const char*)name);}
+	
+	On Unicode build, name would be of 14-bytes (7 Unicode characters, including null). Since string "\textbf{Saturn}" contains only English letters, which can be represented using original ASCII, the Unicode letter 'S' would be represented as [83, 0]. Other ASCII characters would be represented with a zero next to them. Note that 'S' is now represented as \textbf{2-byte} value 83. The end of string would be represented by \textbf{two bytes} having value 0.\\
+	
+	So, when you pass such string to strlen, the first character (i.e. first byte) would be correct ('S' in case of "Saturn"). But the second character/byte would indicate end of string. Therefore, strlen would return incorrect value 1 as the length of string.\\
+	
+	As you know, Unicode string may contain non-English characters, the result of strlen would be more undefined.\\
+	
+	In short, typecasting will not work. You either need to represent strings in correct form itself, or use ANSI to Unicode, and vice-versa, routines for conversions.\\
+	
+	\textit{(There is more to add from this location, stay tuned!)}\\
+	
+	Now, I hope you understand the following signatures:\\
+	
+	\fcolorbox{yellow}{yellow}{\parbox{0.9\linewidth}{BOOL SetCurrentDirectory( LPCTSTR lpPathName );\\ DWORD GetCurrentDirectory(DWORD nBufferLength,LPTSTR lpBuffer);}}
+	
+	Continuing. You must have seen some functions/methods asking you to pass \textbf{number of characters}, or returning the number of characters. Well, like GetCurrentDirectory, you need to pass number of characters, and \textbf{not} number of bytes. For example:
+	
+	\fcolorbox{yellow}{yellow}{\parbox{0.9\linewidth}{\textbf{TCHAR sCurrentDir[255];\\ \\ // Pass 255 and not 255*2\\ GetCurrentDirectory(sCurrentDir, 255);}}}
+	
+	On the other side, if you need to allocate number or characters, you must allocate proper number of bytes. In C++, you can simply use new:\\
+	
+	\fcolorbox{yellow}{yellow}{\parbox{0.9\linewidth}{LPTSTR pBuffer; // TCHAR* \\ \\ pBuffer = new TCHAR[128]; // Allocates 128 or 256 BYTES, depending on compilation.}}
+	
+	But if you use memory allocation functions like malloc, LocalAlloc, GlobalAlloc, etc; you must specify the number of bytes!\\
+	
+	\fcolorbox{yellow}{yellow}{pBuffer = (TCHAR*) malloc (128 * sizeof(TCHAR) );}
+	
+	cTypecasting the return value is required, as you know. The expression in malloc's argument ensures that it allocates desired number of bytes - and makes up room for desired number of characters.
+	
+	
+	\section{typedef and struct define}
+	\textbf{typedef} is a keyword in the C and C++ programming languages. The purpose of \textbf{typedef} is to form complex types for more-basic machine types and assign simpler names to such combinations. They are most often used when a standard declaration is cumbersome, potentially confusing, or likely to vary from one implementation to another.\\
+	
+	A \textbf{typedef} can be used to simplify the declaration for a compound type (struct, union) or pointer type. For example:\\
+	
+	\begin{verbatim}
+	struct MyStruct
+	{
+	int data1;
+	char data2;
+	}
+	\end{verbatim}
+	
+	Here (above) a \textbf{struct MyStruct} data type has been defined. To declare a variable of this in C (below) the \textbf{struct} key word is required (though it may be omitted in C++).\\
+	
+	The defined struct can be now be used to generate variables, such as:\\
+	\begin{verbatim}
+	struct MyStruct a;
+	\end{verbatim}
+	
+	A \textbf{typedef} can be used to eliminate the need for \textbf{struct} key word in C. For example, with:
+	\begin{verbatim}
+	typedef struct Mystruct newtype;
+	\end{verbatim}
+	
+	We can now create a variable of this type with:
+	\begin{verbatim}
+	newtype a;
+	\end{verbatim}
+	
+	Note that the structure definition and typedef can instead be compiled into a single statement:
+	\begin{verbatim}
+	tepydef struct Mystruct
+	{
+	int data1;
+	char data2;
+	} newtype;
+	\end{verbatim}
+	
+	Another example for vertices definition is as bellow:
+	\begin{verbatim}
+	/* the usual 3-space position of a vertex */
+	typedef struct Vertex 
+	{
+	float x, y, z;             
+	} Vertices;
+	\end{verbatim}
+	
+	Note that the \textbf{Vertices} equal to \textbf{struct Vertex}. Its function likes \textbf{int, double...} \\
+	
+	Another frequently used form of \textbf{typedef} is:
+	\begin{verbatim}
+	typedef char field [50];
+	\end{verbatim}
+	
+	which means field type is char[50].	
+
+	\section{Type conversion: atoi(), scanf() (replace itoa())}
+	\subsection{atoi()}
+	\textbf{Convert string to integer}
+	
+	\begin{verbatim}
+	int atoi (const char *str);
+	\end{verbatim}
+	
+	\textbf{atoi} parses the \textbf{C-string} \textit{str} interpreting its content as an integral number, which is returned as a value of \textbf{type int}.
+	
+	The function first discards as many \textbf{whitespace characters} (as in \textbf{isspace}) as necessary until the \textbf{first non-whitespace character} is found. Then, starting from this character, takes an optional initial \textit{plus} or \textit{minus} sign followed by as many \textbf{base-10 digits} as possible, and interprets them as a numerical value.\\
+	
+	The string can contain additional characters after those form the integral number, which are ignored and have no effect on the behavior of this function.\\
+	
+	If the first sequence of non-whitespace characters in \textit{str} is not a valid integral number, or if no such sequence exists because either \textit{str} is empty or it contains only whitespace only whitespace characters, no conversion is performed and \textbf{zero} is returned.
+	
+	\textbf{EXAMPLE}
+	\begin{verbatim}
+	/* atoi example*/
+	#include <stdio.h> /* printf, fgets */
+	#include <stdlib.h> /* atoi */
+	
+	int main()
+	{
+	int i;
+	char buffer[256];
+	printf ("Enter a number: ");
+	fgets (buffer, 256, stdin);
+	i = atoi (buffer);
+	printf ("The value entered is %d. Its double is %d.\n",i,i*2);
+	return 0;
+	}
+	\end{verbatim}
+	
+	\subsection{itoa()}
+	\textbf{NOTE}: As \textbf{itoa()} is indeed \textbf{non-standard}, as mentioned by several helpful commenters, it is best to use \textbf{sprintf(target\_string, "\%d", source\_int)} or (better because it's safe from buffer overflows) \textbf{snprintf(target\_string, size\_of\_target\_string\_in\_bytes, "\%d", source\_int)}.
+	\textbf{Convert integer to string}
+	
+	\begin{verbatim}
+	char *  itoa ( int value, char * str, int base );
+	\end{verbatim}
+	
+	Converts an integer value to a \textbf{null-terminated string} using the specified base and stores the result in the array given by \textit{str} parameter.
+	
+	If \textit{base} is 10 and value is negative, the resulting string is preceded with a minus sign (-). With any other base, value is always considered unsigned.
+	
+	\textit{str} should be an array long enough to contain any possible value: \textbf{(sizeof(int)*8+1)} for \textbf{radix=2, i.e. 17} bytes in 16-bits platforms and 33 in 32-bits platforms.
+	
+	\textbf{EXAMPLE}
+	\begin{verbatim}
+	/* atoi example*/
+	/* itoa example */
+	#include <stdio.h>
+	#include <stdlib.h>
+	
+	int main ()
+	{
+	int i;
+	char buffer [33];
+	printf ("Enter a number: ");
+	scanf ("%d",&i);
+	itoa (i,buffer,10);
+	printf ("decimal: %s\n",buffer);
+	itoa (i,buffer,16);
+	printf ("hexadecimal: %s\n",buffer);
+	itoa (i,buffer,2);
+	printf ("binary: %s\n",buffer);
+	return 0;
+	}
+	\end{verbatim}
+	
+	\subsection{sprintf()}
+	\begin{verbatim}
+	int sprintf( char* buffer, const char* format, ... );
+	\end{verbatim}
+	
+	\textbf{EXAMPLE}
+	\begin{verbatim}
+	void PrettyFormat( int i, char* buf )
+	{
+	// Here's the code, neat and simple:
+	sprintf( buf, "%d", i );
+	}
+	\end{verbatim}
+	
+	\textbf{NOTE:} buffer size needs to be enough for containing integer i.

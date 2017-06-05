@@ -1,0 +1,6 @@
+
+
+To immediately flush call fflush(stdout) or fflush(NULL) (NULL means flush everything).
+
+	
+Keep in mind fflush(NULL); is usually a very bad idea. It will kill performance if you have many files open, especially in a multi-threaded environment where you'll fight with everything for locks.

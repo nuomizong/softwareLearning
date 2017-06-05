@@ -1,0 +1,50 @@
+% !Mode:: "TeX:UTF-8"
+
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{CJKutf8}
+
+\setlength{\parindent}{14pt}
+
+\begin{document}
+\begin{CJK*}{UTF8}{song}
+\author{nuomizong}
+\title{关于\LaTeX{}中pdf和eps图片的处理}
+\date{Aug. 20th, 2015}
+\maketitle
+
+最终latex中的图片格式主要就2种 pdf 和 eps。如果要用pdflatex编译，那么自然选择pdf，如果用latex编译，自然用eps。
+
+图片来源主要是matlab和visio，所以这里主要讲如何从这两个软件中得到清晰的，无空白边缘的pdf和eps。
+
+\section{visio完美另存为pdf}
+visio2010本来就用另存为pdf的功能，但是直接存的话，很难避免页面的空白边缘。网上的方法大部分都是用Adobe Acrobat裁剪。这个方法感觉很麻烦。
+
+简单实用方法是:
+
+先用visio画好图，然后“设计”--“大小”--"适应绘图"。visio就会自动调整画布来去除空白边缘，此时再另存外pdf即可。 参见图\ref{fig: visio to pdf}。
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\textwidth]{visioToPdf}
+	\caption{visio to pdf} \label{fig: visio to pdf}
+\end{figure}
+
+\section{eps转pdf}
+matlab里的图可以另存外eps，但是pdflatex不认eps，怎么办，转吧。
+
+我装的是CTEX最新版。里面自带eps转pdf的工具 epstopdf
+
+如果CTEX正常安装的话， 打开cmd，直接cd到eps文件所在目录(假设名为a.eps)，执行命令：epstopdf a.eps  就会在当前目录生成a.pdf
+
+\section{pdf转eps}
+这个必须借助Adobe acrobat完成了。
+
+用Adobe acrobat pro打开pdf，然后另存为ps,再用gsviewer（CTEX带的软件）打开ps，另存为eps即可。
+
+\end{CJK*}
+\end{document}

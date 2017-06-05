@@ -1,0 +1,326 @@
+# -*- coding: mbcs -*-
+from part import *
+from material import *
+from section import *
+from assembly import *
+from step import *
+from interaction import *
+from load import *
+from mesh import *
+from optimization import *
+from job import *
+from sketch import *
+from visualization import *
+from connectorBehavior import *
+mdb.models['Model-1'].ConstrainedSketch(name='__profile__', sheetSize=4.0)
+mdb.models['Model-1'].sketches['__profile__'].rectangle(point1=(-1.0, 0.475), 
+    point2=(1.0, -0.5))
+mdb.models['Model-1'].sketches['__profile__'].delete(objectList=(
+    mdb.models['Model-1'].sketches['__profile__'].geometry[2], 
+    mdb.models['Model-1'].sketches['__profile__'].geometry[3], 
+    mdb.models['Model-1'].sketches['__profile__'].geometry[5], 
+    mdb.models['Model-1'].sketches['__profile__'].geometry[4]))
+mdb.models['Model-1'].sketches['__profile__'].rectangle(point1=(-1.125, 0.55), 
+    point2=(1.1, -0.5))
+mdb.models['Model-1'].sketches['__profile__'].undo()
+mdb.models['Model-1'].sketches['__profile__'].undo()
+mdb.models['Model-1'].Part(dimensionality=TWO_D_PLANAR, name='Frame', type=
+    DEFORMABLE_BODY)
+mdb.models['Model-1'].parts['Frame'].BaseWire(sketch=
+    mdb.models['Model-1'].sketches['__profile__'])
+del mdb.models['Model-1'].sketches['__profile__']
+mdb.models['Model-1'].ConstrainedSketch(name='__edit__', objectToCopy=
+    mdb.models['Model-1'].parts['Frame'].features['Wire-1'].sketch)
+mdb.models['Model-1'].parts['Frame'].projectReferencesOntoSketch(filter=
+    COPLANAR_EDGES, sketch=mdb.models['Model-1'].sketches['__edit__'], 
+    upToFeature=mdb.models['Model-1'].parts['Frame'].features['Wire-1'])
+mdb.models['Model-1'].sketches['__edit__'].delete(objectList=(
+    mdb.models['Model-1'].sketches['__edit__'].geometry[2], ))
+mdb.models['Model-1'].sketches['__edit__'].undo()
+mdb.models['Model-1'].sketches['__edit__'].delete(objectList=(
+    mdb.models['Model-1'].sketches['__edit__'].constraints[21], 
+    mdb.models['Model-1'].sketches['__edit__'].constraints[18], 
+    mdb.models['Model-1'].sketches['__edit__'].constraints[19], 
+    mdb.models['Model-1'].sketches['__edit__'].constraints[20]))
+mdb.models['Model-1'].sketches['__edit__'].ParallelConstraint(entity1=
+    mdb.models['Model-1'].sketches['__edit__'].geometry[5], entity2=
+    mdb.models['Model-1'].sketches['__edit__'].geometry[3])
+mdb.models['Model-1'].sketches['__edit__'].ObliqueDimension(textPoint=(
+    0.21355926990509, 0.150789260864258), value=1.0, vertex1=
+    mdb.models['Model-1'].sketches['__edit__'].vertices[3], vertex2=
+    mdb.models['Model-1'].sketches['__edit__'].vertices[0])
+mdb.models['Model-1'].sketches['__edit__'].ObliqueDimension(textPoint=(
+    -0.00593220256268978, -0.308400094509125), value=2.0, vertex1=
+    mdb.models['Model-1'].sketches['__edit__'].vertices[1], vertex2=
+    mdb.models['Model-1'].sketches['__edit__'].vertices[2])
+mdb.models['Model-1'].sketches['__edit__'].ObliqueDimension(textPoint=(
+    -0.56889820098877, 0.0758246034383774), value=1.0, vertex1=
+    mdb.models['Model-1'].sketches['__edit__'].vertices[0], vertex2=
+    mdb.models['Model-1'].sketches['__edit__'].vertices[1])
+mdb.models['Model-1'].sketches['__edit__'].ObliqueDimension(textPoint=(
+    0.735000014305115, 0.0301036089658737), value=1.0, vertex1=
+    mdb.models['Model-1'].sketches['__edit__'].vertices[2], vertex2=
+    mdb.models['Model-1'].sketches['__edit__'].vertices[3])
+mdb.models['Model-1'].sketches['__edit__'].dimensions[1].setValues(textPoint=(
+    -0.15, -0.6))
+mdb.models['Model-1'].sketches['__edit__'].dimensions[0].setValues(textPoint=(
+    0.075, 0.45))
+# Save by Anzong on 2015_01_17-22.39.11; build 6.12-1 2012_03_13-20.44.39 119612
+from part import *
+from material import *
+from section import *
+from assembly import *
+from step import *
+from interaction import *
+from load import *
+from mesh import *
+from optimization import *
+from job import *
+from sketch import *
+from visualization import *
+from connectorBehavior import *
+del mdb.models['Model-1'].sketches['__edit__']
+# Save by Anzong on 2015_01_17-22.39.19; build 6.12-1 2012_03_13-20.44.39 119612
+from part import *
+from material import *
+from section import *
+from assembly import *
+from step import *
+from interaction import *
+from load import *
+from mesh import *
+from optimization import *
+from job import *
+from sketch import *
+from visualization import *
+from connectorBehavior import *
+mdb.models['Model-1'].ConstrainedSketch(name='__edit__', objectToCopy=
+    mdb.models['Model-1'].parts['Frame'].features['Wire-1'].sketch)
+mdb.models['Model-1'].parts['Frame'].projectReferencesOntoSketch(filter=
+    COPLANAR_EDGES, sketch=mdb.models['Model-1'].sketches['__edit__'], 
+    upToFeature=mdb.models['Model-1'].parts['Frame'].features['Wire-1'])
+mdb.models['Model-1'].sketches['__edit__'].delete(objectList=(
+    mdb.models['Model-1'].sketches['__edit__'].constraints[21], 
+    mdb.models['Model-1'].sketches['__edit__'].constraints[18], 
+    mdb.models['Model-1'].sketches['__edit__'].constraints[19], 
+    mdb.models['Model-1'].sketches['__edit__'].constraints[20]))
+mdb.models['Model-1'].sketches['__edit__'].ParallelConstraint(entity1=
+    mdb.models['Model-1'].sketches['__edit__'].geometry[5], entity2=
+    mdb.models['Model-1'].sketches['__edit__'].geometry[3])
+mdb.models['Model-1'].sketches['__edit__'].ObliqueDimension(textPoint=(
+    -0.46073442697525, 0.235897645354271), value=1.0, vertex1=
+    mdb.models['Model-1'].sketches['__edit__'].vertices[3], vertex2=
+    mdb.models['Model-1'].sketches['__edit__'].vertices[0])
+mdb.models['Model-1'].sketches['__edit__'].ObliqueDimension(textPoint=(
+    -0.0454802215099335, -0.346006095409393), value=2.0, vertex1=
+    mdb.models['Model-1'].sketches['__edit__'].vertices[1], vertex2=
+    mdb.models['Model-1'].sketches['__edit__'].vertices[2])
+mdb.models['Model-1'].sketches['__edit__'].ObliqueDimension(textPoint=(
+    -0.264971762895584, -0.100577317178249), value=1.0, vertex1=
+    mdb.models['Model-1'].sketches['__edit__'].vertices[0], vertex2=
+    mdb.models['Model-1'].sketches['__edit__'].vertices[1])
+mdb.models['Model-1'].sketches['__edit__'].ObliqueDimension(textPoint=(
+    0.705932080745697, 0.10526616871357), value=1.0, vertex1=
+    mdb.models['Model-1'].sketches['__edit__'].vertices[2], vertex2=
+    mdb.models['Model-1'].sketches['__edit__'].vertices[3])
+# Save by Anzong on 2015_01_17-23.08.33; build 6.12-1 2012_03_13-20.44.39 119612
+from part import *
+from material import *
+from section import *
+from assembly import *
+from step import *
+from interaction import *
+from load import *
+from mesh import *
+from optimization import *
+from job import *
+from sketch import *
+from visualization import *
+from connectorBehavior import *
+mdb.models['Model-1'].sketches['__edit__'].Line(point1=(-0.592598379855856, 
+    0.366025403784599), point2=(0.3, -0.5))
+mdb.models['Model-1'].sketches['__edit__'].CoincidentConstraint(addUndoState=
+    False, entity1=mdb.models['Model-1'].sketches['__edit__'].vertices[4], 
+    entity2=mdb.models['Model-1'].sketches['__edit__'].geometry[3])
+mdb.models['Model-1'].sketches['__edit__'].Line(point1=(0.3, -0.5), point2=(
+    0.407401620144144, 0.366025403784599))
+# Save by Anzong on 2015_01_17-23.16.43; build 6.12-1 2012_03_13-20.44.39 119612
+from part import *
+from material import *
+from section import *
+from assembly import *
+from step import *
+from interaction import *
+from load import *
+from mesh import *
+from optimization import *
+from job import *
+from sketch import *
+from visualization import *
+from connectorBehavior import *
+mdb.models['Model-1'].sketches['__edit__'].breakCurve(curve1=
+    mdb.models['Model-1'].sketches['__edit__'].geometry[3], curve2=
+    mdb.models['Model-1'].sketches['__edit__'].geometry[6], point1=(
+    -0.383875876665115, -0.498442471027374), point2=(0.0305368974804878, 
+    -0.247876018285751))
+mdb.models['Model-1'].sketches['__edit__'].ObliqueDimension(textPoint=(1.0, 
+    0.0), value=1.0, vertex1=
+    mdb.models['Model-1'].sketches['__edit__'].vertices[1], vertex2=
+    mdb.models['Model-1'].sketches['__edit__'].vertices[4])
+mdb.models['Model-1'].sketches['__edit__'].delete(objectList=(
+    mdb.models['Model-1'].sketches['__edit__'].dimensions[4], ))
+mdb.models['Model-1'].sketches['__edit__'].EqualLengthConstraint(entity1=
+    mdb.models['Model-1'].sketches['__edit__'].geometry[8], entity2=
+    mdb.models['Model-1'].sketches['__edit__'].geometry[9])
+mdb.models['Model-1'].parts['Frame'].features['Wire-1'].setValues(sketch=
+    mdb.models['Model-1'].sketches['__edit__'])
+del mdb.models['Model-1'].sketches['__edit__']
+mdb.models['Model-1'].parts['Frame'].regenerate()
+# Save by Anzong on 2015_01_17-23.23.56; build 6.12-1 2012_03_13-20.44.39 119612
+# Save by Anzong on 2015_01_17-23.27.09; build 6.12-1 2012_03_13-20.44.39 119612
+from part import *
+from material import *
+from section import *
+from assembly import *
+from step import *
+from interaction import *
+from load import *
+from mesh import *
+from optimization import *
+from job import *
+from sketch import *
+from visualization import *
+from connectorBehavior import *
+mdb.models['Model-1'].Material(name='Steel')
+mdb.models['Model-1'].materials['Steel'].Elastic(table=((200000000000.0, 0.3), 
+    ))
+mdb.models['Model-1'].TrussSection(area=1.96349540849362e-05, material='Steel', 
+    name='FrameSection')
+mdb.models['Model-1'].parts['Frame'].Set(edges=
+    mdb.models['Model-1'].parts['Frame'].edges.getSequenceFromMask(('[#7f ]', 
+    ), ), name='Set-1')
+mdb.models['Model-1'].parts['Frame'].SectionAssignment(offset=0.0, offsetField=
+    '', offsetType=MIDDLE_SURFACE, region=
+    mdb.models['Model-1'].parts['Frame'].sets['Set-1'], sectionName=
+    'FrameSection', thicknessAssignment=FROM_SECTION)
+mdb.models['Model-1'].StaticLinearPerturbationStep(description=
+    '10 kN central load', name='Apply load', previous='Initial')
+mdb.models['Model-1'].rootAssembly.DatumCsysByDefault(CARTESIAN)
+mdb.models['Model-1'].rootAssembly.Instance(dependent=ON, name='Frame-1', part=
+    mdb.models['Model-1'].parts['Frame'])
+mdb.models['Model-1'].rootAssembly.Set(name='Set-1', vertices=
+    mdb.models['Model-1'].rootAssembly.instances['Frame-1'].vertices.getSequenceFromMask(
+    ('[#4 ]', ), ))
+mdb.models['Model-1'].DisplacementBC(amplitude=UNSET, createStepName='Initial', 
+    distributionType=UNIFORM, fieldName='', localCsys=None, name='Fixed', 
+    region=mdb.models['Model-1'].rootAssembly.sets['Set-1'], u1=SET, u2=SET, 
+    ur3=UNSET)
+mdb.models['Model-1'].rootAssembly.Set(name='Set-2', vertices=
+    mdb.models['Model-1'].rootAssembly.instances['Frame-1'].vertices.getSequenceFromMask(
+    ('[#10 ]', ), ))
+mdb.models['Model-1'].DisplacementBC(amplitude=UNSET, createStepName='Initial', 
+    distributionType=UNIFORM, fieldName='', localCsys=None, name='BC-2', 
+    region=mdb.models['Model-1'].rootAssembly.sets['Set-2'], u1=UNSET, u2=SET, 
+    ur3=UNSET)
+mdb.models['Model-1'].rootAssembly.Set(name='Set-3', vertices=
+    mdb.models['Model-1'].rootAssembly.instances['Frame-1'].vertices.getSequenceFromMask(
+    ('[#8 ]', ), ))
+mdb.models['Model-1'].ConcentratedForce(cf2=-10000.0, createStepName=
+    'Apply load', distributionType=UNIFORM, field='', localCsys=None, name=
+    'Force', region=mdb.models['Model-1'].rootAssembly.sets['Set-3'])
+mdb.meshEditOptions.setValues(enableUndo=True, maxUndoCacheElements=0.5)
+mdb.models['Model-1'].parts['Frame'].setElementType(elemTypes=(ElemType(
+    elemCode=T2D2, elemLibrary=STANDARD), ), regions=(
+    mdb.models['Model-1'].parts['Frame'].edges.getSequenceFromMask(('[#7f ]', 
+    ), ), ))
+mdb.models['Model-1'].parts['Frame'].seedPart(deviationFactor=0.1, 
+    minSizeFactor=0.1, size=1.0)
+mdb.models['Model-1'].parts['Frame'].generateMesh()
+mdb.models['Model-1'].rootAssembly.regenerate()
+mdb.Job(atTime=None, contactPrint=OFF, description=
+    'Two-dimensional overhead hoist frame', echoPrint=OFF, explicitPrecision=
+    SINGLE, getMemoryFromAnalysis=True, historyPrint=OFF, memory=50, 
+    memoryUnits=PERCENTAGE, model='Model-1', modelPrint=OFF, 
+    multiprocessingMode=DEFAULT, name='Frame', nodalOutputPrecision=SINGLE, 
+    numCpus=1, numGPUs=0, queue=None, scratch='', type=ANALYSIS, 
+    userSubroutine='', waitHours=0, waitMinutes=0)
+mdb.jobs['Frame'].submit(consistencyChecking=OFF, datacheckJob=True)
+mdb.jobs['Frame']._Message(ERROR, {
+    'message': 'Unable to change the current working directory to C:\\Users\\Anzong\\AppData\\Local\\Temp\\Anzong_Frame_6708. ', 
+    'jobName': 'Frame'})
+mdb.jobs['Frame']._Message(JOB_ABORTED, {
+    'message': 'Unable to change the current working directory to C:\\Users\\Anzong\\AppData\\Local\\Temp\\Anzong_Frame_6708. ', 
+    'jobName': 'Frame'})
+# Save by Anzong on 2015_01_18-11.20.57; build 6.12-1 2012_03_13-20.44.39 119612
+from part import *
+from material import *
+from section import *
+from assembly import *
+from step import *
+from interaction import *
+from load import *
+from mesh import *
+from optimization import *
+from job import *
+from sketch import *
+from visualization import *
+from connectorBehavior import *
+mdb.jobs['Frame'].submit(consistencyChecking=OFF, datacheckJob=True)
+mdb.jobs['Frame']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'nuomizong', 'handle': 0, 'jobName': 'Frame'})
+mdb.jobs['Frame']._Message(HEADING, {'phase': BATCHPRE_PHASE, 
+    'heading': 'Two-dimensional overhead hoist frame', 'jobName': 'Frame'})
+mdb.jobs['Frame']._Message(ODB_FILE, {'phase': BATCHPRE_PHASE, 
+    'file': 'C:\\Windows\\system32\\Frame.odb', 'jobName': 'Frame'})
+mdb.jobs['Frame']._Message(COMPLETED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'Frame'})
+mdb.jobs['Frame']._Message(STARTED, {'phase': STANDARD_PHASE, 
+    'clientHost': 'nuomizong', 'handle': 1012, 'jobName': 'Frame'})
+mdb.jobs['Frame']._Message(STEP, {'stepName': '10 kN central load', 
+    'phase': STANDARD_PHASE, 'stepId': 1, 'jobName': 'Frame'})
+mdb.jobs['Frame']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 0, 'jobName': 'Frame'})
+mdb.jobs['Frame']._Message(STATUS, {'totalTime': 0.0, 'attempts': 0, 
+    'timeIncrement': 2.22e-16, 'increment': 0, 'stepTime': 0.0, 'step': 1, 
+    'jobName': 'Frame', 'severe': 0, 'iterations': 0, 'phase': STANDARD_PHASE, 
+    'equilibrium': 0})
+mdb.jobs['Frame']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'Frame', 'memory': 6.97276496887207})
+mdb.jobs['Frame']._Message(COMPLETED, {'phase': STANDARD_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'Frame'})
+mdb.jobs['Frame']._Message(JOB_COMPLETED, {'time': 'Sun Jan 18 11:25:35 2015', 
+    'jobName': 'Frame'})
+mdb.jobs['Frame'].submit(consistencyChecking=OFF)
+mdb.jobs['Frame']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'nuomizong', 'handle': 0, 'jobName': 'Frame'})
+mdb.jobs['Frame']._Message(HEADING, {'phase': BATCHPRE_PHASE, 
+    'heading': 'Two-dimensional overhead hoist frame', 'jobName': 'Frame'})
+mdb.jobs['Frame']._Message(ODB_FILE, {'phase': BATCHPRE_PHASE, 
+    'file': 'C:\\Windows\\system32\\Frame.odb', 'jobName': 'Frame'})
+mdb.jobs['Frame']._Message(COMPLETED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'Frame'})
+mdb.jobs['Frame']._Message(STARTED, {'phase': STANDARD_PHASE, 
+    'clientHost': 'nuomizong', 'handle': 3004, 'jobName': 'Frame'})
+mdb.jobs['Frame']._Message(STEP, {'stepName': '10 kN central load', 
+    'phase': STANDARD_PHASE, 'stepId': 1, 'jobName': 'Frame'})
+mdb.jobs['Frame']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 0, 'jobName': 'Frame'})
+mdb.jobs['Frame']._Message(STATUS, {'totalTime': 0.0, 'attempts': 0, 
+    'timeIncrement': 2.22e-16, 'increment': 0, 'stepTime': 0.0, 'step': 1, 
+    'jobName': 'Frame', 'severe': 0, 'iterations': 0, 'phase': STANDARD_PHASE, 
+    'equilibrium': 0})
+mdb.jobs['Frame']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'Frame', 'memory': 19.4528865814209})
+mdb.jobs['Frame']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 1, 'jobName': 'Frame'})
+mdb.jobs['Frame']._Message(STATUS, {'totalTime': 0.0, 'attempts': 1, 
+    'timeIncrement': 2.22e-16, 'increment': 1, 'stepTime': 2.22e-16, 'step': 1, 
+    'jobName': 'Frame', 'severe': 0, 'iterations': 1, 'phase': STANDARD_PHASE, 
+    'equilibrium': 1})
+mdb.jobs['Frame']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'Frame'})
+mdb.jobs['Frame']._Message(COMPLETED, {'phase': STANDARD_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'Frame'})
+mdb.jobs['Frame']._Message(JOB_COMPLETED, {'time': 'Sun Jan 18 11:29:17 2015', 
+    'jobName': 'Frame'})
+# Save by Anzong on 2015_01_18-11.39.51; build 6.12-1 2012_03_13-20.44.39 119612

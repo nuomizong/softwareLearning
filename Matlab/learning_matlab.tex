@@ -1,0 +1,237 @@
+% !Mode:: "TeX:UTF-8"	% read in as utf8 file.
+\documentclass[10pt,a4paper]{article}
+
+\input{D:/Git/softwareLearning/Latex/myStyle.tex}
+%\input{/Users/nuomizong/Dropbox/myStyle.tex}
+
+
+\begin{document}
+\author{Anzong Zheng}
+\title{Matlab operations}
+\date{October 5, 2016}
+\maketitle
+	
+\tableofcontents
+\newpage\clearpage\setcounter{page}{1}
+
+\section{Single quote}
+To output single quote use:
+
+\begin{lstlisting}[language = matlab]
+'' % two quotes
+\end{lstlisting}
+
+\section{Call external exe}
+call exe and pass parameters to exe in matlab
+\begin{lstlisting}[language=Matlab]
+dos('a.exe <paras>')
+1) argv[0] = "a.exe"
+2) argv[1] = "<paras>"
+\end{lstlisting}
+
+\section{Exoport utf-8 encoded file}
+\begin{lstlisting}[language=matlab]
+fid = fopen('a.txt','w','n','UTF-8');
+
+1) 'w' permission
+2) 'n' machinefmt
+3) 'UTF-8' encodingIn
+\end{lstlisting}
+
+\section{colormap}
+\begin{lstlisting}[language=matlab]
+% the range of tick is [0, 1]. I am damn right!
+colorbar('Ticks',[0, 1], 'TickLabels',{'Small','High'})
+\end{lstlisting}
+
+\section{uiopen}
+\begin{lstlisting}[language=matlab]
+if (exist('fullfilename', 'var') == 0)
+[filename, filefolder] = uigetfile('.obj', 'Read obj-file');
+fullfilename = [filefolder filename];
+end
+\end{lstlisting}
+
+\section{variable existence}
+\begin{lstlisting}[language=matlab]
+if (exist('fullfilename', 'var') == 0)
+	[filename, filefolder] = uigetfile('.obj', 'Read obj-file');
+	fullfilename = [filefolder filename];
+end
+\end{lstlisting}
+
+\section{Screen output}
+disp or fprintf
+
+\section{variable arguments input}
+\begin{lstlisting}[language=matlab]
+function varlist2(X,Y,varargin)
+	fprintf('Total number of inputs = %d\n',nargin);
+	
+	nVarargs = length(varargin);
+	fprintf('Inputs in varargin(%d):\n',nVarargs)
+	for k = 1:nVarargs
+	fprintf('   %d\n', varargin{k})
+end
+\end{lstlisting}
+
+\section{Triangular mesh}
+Both trisurf and trimesh functions are based on patch function.
+
+\section{Viewport}
+\begin{lstlisting}[language=matlab]
+view(2) or view(3)
+view([90,0])
+\end{lstlisting}
+
+\section{Export to specified path}
+\begin{lstlisting}[language=matlab]
+	% note the folder must exist!
+	modelName = 'bridge'; version = '_f16_b29_rib2';
+	folder = ['D:\360Sync\ribShell_zong\Codes\models\',modelName,version,'\'];
+	subfolder = 'other\';
+	Writer_PrinStress([folder,modelName,'.vStress'], vpStress);
+	saveas(gcf,[folder,subfolder,modelName],'fig');
+\end{lstlisting}
+
+\section{Search path}
+\begin{lstlisting}[language=matlab]
+	modelName = 'bridge'; version = '_f16_b29_rib2';
+	folder = ['D:\360Sync\ribShell_zong\Codes\models\',modelName,version,'\'];
+	subfolder = 'other\';
+	
+	% note the folder must exist!
+	addpath(folder);
+	...
+	rmpath(folder);
+\end{lstlisting}
+
+\section{Global}
+To clear global variables and release used memory simply use:
+\begin{lstlisting}[language=matlab]
+clear global;
+\end{lstlisting}
+
+\section{Mex functions}
+\subsection{Clear mex functions in workspace}
+\lstinline[language=matlab]{clear functions;}
+
+\begin{lstlisting}[language=matlab]
+nlhs: number of left hand side;
+plhs: pointer of left hand side;
+nrhs: number of right hand side;
+prhs: pointer of right hand side;
+\end{lstlisting}
+
+\subsection{Debug in C++ obselete}
+\begin{lstlisting}[language=c++]
+1. C/C++->General->Additional Include Directories:
+	$(MATLAB_PATH)\MATLAB\R2014b\extern\include
+	$(MATLAB_PATH)\MATLAB\R2014b\extern\include\win64
+2. Linker->Input:
+	libmat.lib
+	libmx.lib
+	libmex.lib
+	libeng.lib
+3. Linker->General->Additional Library Directories:
+	$(MATLAB_PATH)\MATLAB\R2014b\extern\lib\win64\microsoft
+	$(MATLAB_PATH)\MATLAB\R2014b\extern\lib\win32\microsoft
+4. Change Debugger to X64
+5. Linker->Advanced->Target Machine:
+	MachineX64(/MACHINE:X64)
+6. add environment to PATH or copy dlls to .exe:
+	$(MATLAB_PATH)\MATLAB\R2014b\extern\lib\win64\microsoft
+	$(MATLAB_PATH)\MATLAB\R2014b\bin\win64
+\end{lstlisting}
+
+
+\subsection{Debug in C++ within Matlab}
+\begin{lstlisting}[language=matlab]
+1. Compile target.cpp in '-g' mode 
+2. copy tartget.mex target.pdb as well as target.cpp to debug location
+3. In VS->Debug->Attach to Process, find Matlab and attach target.cpp file to matlab.
+4. run in Matlab and debug.
+5. Notice that any change to the target.cpp will cause the debug ineffective.
+\end{lstlisting}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\linewidth]{attach_to_matlab}
+	\caption{}
+	\label{fig:attachtomatlab}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.7\linewidth]{attach_to_matlab2}
+\caption{}
+\label{fig:attachtomatlab2}
+\end{figure}
+
+\subsection{Useful codes}
+\begin{lstlisting}[language=c++]
+#include "mex.h" // required
+
+// mex_h macro is defined in mex.h
+// MEX_MATLAB_FILE macro is defined when compiling using mex.
+plhs[0] = mxCreateDoubleScalar(0.0);
+plhs[1] = mxCreateDoubleMatrix(nFaces + nRibs, 1, mxREAL);
+
+int nNodes = (int)mxGetM(prhs[0]);
+double const *nodes = mxGetPr(prhs[0]);
+
+spK = mxCreateSparse(n,n,nzmax, mxREAL);
+double *sr  = mxGetPr(spK);
+mwIndex *ir = mxGetIr(spK);
+mwIndex *jc = mxGetJc(spK);
+
+mwSize total_num_of_cells = mxGetNumberOfElements(vvCells);
+const mxArray *cell = mxGetCell(vvCells, i);
+mwSize n = mxGetN(cell);
+
+double a = mxGetScalar(prls[3]);
+\end{lstlisting}
+
+\subsection{matlab mex}
+\lstinline[language=matlab]|.m| can also be used to generate mexfunctions( for fast prototype test). There are two ways:
+\begin{enumerate}
+	\item Use Matlab Coder.
+	\item use \lstinline[language=matlab]|codegen| command.
+	\begin{lstlisting}[language=matlab]
+	p1 = coder.typeof(0,[3,1]);
+	p2 = coder.typeof(0, [3,1]);
+	p3 = coder.typeof(0,[3,1]);
+	E =coder.typeof(0, [1,1]);
+	nu = coder.typeof(0, [1,1]);
+	eleType = coder.typeof(char(0), [1,Inf]);
+	hp = coder.typeof(0, [1,1]);
+	
+	% Plate3_Compute_keg(p1,p2,p3, g_Ep, g_nup, g_eleType, g_hp);
+	codegen '.\stiffenedPlate\src_matlab\Plate3_Compute_keg.m' -config:mex ...
+	-args {p1, p2, p3 E, nu, eleType, hp} -d '.\codegen\' -o '.\'
+	\end{lstlisting}
+\end{enumerate}
+
+To be noticed, the mex functions built by matlab are not efficient enough. Meanwhile, some functions are not supported, such as \lstinline[language=matlab]|tic; toc; sparse; function handle. anonymous functions.|
+
+\section{fmincon}
+\subsection{Out of memory problem}
+Supply a sparse hessian matrix 
+\begin{lstlisting}[language=c++]
+'HessPattern', Hstr
+% spy(Hstr) % view the sparsity structure of Hstr.
+\end{lstlisting}
+\subsection{objective function check}
+the objective function should converge to lower bounds if there are no constraints presented.
+
+\section{editting colormap}
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.7\linewidth]{colormapEditor}
+\caption{colormap editor}
+\label{fig:colormapeditor}
+\end{figure}
+
+
+	
+\end{document}

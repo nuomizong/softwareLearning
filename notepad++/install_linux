@@ -1,0 +1,4 @@
+1. sudo: super-user do
+2. sudo apt-get update
+3. sudo apt-get wine
+4. install notepad++ using wine.

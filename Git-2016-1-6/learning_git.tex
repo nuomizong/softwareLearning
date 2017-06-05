@@ -1,0 +1,83 @@
+% !Mode:: "TeX:UTF-8"	% read in as utf8 file.
+\documentclass[10pt,a4paper]{article}
+
+%\input{D:/Dropbox/myStyle.tex}
+\input{/Users/anzongzheng/Dropbox/myStyle.tex}
+
+\begin{document}
+
+\begin{lstlisting}
+=============================== for gui under windows
+
+1. revert operations:
+
+git log
+
+git revert <several front characters from log>
+
+
+2. Retrieve deleted files.
+
+git checkout origin/master
+
+
+3. add ssh key from git gui.
+
+4. git fetch and git merge.
+
+
+# clone a reposity from remote.
+
+Choose Clone and Copy from remote like: git@github.com:nuomizong/Test_Models.git
+
+and in the target input an empty folder like: D:/Git/Test_Models
+
+
+
+========================== for commands under linux
+
+1. sudo apt-get install git
+
+2. config --global user.email "nuomizong@qq.com"
+
+3. config --global user.name "nuomizong"
+
+4. gt init --bare Git
+
+5. git clone git@github.com:nuomizong/C_library.git
+
+6. git commit -a
+
+7. git push origin master
+
+
+6. # Change into home directory:
+
+cd ~
+
+# Generate a key pair:
+
+7. ssh-keygen -t rsa
+
+8. # Concatenate the key:
+
+cat ~/.ssh/id_rsa.pub
+\end{lstlisting}
+
+\section{index.link locked}
+\begin{lstlisting}
+ fatal: Unable to create 'v:/path/to/files/.git/index.lock': File exists.
+ 
+ rm -f ./.git/index.lock
+ or
+sudo  rm -f ./.git/index.lock
+\end{lstlisting}
+
+\section{conlicts}
+
+git mergetool
+
+\url{http://blog.csdn.net/u012150179/article/details/14047183}
+
+
+\end{document}

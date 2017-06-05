@@ -1,0 +1,23 @@
+% !Mode:: "TeX:UTF-8"	% read in as utf8 file.
+
+\chapter{Macros}
+
+Macros for different systems:
+\begin{lstlisting}[language=C++]
+1. __unix__
+2. __linux__
+3. __APPLE__
+4. _WIN32
+\end{lstlisting}
+
+Windows specific:
+\begin{lstlisting}[language=C++]
+1. __LINE__: Line number in current source file.
+2. __FILE__: file name of current source file.
+3. __DATE__: compile date, like: Aug 28 2011.
+4. __TIME__: compile time, like 06:43:59.
+5. __STDC__: compatible with ANSI/ISO C standards, work with #if.
+6. __TIMESTAMP__: the last time modified the current file.
+7. __cplusplus: compile as c plus plus not c, work with #ifdef.
+8. __FUNCTION__
+\end{lstlisting}

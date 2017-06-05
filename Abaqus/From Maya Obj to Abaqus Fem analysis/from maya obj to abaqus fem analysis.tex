@@ -1,0 +1,144 @@
+% !Mode:: "TeX:UTF-8"	% read in as utf8 file.
+\documentclass[10pt,a4paper]{article}
+
+\input{D:/Dropbox/myStyle.tex}
+
+\begin{document}
+
+\author{Anzong Zheng}
+\title{From Maya Obj to Abaqus Fem analysis}
+\date{October 15, 2015}
+\maketitle
+\newpage
+
+\section{Abaqus Shell Mesh}
+To create Abaqus Shell Mesh, an obj model should be imported. Notice that the \textcolor{red}{imported mesh's normals must face outside}.
+
+\section{zong Tet Mesh}
+Making use of Maya, an original obj mesh can be extruded so that generates a shell. The normals of inner shell will be reversed facing inside and the normals of outer shell still facing outside. Then hexahedra or pentahedra are generated to be divided into several tetrahedra.
+
+\section{Tetgen Tet Mesh}
+\subsection{Convert to Poly model}
+The Obj model is further converted to Poly model. The tool here is a self-developed \textcolor{red}{convertObjToPoly.exe}.
+
+\subsection{Generate Tetrahedron mesh}  
+The Poly model now can be identified, loaded and processed by \textcolor{red}{tetgen.exe}. BTW, \textcolor{red}{tetview-win.exe} is a quite useful to visualize tetrahedonlized mesh.
+
+\begin{lstlisting}
+tetgen.exe -p polyFilename.poly
+tetgen.exe -pq polyFilename.poly
+\end{lstlisting}
+
+\section{Create Inp file}
+Next step is to generate Inp file for Abaqus. The \textcolor{red}{inpWriter.exe} is therefore used to convert Tetrahedon mesh to Inp file. Note that the \textcolor{red}{inpWriter.exe} can only write part, assembly, material information to inp file.
+
+\subsection{Units}
+Before starting to define any model, you need to decide which system of units you will use. Abaqus has no built-in system of units. Do not include unit names or labels when entering data in Abaqus. All input data must be specified in consistent units. Some common systems of consistent units are shown in Table \ref{Table: Consistent units.}.
+
+\begin{table}[htb]
+\caption{Consistent units.}
+\label{Table: Consistent units.}
+\begin{tabular}{|p{3cm}|c|c|c|c|}
+\hline
+\textbf{Quantity} & \textbf{SI} & \textbf{SI(mm)} & \textbf{US UNIT(ft)} & \textbf{US Unit(inch)} \\
+\hline
+Length & m & mm & ft & in \\
+Force & N & N & lbf & lbf \\
+Mass & kg & tonne($ 10^3 $kg) & slug & lbf $ s^2/in $ \\
+Time & s & s & s & s \\
+Stress & Pa ($ N/m^2 $) & MPa ($ N/mm^2 $) & $ lbf/ft^2 $ & psi ($ lbf/in^2 $) \\
+Energy & J & mJ ($ 10^{-3} J $) & ft lbf & in lbf \\
+Density & $ kg/m^3 $ & $ tonne/mm^3 $ & $ slug/ft^3 $ & $ lbf s^2/in^4 $ \\
+\hline
+\end{tabular}
+\end{table}
+
+The SI system of units is used throughout this guide. Users working in the systems labeled "US Unit" should be careful with the units of density; often the densities given in handbooks of material properties are multiplied by the acceleration due to gravity.
+
+\section{Import Inp file and Add Loads and Boundary Conditions in Abaqus}
+\textbf{File-\textgreater Import-\textgreater Model}. In the pop-up \textbf{Import Model} window, click the \textbf{drop-down arrow} and choose \textbf{Abaqus Input File(*.inp, *.pes)}.
+
+After Inp file is loaded, only \textcolor{red}{Loads} and \textcolor{red}{Boundary conditions} are left to complete in Abaqus. 
+
+\section{Displacement and stress extraction using Abaqus Python script}
+After submitting completed inp file to Abaqus, the result will be exported to an odb file. In order to read results from the odb file, several Python scripts are needed. These scripts simply retrieve data from odb file and write them to ASCII encoded text files. The file extension for Python scripts is \textcolor{red}{filename.py}.
+
+You can also use Python to run a script to deal with \textbf{.odb file} directly by typing 
+\begin{lstlisting}
+abaqus python scriptname.py -odb odbfilename.odb
+\end{lstlisting}
+at the system prompt. Abaqus will run the script through the Python interpreter and return you to the system prompt.
+
+I prepared a \textcolor{red}{Run\_Extract\_Abaqus\_odb\_data.exe} tool. All I have to do is to pull \textbf{odb file} and \textbf{Python script} files on the the exe and then release. Then the displacements and stresses at nodes will be extracted to \textbf{.coord} and \textbf{.stress} files respectively.
+
+\subsection{.coord file and .stress file format}
+The content of \textbf{.coord} is spatial displacements at nodes. The format for \textbf{3D nodes} is:
+\begin{lstlisting}[language={[LaTeX]TeX}]
+<Number of nodes> <Number of data fields = 3>
+<Node 1> <U1> <U2> <U3>
+<Node 2> <U1> <U2> <U3>
+.
+.
+.
+<Node n> <U1> <U2> <U3>
+\end{lstlisting}
+
+where \lstinline|<U1> <U2> <U3>| are equal to \lstinline|<X> <Y> <Z>|.
+
+The content of \textbf{.stress} is similar, except it records stress components at integration points. The format for \textbf{3d nodes} is:
+\begin{lstlisting}[language={[LaTeX]TeX}]
+<Number of elements> <Number of data fields = 7>
+<Node 1> <Mises stress> <S11> <S22> <S33> <S12> <S13> <S23>
+<Node 2> <Mises stress> <S11> <S22> <S33> <S12> <S13> <S23>
+.
+.
+.
+<Node n> <Mises stress> <S11> <S22> <S33> <S12> <S13> <S23>
+\end{lstlisting}
+
+where \lstinline|<S11> <S22> <S33> <S12> <S13> <S23>| are equal to $ <\sigma_1>~<\sigma_2>~<\sigma_3>~<\sigma_{12}>~<\sigma_{13}>~<\sigma_{23}> $. 
+
+\textbf{Note} that the definition of $ <Mises~stress> $ according to \textcolor{red}{Wikipedia} is:
+\begin{table}[h]
+\caption{\textbf{Von Mises (equivalent tensile stress)} yield criterion for different stress conditions}
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Load scenario} & \textbf{Restrictions} & \textbf{Simplified von Mises equation} \\
+\hline
+
+General & No restrictions & $ \sigma_v = \sqrt{\dfrac{1}{2} \left[  (\sigma_{11}-\sigma_{22})^2 + (\sigma_{22}-\sigma_{33})^2 +(\sigma_{33}-\sigma_{11})^2 + 6(\sigma_{12}^2+\sigma_{23}^2+\sigma_{31}^2)  \right]   } $ \\
+\hline
+Principal stresses & No restrictions & $ \sigma_v = \sqrt{\dfrac{1}{2} \left[  (\sigma_{1}-\sigma_{2})^2 + (\sigma_{2}-\sigma_{3})^2 +(\sigma_{3}-\sigma_{1})^2 \right] } $ \\
+\hline
+\end{tabular}
+\end{table}
+
+where \textcolor{red}{invariants} $ \sigma_1, \sigma_2, \sigma_3 $ correspond to \textcolor{red}{Max. principal, Mid. Principal, Min. Principal} respectively.
+
+\section{Visualization in Abaqus}
+
+\subsection{Query details}
+\textbf{Query tool} is useful for viewing model details. The \textbf{node displacement}, \textbf{deformation scale factor}, \textbf{base translations} etc can be found here.
+
+\subsection{Set deformation scale factor}
+In order to \textbf{accurately} use the output field in the \textbf{.odb file}, the \textbf{deformation scale factor} needs to be 1. To set this value, change to \textbf{Visualization module-\textgreater Options-\textgreater Common}, then set values as shown in fig \ref{fig:Set deformation scale factor}.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.7\linewidth]{Set_deformation_scale_factor.png}
+\caption{Set deformation scale factor} \label{fig:Set deformation scale factor}
+\end{figure}
+
+\subsection{Visualize different fields}
+A problem of how to visualize different fields puzzled me for a while. If \textcolor{red}{Field Output} includes \textcolor{red}{S "Stress components at integration points"} and \textcolor{red}{U "Spatial displacement at nodes"}, then each component of these fields can be visualized.
+
+Go to \textbf{Result} on the menu and choose \textbf{Field Output}. In the prompt shown in \cref{fig: visualize various fields}, change different and select interested component then press \textbf{Apply} and \textbf{OK}.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.5\textwidth]{visualize_various_fields.png}
+\caption{Visualize various fields} \label{fig: visualize various fields}
+\vspace{\baselineskip}
+\end{figure}
+
+\end{document}

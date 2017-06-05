@@ -1,0 +1,110 @@
+% !Mode:: "TeX:UTF-8"	% read in as utf8 file.
+
+\section{Remove the White Background From Line Art in Adobe Photoshop}
+There's another way, obviously more complicated than simply selecting an item on the list, but also far more effective. It will give us our dark lines—instead of pretending that there is no background we will remove it for real. Don't let the number of steps scare you—there aren't so many, but I made it as detailed as possible for you!
+
+\subsection{Step 1}
+To make sure there is only black and white in the picture, go to \textbf{Image $ > $ Mode $ > $ Grayscale}. Select Don't \textbf{Merge} and then \textbf{Discard}.
+
+\subsection{Step 2}
+Select the whole picture with \textbf{Control-A}. \textbf{Copy} it.
+
+\begin{center}
+\includegraphics[width=0.7\linewidth]{Photos/quick-lineart-select-all}
+\end{center}
+
+\subsection{Step 3}
+Go to the\textbf{ Channels} panel. You can find it next to \textbf{Layers}, and if it's not there, simply open it with \textbf{Window $ > $ Channels}.
+
+\begin{center}
+\includegraphics[width=0.7\linewidth]{Photos/quick-lineart-channels-panel}
+\end{center}
+
+\subsection{Step 4}
+Click \textbf{Create New Channel}.
+
+\begin{center}
+\includegraphics[width=0.7\linewidth]{Photos/quick-lineart-new-channel}
+\end{center}
+
+A new "layer" should appear on the list. This is an alpha channel—it knows only two colors: black (transparent) and white (opaque). For now it's black, so there's nothing there.
+
+\begin{center}
+\includegraphics[width=0.7\linewidth]{Photos/quick-lineart-new-alpha}
+\end{center}
+
+\subsection{Step 5}
+\textbf{Paste} the selection to this layer. \textbf{Deselect (Control-D)}.
+
+\begin{center}
+\includegraphics[width=0.7\linewidth]{Photos/quick-lineart-paste}
+\end{center}
+
+\subsection{Step 6}
+Click \textbf{Load Channel as Selection}.
+
+\begin{center}
+\includegraphics[width=0.7\linewidth]{Photos/quick-lineart-select}
+\end{center}
+
+\subsection{Step 7}
+A selection should appear on the picture. As I said before, for an alpha channel white is opaque, and black is transparent. When we loaded the selection, only the opaque parts were selected—the white parts.
+
+\begin{center}
+\includegraphics[width=0.7\linewidth]{Photos/quick-lineart-select-white}
+\end{center}
+
+If you \textbf{Invert} the selection now (\textbf{Control-Shift-I}), you'll get the opposite selected—only black parts. Only the line art.
+
+\begin{center}
+\includegraphics[width=0.7\linewidth]{Photos/quick-lineart-select-invert}
+\end{center}
+
+\subsection{Step 8}
+Select the Gray \textbf{channel} again.
+
+\begin{center}
+\includegraphics[width=0.7\linewidth]{Photos/quick-lineart-back}
+\end{center}
+
+\subsection{Step 9}
+Create a \textbf{New Layer}.
+
+\begin{center}
+\includegraphics[width=0.7\linewidth]{Photos/quick-lineart-new-layer}
+\end{center}
+
+\subsection{Step 10}
+\textbf{Fill} the selection with black using the \textbf{Paint Bucket Tool (G)}.
+
+\begin{center}
+\includegraphics[width=0.7\linewidth]{Photos/quick-lineart-fill}
+\end{center}
+
+\subsection{Step 11}
+If you \textbf{deselect (Control-D)} now, you'll see that the line art became twice as dark. It's because we've got two sets of lines!
+
+\begin{center}
+\includegraphics[width=0.7\linewidth]{Photos/quick-lineart-deselect}
+\end{center}
+
+Remove the scan to fix the problem.
+
+\begin{center}
+\includegraphics[width=0.7\linewidth]{Photos/quick-lineart-remove}
+\end{center}
+
+\subsection{Step 12}
+If you hide the background layer, you'll see only the line art. Just what we wanted, without any pretending!
+
+\begin{center}
+\includegraphics[width=0.7\linewidth]{Photos/quick-lineart-transparent}
+\end{center}
+
+You can now safely use any Blend Mode on this layer—Multiply doesn't block you anymore. Just don't forget to switch back to \textbf{Image $ > $ Mode $ > $ RGB Color}.
+
+You can also use all the \textbf{Blending Options} on the lines, for example \textbf{Gradient Overlay}:
+
+\begin{center}
+\includegraphics[width=0.7\linewidth]{Photos/quick-lineart-done}
+\end{center}

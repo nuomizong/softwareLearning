@@ -1,0 +1,104 @@
+% !Mode:: "TeX:UTF-8"	% read in as utf8 file.
+
+\chapter{Average}
+\section{Preliminary average}
+In the following example, the codes read in a sequence and erase elements having gaps larger than 0.5 mean vaule. 
+\begin{lstlisting}[language=C++]
+#include <vector>
+#include <cstdio>
+#include <cstdlib>
+
+int main( int argc, char *argv[])
+{
+	std::printf("------------- Good Morning, My Princess! --------------\n");
+
+	double vals[] = {36.5712, 31.4884, 31.5836, 37.8368, 35.9354, 32.1255, 160.409, 32.1387, 36.573, 35.3065, 36.561, 37.8515, 142.834, 37.8465, 220.383, 31.5854};
+	std::vector<double> seq(vals, vals+sizeof(vals)/sizeof(double));
+
+	double avg;
+	int len;
+	
+	do
+	{
+		len=seq.size();
+		avg=0.0;
+		for( int i=0; i<seq.size(); i++)
+			avg += seq[i];
+	
+		avg /= seq.size();
+
+		for ( int i=0; i<seq.size(); i++)
+		{
+			if ( std::fabs( avg-seq[i]) > 0.5 * avg)
+				seq.erase(seq.begin()+i);
+		}
+	}while (len != seq.size());
+
+	std::printf("------------- Good Night, My Princess! --------------\n");
+	std::printf("Press Enter to Exit.\n");
+	std::getchar();
+	std::exit(EXIT_SUCCESS);
+}
+\end{lstlisting}
+
+\section{Group average}
+\begin{lstlisting}[language=C++]
+
+#include <cstdio>
+#include <cstdlib>
+#include <vector>
+#include <algorithm>
+
+double GroupMean(int n, double arr[])
+{
+	double const avg = 0.75;
+
+	// step 1: sort to be ascending.
+	std::sort( arr, arr+n);
+
+	// step 2: scan to insert separators with gap larger than 0.75.
+	std::vector<int> separator;
+	for( int i=0; i<n-1; i++)
+	{
+		if( (arr[i+1]-arr[i]) > (1.0-avg)*arr[i+1])
+			separator.push_back(i+1);
+	}
+
+	// step 3: put the remaining  into array.
+	separator.push_back(n);
+
+	// step 4: find segments having most elements and its start position.
+	int maxCount=separator[0], pos=0;
+	for( int i=1; i<separator.size(); i++)
+	{
+		if( maxCount < separator[i]-separator[i-1] )
+		{
+			maxCount = separator[i]-separator[i-1];
+			pos= separator[i-1]; // in case in the beginning.
+		}
+	}
+
+	// step 5: find averaged mean.
+	double mean=0.0;
+
+	for( int i=pos; i<pos+maxCount; i++)
+		mean += arr[i];
+
+	mean /= maxCount;
+
+	return mean;
+}
+
+int main( int argc, char *argv[])
+{
+	std::printf( "Good Morning, My Princess!\n");
+
+	double arr[] = {10.4778,  71.8084, 70.0};
+
+	std::printf("mean = %lf\n", GroupMean( sizeof(arr)/sizeof(double), arr) );
+
+	std::printf("Good Night, My Princess|\n");
+	std::getchar();
+	std::exit(EXIT_SUCCESS);
+}
+\end{lstlisting}

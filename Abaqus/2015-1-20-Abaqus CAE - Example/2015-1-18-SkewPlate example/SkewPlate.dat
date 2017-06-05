@@ -1,0 +1,237 @@
+1
+
+   Abaqus 6.12-1                                  Date 18-1ÔÂ-2015   Time 21:32:59
+   For use by  under license from Dassault Systemes or its subsidiary.
+
+
+
+                         The Abaqus Software is a product of:
+
+                           Dassault Systemes Simulia Corp.
+                                 Rising Sun Mills
+                                 166 Valley Street
+                           Providence, RI 02909-2499, USA
+ 
+
+
+                   The Abaqus Software is available only under license
+                   from Dassault Systemes or its subsidiary and may be
+                   used or reproduced only in accordance with the terms
+                   of such license.
+ 
+                          On machine nuomizong 
+                          you are authorized to run
+                          Abaqus/Standard until 07-Jul-2028
+
+                          Your site id is: AE125930 
+
+
+ 
+                    For assistance or any other information you may
+                    obtain contact information for your local office
+                    from the world wide web at:
+
+                      http://www.simulia.com/about/locations.html
+
+ 
+                * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+                *                                                         * 
+                *                   *****************                     * 
+                *                   *  N O T I C E  *                     * 
+                *                   *****************                     * 
+                *                                                         * 
+                *                                                         * 
+                *                    Abaqus 6.12-1                        * 
+                *                                                         * 
+                *          BUILD ID: 2012_03_13-20.44.39 119612           * 
+                *                                                         * 
+                *                                                         * 
+                *  Please make sure you are using release 6.12 manuals    * 
+                *  plus the notes accompanying this release.              * 
+                *                                                         * 
+                *                                                         * 
+                *                                                         * 
+                *                                                         * 
+                * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+
+
+ 
+
+
+
+     PROCESSING PART, INSTANCE, AND ASSEMBLY INFORMATION
+   *******************************************************
+
+
+     END PROCESSING PART, INSTANCE, AND ASSEMBLY INFORMATION
+   ***********************************************************
+
+
+
+
+     OPTIONS BEING PROCESSED
+   ***************************
+
+
+  *Heading
+          Linear Elastic Skew Plate. 20kPa Load.                                                                                                                                                                                                                          
+  *Node
+  *Element, type=S8R5
+  *Nset, nset=ASSEMBLY_PLATE-1_SET-2
+  *Nset, nset=ASSEMBLY_PLATE-1__PICKEDSET18
+  *Elset, elset=ASSEMBLY_PLATE-1_SET-2
+  *Elset, elset=ASSEMBLY_PLATE-1__PICKEDSET18
+  *Nset, nset="ASSEMBLY__T-Plate-1-Datum csys-1"
+  *Nset, nset=ASSEMBLY_ENDA
+  *Nset, nset=ASSEMBLY_ENDB
+  *Nset, nset=ASSEMBLY_MIDSPAN
+  *Nset, nset=ASSEMBLY_SET-4
+  *Nset, nset=ASSEMBLY_SET-5
+  *Elset, elset=ASSEMBLY_ENDA
+  *Elset, elset=ASSEMBLY_ENDB
+  *Elset, elset=ASSEMBLY_MIDSPAN
+  *Elset, elset=ASSEMBLY_SET-4
+  *Elset, elset=ASSEMBLY_SET-5
+  *Elset, elset=ASSEMBLY__SURF-1_SPOS
+  *surface, type=ELEMENT, name=ASSEMBLY_SURF-1
+  *surface, type=ELEMENT, name=ASSEMBLY_SURF-1
+  *material, name=METAL
+  *elastic
+  *shellgeneralsection, elset=ASSEMBLY_PLATE-1_SET-2, material=METAL, orientation=ASSEMBLY_PLATE-1_ORI-1
+  *orientation, name=ASSEMBLY_PLATE-1_ORI-1
+  *transform, nset="ASSEMBLY__T-Plate-1-Datum csys-1"
+  *boundary
+  *boundary
+  *shellgeneralsection, elset=ASSEMBLY_PLATE-1_SET-2, material=METAL, orientation=ASSEMBLY_PLATE-1_ORI-1
+
+ ***NOTE: *SHELL GENERAL SECTION will use only the elastic part of the material 
+          definition to compute the shell stiffness to be used throughout the 
+          analysis.
+  *surface, type=ELEMENT, name=ASSEMBLY_SURF-1
+  *output, field, variable=PRESELECT
+  *output, history, variable=PRESELECT
+  *output, field, variable=PRESELECT
+  *output, history, variable=PRESELECT
+  *output, field, variable=PRESELECT
+  *output, history, variable=PRESELECT
+  *Step, name="Apply pressure"
+  *output, field, variable=PRESELECT
+  *output, history, variable=PRESELECT
+  *Step, name="Apply pressure"
+  *Step, name="Apply pressure"
+  Uniform pressure (20 kPa) load                                                  
+  *static
+  *boundary
+  *boundary
+  *dsload
+  *output, field, variable=PRESELECT
+  *output, history, variable=PRESELECT
+  *endstep
+  *Step, name="Apply pressure"
+  *static
+  *boundary
+  *boundary
+  *endstep
+
+     - (RAMP) OR (STEP) - INDICATE USE OF DEFAULT AMPLITUDES ASSOCIATED WITH THE STEP
+
+
+
+                            P R O B L E M   S I Z E
+
+
+          NUMBER OF ELEMENTS IS                                    60
+          NUMBER OF NODES IS                                      275
+          NUMBER OF NODES DEFINED BY THE USER                     215
+          NUMBER OF INTERNAL NODES GENERATED BY THE PROGRAM        60
+          TOTAL NUMBER OF VARIABLES IN THE MODEL                 1650
+          (DEGREES OF FREEDOM PLUS MAX NO. OF ANY LAGRANGE MULTIPLIER
+           VARIABLES. INCLUDE *PRINT,SOLVE=YES TO GET THE ACTUAL NUMBER.)
+
+          ESTIMATES ASSUME MAXIMUM OF 6 ACTIVE DEGREES OF FREEDOM PER NODE FOR 5 DOF ELEMENTS
+
+
+
+                              END OF USER INPUT PROCESSING
+
+
+
+     JOB TIME SUMMARY
+       USER TIME (SEC)      =  0.20000    
+       SYSTEM TIME (SEC)    =  0.10000    
+       TOTAL CPU TIME (SEC) =  0.30000    
+       WALLCLOCK TIME (SEC) =          0
+1
+
+   Abaqus 6.12-1                                  Date 18-1ÔÂ-2015   Time 21:33:01
+   For use by  under license from Dassault Systemes or its subsidiary.
+
+     Linear Elastic Skew Plate. 20kPa Load.                                                    STEP    1  INCREMENT    1
+     Uniform pressure (20 kPa) load                                                       TIME COMPLETED IN THIS STEP   0.00    
+
+
+                        S T E P       1     S T A T I C   A N A L Y S I S
+
+
+          Uniform pressure (20 kPa) load                                                  
+
+     AUTOMATIC TIME CONTROL WITH -
+          A SUGGESTED INITIAL TIME INCREMENT OF                 1.00    
+          AND A TOTAL TIME PERIOD OF                            1.00    
+          THE MINIMUM TIME INCREMENT ALLOWED IS                1.000E-05
+          THE MAXIMUM TIME INCREMENT ALLOWED IS                 1.00    
+
+     LINEAR EQUATION SOLVER TYPE         DIRECT SPARSE
+  
+                   M E M O R Y   E S T I M A T E
+  
+ PROCESS      FLOATING PT       MINIMUM MEMORY        MEMORY TO
+              OPERATIONS           REQUIRED          MINIMIZE I/O
+             PER ITERATION         (MBYTES)           (MBYTES)
+  
+     1         7.65E+006               17                 25
+  
+ NOTE:
+      (1) SINCE ABAQUS DOES NOT PRE-ALLOCATE MEMORY AND ONLY ALLOCATES MEMORY AS NEEDED DURING THE ANALYSIS,
+          THE MEMORY REQUIREMENT PRINTED HERE CAN ONLY BE VIEWED AS A GENERAL GUIDELINE BASED ON THE BEST
+          KNOWLEDGE AVAILABLE AT THE BEGINNING OF A STEP BEFORE THE SOLUTION PROCESS HAS BEGUN.
+      (2) THE ESTIMATE IS NORMALLY UPDATED AT THE BEGINNING OF EVERY STEP. IT IS THE MAXIMUM VALUE OF THE
+          ESTIMATE FROM THE CURRENT STEP TO THE LAST STEP OF THE ANALYSIS, WITH UNSYMMETRIC SOLUTION TAKEN
+          INTO ACCOUNT IF APPLICABLE. 
+      (3) SINCE THE ESTIMATE IS BASED ON THE ACTIVE DEGREES OF FREEDOM IN THE FIRST ITERATION OF THE 
+          CURRENT STEP, THE MEMORY ESTIMATE MIGHT BE SIGNIFICANTLY DIFFERENT THAN ACTUAL USAGE FOR 
+          PROBLEMS WITH SUBSTANTIAL CHANGES IN ACTIVE DEGREES OF FREEDOM BETWEEN STEPS (OR EVEN WITHIN
+          THE SAME STEP). EXAMPLES ARE: PROBLEMS WITH SIGNIFICANT CONTACT CHANGES, PROBLEMS WITH MODEL
+          CHANGE, PROBLEMS WITH BOTH STATIC STEP AND STEADY STATE DYNAMIC PROCEDURES WHERE ACOUSTIC 
+          ELEMENTS WILL ONLY BE ACTIVATED IN THE STEADY STATE DYNAMIC STEPS.
+      (4) FOR MULTI-PROCESS EXECUTION, THE ESTIMATED VALUE OF FLOATING POINT OPERATIONS FOR EACH PROCESS
+          IS BASED ON AN INITIAL SCHEDULING OF OPERATIONS AND MIGHT NOT REFLECT THE ACTUAL FLOATING 
+          POINT OPERATIONS COMPLETED ON EACH PROCESS. OPERATIONS ARE DYNAMICALLY BALANCED DURING EXECUTION, 
+          SO THE ACTUAL BALANCE OF OPERATIONS BETWEEN PROCESSES IS EXPECTED TO BE BETTER THAN THE ESTIMATE
+          PRINTED HERE.
+      (5) THE UPPER LIMIT OF MEMORY THAT CAN BE ALLOCATED BY ABAQUS WILL IN GENERAL DEPEND ON THE VALUE OF
+          THE "MEMORY" PARAMETER AND THE AMOUNT OF PHYSICAL MEMORY AVAILABLE ON THE MACHINE. PLEASE SEE
+          THE "ABAQUS ANALYSIS USER'S MANUAL" FOR MORE DETAILS. THE ACTUAL USAGE OF MEMORY AND OF DISK
+          SPACE FOR SCRATCH DATA WILL DEPEND ON THIS UPPER LIMIT AS WELL AS THE MEMORY REQUIRED TO MINIMIZE
+          I/O. IF THE MEMORY UPPER LIMIT IS GREATER THAN THE MEMORY REQUIRED TO MINIMIZE I/O, THEN THE ACTUAL
+          MEMORY USAGE WILL BE CLOSE TO THE ESTIMATED "MEMORY TO MINIMIZE I/O" VALUE, AND THE SCRATCH DISK
+          USAGE WILL BE CLOSE-TO-ZERO; OTHERWISE, THE ACTUAL MEMORY USED WILL BE CLOSE TO THE PREVIOUSLY
+          MENTIONED MEMORY LIMIT, AND THE SCRATCH DISK USAGE WILL BE ROUGHLY PROPORTIONAL TO THE DIFFERENCE
+          BETWEEN THE ESTIMATED "MEMORY TO MINIMIZE I/O" AND THE MEMORY UPPER LIMIT. HOWEVER ACCURATE
+          ESTIMATE OF THE SCRATCH DISK SPACE IS NOT POSSIBLE.
+      (6) USING "*RESTART, WRITE" CAN GENERATE A LARGE AMOUNT OF DATA WRITTEN IN THE WORK DIRECTORY.
+
+
+          THE ANALYSIS HAS BEEN COMPLETED
+
+
+
+                              ANALYSIS COMPLETE
+
+
+
+     JOB TIME SUMMARY
+       USER TIME (SEC)      =  0.20000    
+       SYSTEM TIME (SEC)    =   0.0000    
+       TOTAL CPU TIME (SEC) =  0.20000    
+       WALLCLOCK TIME (SEC) =          1

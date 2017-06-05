@@ -1,0 +1,12 @@
+
+5. cd .. dir mkdir 
+6. System Monitor
+
+============== shortcuts for ubuntu:
+1. ctrl + alt + T: open terminal.
+2. sudo cp file /usr/local/lib
+3. sudo mv file /usr/local/include
+4. mv *.doc /path/to/dest/folder/
+
+============== super do file manager
+1. gksudo nautilus

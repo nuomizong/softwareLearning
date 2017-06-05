@@ -1,0 +1,40 @@
+% !Mode:: "TeX:UTF-8"	% read in as utf8 file.
+\documentclass[10pt,a4paper]{article}
+
+\input{D:/Git/softwareLearning/Latex/myStyle.tex}
+% \input{/Users/nuomizong/Dropbox/myStyle.tex}
+
+\begin{document}
+\author{Anzong Zheng}
+\title{Render color per vertex in mental ray for Maya}
+\date{April 11, 2017}
+\maketitle
+
+% \tableofcontents
+
+\newpage\clearpage\setcounter{page}{1}
+
+\url{https://knowledge.autodesk.com/support/maya/learn-explore/caas/CloudHelp/cloudhelp/2016/ENU/Maya/files/GUID-6ED598A1-86DD-4B2C-B34A-25BB13C979ED-htm.html}
+\\
+\\
+Render color per vertex in mental ray® for Maya®using the mentalrayVertexColors node. It can be used in a shading network for rendering color per vertex. As a result, you can store shading and lighting information on mesh vertices (rather than shading networks), simplifying your scene and making it more efficient to render.
+
+\section*{To use the mentalrayVertexColors node}
+
+\begin{itemize}
+	\item Create color sets. For more information, see Polygon color sets in the Polygonal Modeling guide.
+	\item Create a mentalrayVertexColors node. For more information, see Create and connect nodes in the Hypershade.
+	\item In the Connection Editor, load the shape node that contains the color set you want to use into the Outputs column. For more information, see Connection Editor.
+	\item Load the mentalrayVertexColors node into the Inputs column of the Connection Editor.
+	\item Connect the output of the color set (colorSet[n].colorName) to the cpvSets input on the mentalrayVertexColors node.
+	\item Make connections from the mentalrayVertexColors node out color to the input nodes of a shader, as necessary. For more information, see About shading networks.
+\end{itemize}
+
+\section*{Additional notes}
+\begin{itemize}
+	\item When a mesh has a connection between the meshShape.colorSet[n].colorName to the mentalrayVertexColors node, the color per vertex data of the mesh is exported as custom data for each vertex. In the case of multiple CPV sets, all of the CPV values are exported.
+	If you want to force the export of all the CPV data for all the meshes in your scene, you can turn on the Export Vertex Colors attribute in the Render Settings: mental ray tabs, Options tab, Translation section. Exporting CPV data can be process-intensive, so do not turn on this attribute unless necessary.
+	\item Vertex colors are exported as user data for vertices and are accessible from a shader.
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,36 @@
+% !Mode:: "TeX:UTF-8"	% read in as utf8 file.
+\documentclass[10pt,a4paper]{article}
+
+\input{D:/Dropbox/myStyle.tex}
+
+\begin{document}
+\author{Anzong Zheng}
+\title{Maya Animation}
+\date{May 30, 2016}
+\maketitle
+
+\tableofcontents
+
+\newpage
+
+\section{Create Movie in After Effects}
+\subsection{Import image sequence in After Effects}
+In \textbf{After Effects}, under \textbf{File}, go to \textbf{Import...} and choose the first image of the sequence. By default, the import will import the whole sequence.
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.3]{importImageSeq_inAE}
+\caption{Import image sequence in After Effect}
+\label{fig:importImageSeq_inAE}
+\end{figure}
+
+\subsection{Create new Comp}
+Right click at the imported image sequence, and choose \textbf{New Comp from Selection}.
+
+\subsection{Create new Render}
+Under \textbf{Composition}, click \textbf{Add to Render Queue}.
+
+\subsection{Reder out result}
+Set the \textbf{outpuf file} location, then click \textbf{Render} on the right of the panel to generate the movie.
+
+\end{document}

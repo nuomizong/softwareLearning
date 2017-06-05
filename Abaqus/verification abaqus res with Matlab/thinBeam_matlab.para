@@ -1,0 +1,12 @@
+
+Geometry(m):
+h = 0.25, l = 0.5, t= 0.025
+
+Material:
+E = 210GPa = 210E9GPa, v = 0.3
+
+Boundary Condition:
+Fixed nodes: 1, 2, 5 & 6
+
+Loads(N):
+w = 3000kN/m^2 => F_3y = 3125, F_4y = 6250, F_7y = 6250, F_8y = 3125

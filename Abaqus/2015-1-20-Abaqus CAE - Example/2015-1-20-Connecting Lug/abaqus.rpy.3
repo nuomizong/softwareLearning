@@ -1,0 +1,136 @@
+# -*- coding: mbcs -*-
+#
+# Abaqus/CAE Release 6.12-1 replay file
+# Internal Version: 2012_03_13-20.44.39 119612
+# Run by Anzong on Tue Jan 20 09:24:54 2015
+#
+
+# from driverUtils import executeOnCaeGraphicsStartup
+# executeOnCaeGraphicsStartup()
+#: Executing "onCaeGraphicsStartup()" in the site directory ...
+from abaqus import *
+from abaqusConstants import *
+session.Viewport(name='Viewport: 1', origin=(0.0, 0.0), width=175.512497797608, 
+    height=126.824998408556)
+session.viewports['Viewport: 1'].makeCurrent()
+session.viewports['Viewport: 1'].maximize()
+from caeModules import *
+from driverUtils import executeOnCaeStartup
+executeOnCaeStartup()
+session.viewports['Viewport: 1'].partDisplay.geometryOptions.setValues(
+    referenceRepresentation=ON)
+#--- Recover file: 'abaqus1.rec' ---
+# -*- coding: mbcs -*- 
+from part import *
+from material import *
+from section import *
+from assembly import *
+from step import *
+from interaction import *
+from load import *
+from mesh import *
+from optimization import *
+from job import *
+from sketch import *
+from visualization import *
+from connectorBehavior import *
+mdb.models['Model-1'].ConstrainedSketch(name='__profile__', sheetSize=100.0)
+mdb.models['Model-1'].sketches['__profile__'].CircleByCenterPerimeter(center=(
+    0.0, 0.0), point1=(10.0, 0.0))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(20.0, 5.0), point2=(
+    -22.5, 5.0))
+mdb.models['Model-1'].sketches['__profile__'].HorizontalConstraint(
+    addUndoState=False, 
+    entity=mdb.models['Model-1'].sketches['__profile__'].geometry[3])
+mdb.models['Model-1'].sketches['__profile__'].breakCurve(
+    curve1=mdb.models['Model-1'].sketches['__profile__'].geometry[3], 
+    curve2=mdb.models['Model-1'].sketches['__profile__'].geometry[2], point1=(
+    -10.2586212158203, 5.11342763900757), point2=(-8.09891033172607, 
+    6.25680351257324))
+mdb.models['Model-1'].sketches['__profile__'].breakCurve(
+    curve1=mdb.models['Model-1'].sketches['__profile__'].geometry[4], 
+    curve2=mdb.models['Model-1'].sketches['__profile__'].geometry[2], point1=(
+    -0.158802509307861, 5.30399084091187), point2=(5.55807304382324, 
+    8.03538799285889))
+mdb.models['Model-1'].sketches['__profile__'].delete(objectList=(
+    mdb.models['Model-1'].sketches['__profile__'].geometry[7], ))
+mdb.models['Model-1'].sketches['__profile__'].breakCurve(
+    curve1=mdb.models['Model-1'].sketches['__profile__'].geometry[2], 
+    curve2=mdb.models['Model-1'].sketches['__profile__'].geometry[5], point1=(
+    -7.20961904525757, 7.33665800094604), point2=(-10.3856620788574, 
+    5.1769495010376))
+mdb.models['Model-1'].sketches['__profile__'].breakCurve(
+    curve1=mdb.models['Model-1'].sketches['__profile__'].geometry[8], 
+    curve2=mdb.models['Model-1'].sketches['__profile__'].geometry[6], point1=(
+    -6.82849311828613, 7.14609718322754), point2=(9.8774938583374, 
+    4.9863862991333))
+mdb.models['Model-1'].sketches['__profile__'].breakCurve(
+    curve1=mdb.models['Model-1'].sketches['__profile__'].geometry[11], 
+    curve2=mdb.models['Model-1'].sketches['__profile__'].geometry[9], point1=(
+    7.27313804626465, 6.82849264144897), point2=(-9.75045394897461, 
+    3.4618866443634))
+#* Cannot break the curve.
+#* Cannot break the curve. 
+mdb.models['Model-1'].sketches['__profile__'].delete(objectList=(
+    mdb.models['Model-1'].sketches['__profile__'].geometry[9], ))
+mdb.models['Model-1'].sketches['__profile__'].delete(objectList=(
+    mdb.models['Model-1'].sketches['__profile__'].geometry[10], ))
+mdb.models['Model-1'].sketches['__profile__'].DistanceDimension(
+    entity1=mdb.models['Model-1'].sketches['__profile__'].geometry[5], 
+    entity2=mdb.models['Model-1'].sketches['__profile__'].vertices[10], 
+    textPoint=(-15.5308523178101, 0.285843431949615), value=5.0)
+mdb.models['Model-1'].sketches['__profile__'].DistanceDimension(
+    entity1=mdb.models['Model-1'].sketches['__profile__'].geometry[6], 
+    entity2=mdb.models['Model-1'].sketches['__profile__'].vertices[10], 
+    textPoint=(14.38747215271, 1.81034326553345), value=5.0)
+mdb.models['Model-1'].sketches['__profile__'].HorizontalDimension(textPoint=(
+    -19.0244998931885, 10.9573488235474), value=5.0, 
+    vertex1=mdb.models['Model-1'].sketches['__profile__'].vertices[5], 
+    vertex2=mdb.models['Model-1'].sketches['__profile__'].vertices[6])
+mdb.models['Model-1'].sketches['__profile__'].HorizontalDimension(textPoint=(
+    14.1333894729614, 8.60707473754883), value=5.0, 
+    vertex1=mdb.models['Model-1'].sketches['__profile__'].vertices[7], 
+    vertex2=mdb.models['Model-1'].sketches['__profile__'].vertices[8])
+mdb.models['Model-1'].sketches['__profile__'].HorizontalConstraint(
+    entity=mdb.models['Model-1'].sketches['__profile__'].geometry[5])
+mdb.models['Model-1'].sketches['__profile__'].HorizontalConstraint(
+    entity=mdb.models['Model-1'].sketches['__profile__'].geometry[6])
+mdb.models['Model-1'].sketches['__profile__'].Spot(point=(0.0, 10.0))
+mdb.models['Model-1'].sketches['__profile__'].CoincidentConstraint(
+    addUndoState=False, 
+    entity1=mdb.models['Model-1'].sketches['__profile__'].vertices[11], 
+    entity2=mdb.models['Model-1'].sketches['__profile__'].geometry[11])
+mdb.models['Model-1'].sketches['__profile__'].EqualDistanceConstraint(
+    addUndoState=False, 
+    entity1=mdb.models['Model-1'].sketches['__profile__'].vertices[8], 
+    entity2=mdb.models['Model-1'].sketches['__profile__'].vertices[5], 
+    midpoint=mdb.models['Model-1'].sketches['__profile__'].vertices[11])
+mdb.models['Model-1'].sketches['__profile__'].delete(objectList=(
+    mdb.models['Model-1'].sketches['__profile__'].vertices[11], ))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(0.0, 0.0), point2=(
+    0.0, 11.5))
+mdb.models['Model-1'].sketches['__profile__'].VerticalConstraint(
+    addUndoState=False, 
+    entity=mdb.models['Model-1'].sketches['__profile__'].geometry[12])
+mdb.models['Model-1'].sketches['__profile__'].breakCurve(
+    curve1=mdb.models['Model-1'].sketches['__profile__'].geometry[11], 
+    curve2=mdb.models['Model-1'].sketches['__profile__'].geometry[12], point1=(
+    -1.34802627563477, 9.88088417053223), point2=(0.0350649356842041, 
+    5.44043445587158))
+mdb.models['Model-1'].sketches['__profile__'].breakCurve(
+    curve1=mdb.models['Model-1'].sketches['__profile__'].geometry[14], 
+    curve2=mdb.models['Model-1'].sketches['__profile__'].geometry[12], point1=(
+    -1.16604065895081, 10.0992670059204), point2=(-0.146920710802078, 
+    10.8636074066162))
+#* Cannot break the curve.
+#* Cannot break the curve. 
+mdb.models['Model-1'].sketches['__profile__'].delete(objectList=(
+    mdb.models['Model-1'].sketches['__profile__'].geometry[12], ))
+mdb.models['Model-1'].Part(dimensionality=THREE_D, name='Part-1', 
+    type=DEFORMABLE_BODY)
+mdb.models['Model-1'].parts['Part-1'].BaseShellExtrude(depth=10.0, 
+    sketch=mdb.models['Model-1'].sketches['__profile__'])
+del mdb.models['Model-1'].sketches['__profile__']
+mdb.models['Model-1'].Material(name='Material-1')
+mdb.models['Model-1'].materials['Material-1'].Elastic(table=((70000.0, 0.3), ))
+#--- End of Recover file ------

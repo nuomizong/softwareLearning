@@ -1,0 +1,45 @@
+{
+// Written by nuomizong @ USTC April 26, 2017
+
+// !!! use this one in EXPRESSION EDITOR !!!
+
+// There are nRibs presented in the scene.
+// 1) 1st frame, set them to blue at first frame.
+// 2) for each following frame, set each of them to blue until all red.
+
+    int $startIdx = 0;
+    int $endIdx = 21;
+    
+    int $tot = $endIdx - $startIdx +1 ;
+    
+    string $path = "initial_ribs|cylinders";
+    string $path1 = "simplified_ribs|cylinders";
+    
+    currentTime 1;
+    int $id;
+    for ($i = 0; $i < $tot; ++$i)
+    {
+        $id = ($startIdx + $i);
+		
+		// turn blue ribs on and red ribs off. at first frame
+		setAttr ($path + $id + ".visibility") on;
+		setKeyframe  ($path + $id + ".visibility");
+		
+        setAttr ($path1 + $id + ".visibility") off;
+        setKeyframe  ($path1 + $id + ".visibility");
+    }
+    
+    for ($i = 0; $i < $tot; ++$i)
+    {
+        $id = ($startIdx + $i);
+        currentTime ($i+2);
+		
+		// turn blue off and red on at each time.
+        setAttr ($path + $id + ".visibility") off;
+		setKeyframe  ($path + $id + ".visibility");
+		
+        setAttr ($path1 + $id + ".visibility") on;
+		setKeyframe  ($path1 + $id + ".visibility");
+    }
+}
+};

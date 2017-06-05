@@ -1,0 +1,31 @@
+================ add icons on tool bar
+1. ctrl + shift and right click to add a tool icon tool bar.
+
+=========== Save Preferences
+Go to File and Save Preferences.
+
+==================== change viewport background
+Hold on Alt key and press b
+
+======== display polygon counts
+Go to Display and Heads Up Display option and Poly Count
+
+========= change Grids settings
+Go to Display and Grid. The Grid Options will pop up.
+
+============= Create primitives
+Click Cube and hold on Left Mouse Button and drag, then release, and hold on Left Mouse Button and drag.
+
+===== 4,5,6
+4: Wireframe display
+5: Shaded display
+6: Shaded display with Texture
+
+====== Shift selection
+Hold down shift and select. The last selected is not white.
+
+============= Merge vertex to target vertex.
+Select a vertex, and Shift right click Mouse Button, it will bring up a hidden menu.
+
+=============== Delete edges as well as vertices
+Select all the edges and hold down Ctrl and press Delete

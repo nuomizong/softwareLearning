@@ -1,0 +1,147 @@
+	\chapter{Header Settings}	
+	\section{\# Include guard}
+	In the C and C++ programming languages, an \textbf{\# include guard}, sometimes called a \textbf{macro guard}, is a particular construct used to avoid the problem of \textbf{double inclusion} when dealing with the \textbf{include directive}. The addition of \textbf{\# include guards} to a \textbf{header file} is one way to make that file idempotent.
+	
+	\subsection{Double inclusion}
+	The following C code demonstrates a real problem that can arise if \textbf{\# include guards} are missing:
+	
+	\textbf{File "grandfather.h"}
+	
+	\begin{verbatim}
+	struct foo
+	{
+		int member;
+	};
+	\end{verbatim}
+	
+	\textbf{File "father.h"}
+	\begin{verbatim}
+	#include "grandfather.h"
+	\end{verbatim}
+	
+	\textbf{File "child.c"}
+	\begin{verbatim}
+	#include "grandfather.h"
+	#include "father.h"
+	\end{verbatim}
+	
+	Here, the file "child.c" has indirectly included two copies of the text in the \textbf{header file "grandfather.h"}. This causes a compilation error, since the struct type \textbf{foo} is apprantly defined twice. In C++, this would be a violation of the \textbf{One Definition Rule}.
+	
+	\subsection{Use of \# include guards}
+	\textbf{File "grandfather.h"}
+	
+	\begin{verbatim}
+	#ifndef GRANDFATHER_H
+	#define GRANDFATHER_H
+	
+	struct foo
+	{
+		int member;
+	};
+	
+	#endif /* GRANDFATHER_H */
+	\end{verbatim}
+	
+	\textbf{File "father.h}
+	\begin{verbatim}
+	#include "grandfather.h"
+	\end{verbatim}
+	
+	\textbf{File "child.c"}
+	\begin{verbatim}
+	#include "grandfather.h"
+	#include "father.h"
+	\end{verbatim}	
+	
+	Here, the first inclusion of "grandfather.h" causes the macro \textbf{GRANDFATHER\_H} to be defined. Then, when "child.c" includes "grandfather.h" the second time, the \textbf{\# ifndef} test returns false, and the preprocessor skips down to the \textbf{\# endif}, thus avoiding the second definition of \textbf{struct foo}. The program compiles correctly.
+	
+	Different \textbf{naming conventions} for the guard macro may be used by different programmers. Other common forms ot the above include \textbf{GRANDFATHER\_INCLUDED}, \textbf{CREAORSNAME\_HHMMSS} (with the appropriate time information substituted) and names generated form a \textbf{UUID}. (However, names starting with one or two underscores, such as \textbf{\_GRANDFATHER\_H} and \_\_GRANDFATHER\_H, are reserved to the implementation and must not be used by the user.) It is important to avoid duplicating the name in different header files, as including one will prevent the symbols in the other being defined.
+	
+	\subsection{Difficulties}
+	In order for \# include guards to work properly, each guard must test and conditionally set a different preprocessor macro. Therefore, a project using \# include guards must work out a coherent scheme for its include guards, and make sure its scheme doesn't conflict with that of any third-party headers it uses, or with the names of any globally visible macros.
+	
+	For this reason, most C and C++ implementations provide a non-standard \textbf{\# pragma once} directive. This directive, inserted at the top of a header file, will ensure that the file is include only once. The \textbf{Objective-C} introduced an \textbf{\# import} directive, which works exactly like \textbf{\# include}, except that it includes each file only once, thus obviating the need for \# include guards.
+	
+	\subsection{Using namespaces}
+	\subsubsection{Using Namespaces}
+	Section 13.4 in \textit{the programmer's guide to C++} describes how namespaces can be defined, but it does not clearly recommend a way of accessing them. This is now very improtant because of the introduction of the standard library, which is in the \textbf{std} namespace. The following example used the \textbf{std} namespace, but other namespaces should be used in the same way. In a header file, use the :: operator to access a namespace like this:
+	
+	\noindent\vspace{1em}\hrule
+	\begin{verbatim}
+	// A header file called mystuff.h
+	#include <string>
+	...
+	class MyClass{
+	public:
+	    std::string address();
+	    void address( std::string value)
+	    void dump();
+	    ...
+	private:
+	    std::vector<int> size;
+	    ...
+	};
+	\end{verbatim}
+	\noindent\hrule\vspace{1em}
+	
+	Always the :: operator in header files. Never use a \textbf{using namespace} statement globally in a header file because it will merge its specified namespace with the global namespace with global namespace in any program that uses the header file. In some files, the :: operator is also the preferred way to access a namespace:
+	
+	\noindent\vspace{1em}\hrule
+	\begin{verbatim}
+	// a source code file
+	#include "MyStuff.h"
+	...
+	std::string MyClass::address()
+	{
+	    std::string temp;
+	    ...
+	    return temp;
+	}
+	\end{verbatim}
+	\noindent\hrule\vspace{1em}
+	
+	\subsubsection{Building User Defined Namespaces}
+	User defined namespaces are strongly recommended. They simplify the choice and use of names by preventing name clashes. They group related components, such as classes, global functions and constants into logical modules. They greatly assist the safe development of larger programs, which are composed of independent compilation units. Very few of examples in \textit{the programmer's guide to C++} actually use namespaces. This was done to simplify the book's presentation and does not imply that namespaces should not be used in practice.
+	
+	Building a use defined namespace is easy. Its names should be introduced to the namespace in header files:
+	
+	\noindent\vspace{1em}\hrule
+	\begin{verbatim}
+	// file: lottery.h
+	namespace Lottery {
+	    const int MAX = 30;
+	
+	    class Card{
+	    public:
+	    Class();
+	    void generate();
+	    .....
+	    };
+	
+	    void merge (Card c1, Card c2);
+	}
+	\end{verbatim}
+	\noindent\hrule\vspace{1em}
+	
+	The source files that definition the above include the header files, and use the :: operator to associate with the namespace:
+	
+	\noindent\vspace{1em}\hrule
+	\begin{verbatim}
+	// file: lottery.cpp
+	
+	#include "lottery.h"
+	
+	Lottery::Card::generate()
+	{
+	    
+	}
+	
+	void Lottery::merge(Lottery::Card c1, Lottery::Card c2)
+	{
+	    
+	}
+	\end{verbatim}
+	\noindent\vspace{1em}\hrule
+	
+	When you use namespaces, it is worth nothing that in at least one leading C++ development environment the class browser is confused by namespaces.
+	

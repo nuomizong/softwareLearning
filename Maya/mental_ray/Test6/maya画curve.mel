@@ -1,0 +1,50 @@
+$filename = "E:\\pipeline\\fandisk\\Feature_line_fandisk_process_three.txt";
+float $radius = 0.003;
+
+int $fileId = `fopen $filename r`;
+if( $fileId == 0 )
+  error ("Unable to open file " + $filename + " for reading");
+
+
+while ( !`feof $fileId` ) 
+{
+    float $x1 = `fgetword $fileId`;
+    float $y1 = `fgetword $fileId`;
+    float $z1 = `fgetword $fileId`;
+    float $x2 = `fgetword $fileId`;
+    float $y2 = `fgetword $fileId`;
+    float $z2 = `fgetword $fileId`;
+
+    vector $p1 = <<$x1,$y1,$z1>>;
+    vector $p2 = <<$x2,$y2,$z2>>;
+
+    // 直接画出很多小的圆柱
+    vector $direction = $p2 - $p1;
+    vector $centerpoint =  ($p2 + $p1)/2;
+    float $height = dot($direction,$direction);
+    $height = sqrt($height);
+
+    $string = "polyCylinder -axis " + $direction + " -n myCylinder  -r " + $radius + " -h " + $height + " -sc 1 -cuv 3" ;
+    eval($string);
+
+    $string = "move -a " + $centerpoint ;
+    eval($string);
+
+    //polyCylinder -axis 1 2 3 -n myCylinder  -r 0.1  -h 1.557624 -sc 1 -cuv 3 
+    
+}
+
+fclose $fileId;
+
+
+
+
+
+// 把所有曲线转换为网格，已便于绘制
+
+//string $allcurves[] = `ls ("curve*")`;
+//select $allcurves;
+
+//AttachBrushToCurves;
+//convertCurvesToStrokes;
+//createNode brush;

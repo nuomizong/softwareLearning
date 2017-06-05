@@ -1,0 +1,71 @@
+*Heading
+** Job name: zJob. Model name: zModel
+** Preprint, echo=NO, model=NO, history=NO, contact=NO
+**
+** PARTS
+**
+*Part, name=zPart
+*Node
+1, 0.000000, 0.000000, 0.000000
+2, 0.025000, 0.000000, 0.000000
+3, 0.000000, 0.500000, 0.000000
+4, 0.025000, 0.500000, 0.000000
+5, 0.000000, 0.000000, 0.250000
+6, 0.025000, 0.000000, 0.250000
+7, 0.000000, 0.500000, 0.250000
+8, 0.025000, 0.500000, 0.250000
+*Element, type=C3D4
+1, 1, 2, 4, 6
+2, 1, 4, 3, 7
+3, 6, 5, 7, 1
+4, 6, 7, 8, 4
+5, 1, 6, 4, 7
+*Nset, nset=_PickedAll, internal, generate
+1, 8, 1
+*Elset, elset=_PickedAll, internal, generate
+1, 5, 1
+** Section: zSection
+*Solid Section, elset=_PickedAll, material=Plastic
+,
+*End Part
+** 
+** 
+** ASSEMBLY
+**
+*Assembly, name=Assembly
+**
+*Instance, name=Instance_zModel, part=zPart
+*End Instance
+**
+*End Assembly
+** 
+** MATERIALS
+**
+*Material, name=Plastic
+*Elastic
+2000.000000, 0.300000
+** ----------------------------------------------------------------
+** 
+** STEP: staticAnalysis
+** 
+*Step, name=staticAnalysis
+*Static
+1., 1., 1e-05, 1.
+** 
+** 
+** OUTPUT REQUESTS
+** 
+*Restart, write, frequency=0
+** 
+** FIELD OUTPUT: F-Output-1
+** 
+*Output, field
+*Node Output
+U
+*Element Output
+MISES, S
+** 
+** HISTORY OUTPUT: H-Output-1
+** 
+*Output, history, variable=PRESELECT
+*End Step

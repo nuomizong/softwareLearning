@@ -1,0 +1,74 @@
+% !Mode:: "TeX:UTF-8"	% read in as utf8 file.
+\documentclass[10pt,a4paper]{article}
+\usepackage{ifplatform}
+
+%\input{D:/Dropbox/myStyle.tex}
+\input{/Users/anzongzheng/Dropbox/myStyle.tex}
+
+
+\begin{document}
+% title page.
+\author{Anzong Zheng}
+\title{Learning MacOsX}
+\date{February 28th, 2016}
+\maketitle
+\newpage
+	
+% table of contents.
+	
+\tableofcontents
+\newpage
+	
+\section{Short cuts}
+\begin{itemize}
+	\item Open a folder: \\
+		\textbf{Ctrl + downArrow} or \textbf{Ctrl + o}
+	\item Delete Backward: delete;
+	\item Delete Forward: fn + delete.
+\end{itemize}
+
+\section{Tips}
+\subsection{Go to usr folder}
+Under \textbf{Go}, choose \textbf{Go to folder}.
+
+\section{Software}
+\subsection{valgrind}
+Command: \textbf{brew install valgrind}
+
+Use: \textbf{valgrind --leak-check=yes ./<program>}
+
+\section{ntfs IO}
+
+in \textbf{Terminal} input:
+
+\begin{lstlisting}
+sudo vi /etc/fstab
+\end{lstlisting}
+
+in \textbf{Vi} input:
+
+\begin{lstlisting}
+LABEL=<name without quotes> none ntfs rw,auto,nobrowse
+\end{lstlisting}
+
+then press \textbf{Esc} and input 
+
+\begin{lstlisting}
+<:wq>
+\end{lstlisting}
+
+to save and quit.
+Then in \textbf{Terminal}, input:
+
+\begin{lstlisting}
+diskutil unmount <name without quotes>
+diskutil mount <name without quotes>
+\end{lstlisting}
+
+\section{open volumes}
+In \textbf{Terminal}, input:
+\begin{lstlisting}
+open /Volumes
+\end{lstlisting}
+
+\end{document}

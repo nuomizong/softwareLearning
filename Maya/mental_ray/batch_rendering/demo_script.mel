@@ -1,0 +1,64 @@
+int $num_start = 0;
+int $num_total_boundary = 69;
+int $num_total_ellipse = 47;
+
+file -i ("E:/task/render/data/bunny.obj"); 
+rename "Mesh" "bunny";
+
+// load boundaries
+for($i=$num_start; $i<=$num_total_boundary; $i++)
+{
+    string $index = $i;
+    file -i ("E:/task/render/data/boundary/polys"+$index+".obj");
+    rename "Mesh" ("boundary" + $index);
+
+    string $boundary_attr = "boundary" + $index + ".visibility";
+
+    // key frame 1: turn visibility off
+    currentTime 1;
+    setAttr $boundary_attr off;
+    setKeyframe $boundary_attr;
+
+    // key frame i+1: turn visibility on
+    currentTime ($i*2+1);
+    setAttr $boundary_attr on;
+    setKeyframe $boundary_attr;
+
+    // key frame i+3: turn visibility off again
+    currentTime ($i*2+3);
+    setAttr $boundary_attr off;
+    setKeyframe $boundary_attr;
+};
+
+// load ellipses
+for($i=$num_start; $i<=$num_total_ellipse; $i++)
+{
+	string $index = $i;
+	file -i ("E:/task/render/data/ellipse/eps" + $index + ".obj");
+	rename "Mesh" ("ellipse" + $index);
+
+	// avoid "z-fighting" attifact
+	move -relative 0 -0.1 0 ("ellipse" + $index);
+
+	string $ellipse_attr = "ellipse" + $index + ".visibility";
+
+	// key frame 1: turn visibility off
+    currentTime 1;
+    setAttr $ellipse_attr off;
+    setKeyframe $ellipse_attr;
+
+    // key frame i+1: turn visibility on
+    currentTime ($i*2+1);
+    setAttr $ellipse_attr on;
+    setKeyframe $ellipse_attr;
+
+    // key frame i+3: turn visibility off again
+    currentTime ($i*2+3);
+    setAttr $ellipse_attr off;
+    setKeyframe $ellipse_attr;
+}
+
+
+
+
+ 

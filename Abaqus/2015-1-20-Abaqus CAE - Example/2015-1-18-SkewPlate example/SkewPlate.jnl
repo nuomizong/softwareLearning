@@ -1,0 +1,398 @@
+# -*- coding: mbcs -*-
+from part import *
+from material import *
+from section import *
+from assembly import *
+from step import *
+from interaction import *
+from load import *
+from mesh import *
+from optimization import *
+from job import *
+from sketch import *
+from visualization import *
+from connectorBehavior import *
+mdb.models['Model-1'].ConstrainedSketch(name='__profile__', sheetSize=4.0)
+mdb.models['Model-1'].sketches['__profile__'].rectangle(point1=(0.0, 0.0), 
+    point2=(1.1, -0.5))
+mdb.models['Model-1'].sketches['__profile__'].delete(objectList=(
+    mdb.models['Model-1'].sketches['__profile__'].constraints[18], 
+    mdb.models['Model-1'].sketches['__profile__'].constraints[21], 
+    mdb.models['Model-1'].sketches['__profile__'].constraints[20], 
+    mdb.models['Model-1'].sketches['__profile__'].constraints[19]))
+mdb.models['Model-1'].sketches['__profile__'].delete(objectList=(
+    mdb.models['Model-1'].sketches['__profile__'].constraints[22], ))
+mdb.models['Model-1'].sketches['__profile__'].ParallelConstraint(entity1=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[3], entity2=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[5])
+mdb.models['Model-1'].sketches['__profile__'].VerticalConstraint(entity=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[2])
+mdb.models['Model-1'].sketches['__profile__'].VerticalConstraint(entity=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[4])
+mdb.models['Model-1'].sketches['__profile__'].ObliqueDimension(textPoint=(
+    -0.355737775564194, -0.105828799307346), value=0.4, vertex1=
+    mdb.models['Model-1'].sketches['__profile__'].vertices[0], vertex2=
+    mdb.models['Model-1'].sketches['__profile__'].vertices[1])
+mdb.models['Model-1'].sketches['__profile__'].undo()
+mdb.models['Model-1'].sketches['__profile__'].DistanceDimension(entity1=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[3], entity2=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[5], textPoint=(
+    -0.529143869876862, -0.0752276852726936), value=0.4)
+mdb.models['Model-1'].sketches['__profile__'].DistanceDimension(entity1=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[2], entity2=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[4], textPoint=(
+    0.659198462963104, -0.569945335388184), value=1.0)
+mdb.models['Model-1'].sketches['__profile__'].AngularDimension(line1=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[4], line2=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[3], textPoint=(
+    0.837704956531525, -0.276684880256653), value=60.0)
+mdb.models['Model-1'].Part(dimensionality=THREE_D, name='Plate', type=
+    DEFORMABLE_BODY)
+mdb.models['Model-1'].parts['Plate'].BaseShell(sketch=
+    mdb.models['Model-1'].sketches['__profile__'])
+del mdb.models['Model-1'].sketches['__profile__']
+mdb.models['Model-1'].Material(name='Metal')
+mdb.models['Model-1'].materials['Metal'].Elastic(table=((30000000000.0, 0.3), 
+    ))
+mdb.models['Model-1'].HomogeneousShellSection(idealization=NO_IDEALIZATION, 
+    material='Metal', name='PlateSection', poissonDefinition=DEFAULT, 
+    preIntegrate=ON, thickness=0.008, thicknessField='', thicknessModulus=None, 
+    thicknessType=UNIFORM, useDensity=OFF)
+mdb.models['Model-1'].parts['Plate'].DatumAxisByPrincipalAxis(principalAxis=
+    XAXIS)
+mdb.models['Model-1'].parts['Plate'].DatumAxisByPrincipalAxis(principalAxis=
+    XAXIS)
+mdb.models['Model-1'].parts['Plate'].DatumAxisByPrincipalAxis(principalAxis=
+    YAXIS)
+mdb.models['Model-1'].parts['Plate'].DatumAxisByPrincipalAxis(principalAxis=
+    ZAXIS)
+mdb.models['Model-1'].parts['Plate'].DatumAxisByPrincipalAxis(principalAxis=
+    ZAXIS)
+mdb.models['Model-1'].parts['Plate'].DatumAxisByPrincipalAxis(principalAxis=
+    YAXIS)
+mdb.models['Model-1'].parts['Plate'].DatumAxisByPrincipalAxis(principalAxis=
+    XAXIS)
+mdb.models['Model-1'].parts['Plate'].DatumAxisByPrincipalAxis(principalAxis=
+    XAXIS)
+del mdb.models['Model-1'].parts['Plate'].features['Datum axis-1']
+mdb.models['Model-1'].parts['Plate'].deleteFeatures(('Datum axis-2', 
+    'Datum axis-3', 'Datum axis-4', 'Datum axis-5', 'Datum axis-6', 
+    'Datum axis-7', 'Datum axis-8'))
+mdb.models['Model-1'].parts['Plate'].DatumAxisByPrincipalAxis(principalAxis=
+    XAXIS)
+mdb.models['Model-1'].parts['Plate'].DatumAxisByPrincipalAxis(principalAxis=
+    YAXIS)
+mdb.models['Model-1'].parts['Plate'].DatumAxisByPrincipalAxis(principalAxis=
+    ZAXIS)
+mdb.models['Model-1'].parts['Plate'].deleteFeatures(('Datum axis-1', 
+    'Datum axis-2', 'Datum axis-3'))
+mdb.models['Model-1'].ConstrainedSketch(name='__edit__', objectToCopy=
+    mdb.models['Model-1'].parts['Plate'].features['Shell planar-1'].sketch)
+mdb.models['Model-1'].parts['Plate'].projectReferencesOntoSketch(filter=
+    COPLANAR_EDGES, sketch=mdb.models['Model-1'].sketches['__edit__'], 
+    upToFeature=
+    mdb.models['Model-1'].parts['Plate'].features['Shell planar-1'])
+del mdb.models['Model-1'].sketches['__edit__']
+mdb.models['Model-1'].ConstrainedSketch(name='__edit__', objectToCopy=
+    mdb.models['Model-1'].parts['Plate'].features['Shell planar-1'].sketch)
+mdb.models['Model-1'].parts['Plate'].projectReferencesOntoSketch(filter=
+    COPLANAR_EDGES, sketch=mdb.models['Model-1'].sketches['__edit__'], 
+    upToFeature=
+    mdb.models['Model-1'].parts['Plate'].features['Shell planar-1'])
+mdb.models['Model-1'].sketches['__edit__'].delete(objectList=(
+    mdb.models['Model-1'].sketches['__edit__'].dimensions[2], ))
+mdb.models['Model-1'].sketches['__edit__'].AngularDimension(line1=
+    mdb.models['Model-1'].sketches['__edit__'].geometry[2], line2=
+    mdb.models['Model-1'].sketches['__edit__'].geometry[3], textPoint=(
+    0.14580212533474, 0.107983589172363), value=60.0)
+mdb.models['Model-1'].parts['Plate'].features['Shell planar-1'].setValues(
+    sketch=mdb.models['Model-1'].sketches['__edit__'])
+del mdb.models['Model-1'].sketches['__edit__']
+mdb.models['Model-1'].parts['Plate'].regenerate()
+mdb.models['Model-1'].parts['Plate'].DatumAxisByPrincipalAxis(principalAxis=
+    XAXIS)
+mdb.models['Model-1'].parts['Plate'].DatumAxisByPrincipalAxis(principalAxis=
+    YAXIS)
+mdb.models['Model-1'].parts['Plate'].DatumAxisByPrincipalAxis(principalAxis=
+    ZAXIS)
+mdb.models['Model-1'].parts['Plate'].deleteFeatures(('Datum axis-1', 
+    'Datum axis-2', 'Datum axis-3'))
+mdb.models['Model-1'].parts['Plate'].DatumCsysByTwoLines(CARTESIAN, line1=
+    mdb.models['Model-1'].parts['Plate'].edges[2], line2=
+    mdb.models['Model-1'].parts['Plate'].edges[1], name='Datum csys-1')
+del mdb.models['Model-1'].parts['Plate'].features['Datum csys-1']
+mdb.models['Model-1'].parts['Plate'].DatumCsysByTwoLines(CARTESIAN, line1=
+    mdb.models['Model-1'].parts['Plate'].edges[2], line2=
+    mdb.models['Model-1'].parts['Plate'].edges[3], name='Datum csys-1')
+mdb.models['Model-1'].parts['Plate'].MaterialOrientation(
+    additionalRotationField='', additionalRotationType=ROTATION_NONE, angle=0.0
+    , axis=AXIS_3, fieldName='', localCsys=
+    mdb.models['Model-1'].parts['Plate'].datums[17], orientationType=SYSTEM, 
+    region=Region(
+    faces=mdb.models['Model-1'].parts['Plate'].faces.getSequenceFromMask(mask=(
+    '[#1 ]', ), )))
+mdb.models['Model-1'].parts['Plate'].Set(faces=
+    mdb.models['Model-1'].parts['Plate'].faces.getSequenceFromMask(('[#1 ]', ), 
+    ), name='Set-2')
+mdb.models['Model-1'].parts['Plate'].SectionAssignment(offset=0.0, offsetField=
+    '', offsetType=MIDDLE_SURFACE, region=
+    mdb.models['Model-1'].parts['Plate'].sets['Set-2'], sectionName=
+    'PlateSection', thicknessAssignment=FROM_SECTION)
+mdb.models['Model-1'].rootAssembly.DatumCsysByDefault(CARTESIAN)
+mdb.models['Model-1'].rootAssembly.Instance(dependent=ON, name='Plate-1', part=
+    mdb.models['Model-1'].parts['Plate'])
+del mdb.models['Model-1'].rootAssembly.features['Plate-1']
+mdb.models['Model-1'].rootAssembly.Instance(dependent=ON, name='Plate-1', part=
+    mdb.models['Model-1'].parts['Plate'])
+del mdb.models['Model-1'].rootAssembly.features['Plate-1']
+mdb.models['Model-1'].rootAssembly.Instance(dependent=ON, name='Plate-1', part=
+    mdb.models['Model-1'].parts['Plate'])
+mdb.models['Model-1'].parts['Plate'].PartitionFaceByShortestPath(faces=
+    mdb.models['Model-1'].parts['Plate'].faces.getSequenceFromMask(('[#1 ]', ), 
+    ), point1=mdb.models['Model-1'].parts['Plate'].InterestingPoint(
+    mdb.models['Model-1'].parts['Plate'].edges[0], MIDDLE), point2=
+    mdb.models['Model-1'].parts['Plate'].InterestingPoint(
+    mdb.models['Model-1'].parts['Plate'].edges[2], MIDDLE))
+mdb.models['Model-1'].rootAssembly.regenerate()
+mdb.models['Model-1'].rootAssembly.Set(edges=
+    mdb.models['Model-1'].rootAssembly.instances['Plate-1'].edges.getSequenceFromMask(
+    ('[#1 ]', ), ), name='MidSpan')
+mdb.models['Model-1'].rootAssembly.Set(edges=
+    mdb.models['Model-1'].rootAssembly.instances['Plate-1'].edges.getSequenceFromMask(
+    ('[#20 ]', ), ), name='EndA')
+mdb.models['Model-1'].rootAssembly.Set(edges=
+    mdb.models['Model-1'].rootAssembly.instances['Plate-1'].edges.getSequenceFromMask(
+    ('[#4 ]', ), ), name='EndB')
+mdb.models['Model-1'].StaticStep(description='Uniform pressure (20 kPa) load', 
+    name='Apply pressure', previous='Initial')
+mdb.models['Model-1'].rootAssembly.Set(edges=
+    mdb.models['Model-1'].rootAssembly.instances['Plate-1'].edges.getSequenceFromMask(
+    ('[#4 ]', ), ), name='Set-4')
+mdb.models['Model-1'].DisplacementBC(amplitude=UNSET, createStepName=
+    'Apply pressure', distributionType=UNIFORM, fieldName='', fixed=OFF, 
+    localCsys=
+    mdb.models['Model-1'].rootAssembly.instances['Plate-1'].datums[17], name=
+    'Rail boundary condition', region=
+    mdb.models['Model-1'].rootAssembly.sets['Set-4'], u1=UNSET, u2=0.0, u3=0.0, 
+    ur1=0.0, ur2=0.0, ur3=0.0)
+mdb.models['Model-1'].rootAssembly.Set(edges=
+    mdb.models['Model-1'].rootAssembly.instances['Plate-1'].edges.getSequenceFromMask(
+    ('[#20 ]', ), ), name='Set-5')
+mdb.models['Model-1'].DisplacementBC(amplitude=UNSET, createStepName=
+    'Apply pressure', distributionType=UNIFORM, fieldName='', fixed=OFF, 
+    localCsys=None, name='Fix left end', region=
+    mdb.models['Model-1'].rootAssembly.sets['Set-5'], u1=0.0, u2=0.0, u3=0.0, 
+    ur1=0.0, ur2=0.0, ur3=0.0)
+mdb.models['Model-1'].rootAssembly.Surface(name='Surf-1', side1Faces=
+    mdb.models['Model-1'].rootAssembly.instances['Plate-1'].faces.getSequenceFromMask(
+    ('[#3 ]', ), ))
+mdb.models['Model-1'].Pressure(amplitude=UNSET, createStepName='Apply pressure'
+    , distributionType=UNIFORM, field='', magnitude=20000.0, name='Load-1', 
+    region=mdb.models['Model-1'].rootAssembly.surfaces['Surf-1'])
+mdb.models['Model-1'].parts['Plate'].seedPart(deviationFactor=0.1, 
+    minSizeFactor=0.1, size=0.1)
+mdb.models['Model-1'].parts['Plate'].setElementType(elemTypes=(ElemType(
+    elemCode=S8R5, elemLibrary=STANDARD), ElemType(elemCode=STRI65, 
+    elemLibrary=STANDARD)), regions=(
+    mdb.models['Model-1'].parts['Plate'].faces.getSequenceFromMask(('[#3 ]', ), 
+    ), ))
+mdb.models['Model-1'].rootAssembly.regenerate()
+mdb.Job(atTime=None, contactPrint=OFF, description=
+    'Linear Elastic Skew Plate. 20kPa Load.', echoPrint=OFF, explicitPrecision=
+    SINGLE, getMemoryFromAnalysis=True, historyPrint=OFF, memory=50, 
+    memoryUnits=PERCENTAGE, model='Model-1', modelPrint=OFF, 
+    multiprocessingMode=DEFAULT, name='SkewPlate', nodalOutputPrecision=SINGLE, 
+    numCpus=1, numGPUs=0, queue=None, scratch='', type=ANALYSIS, 
+    userSubroutine='', waitHours=0, waitMinutes=0)
+# Save by Anzong on 2015_01_18-21.14.41; build 6.12-1 2012_03_13-20.44.39 119612
+from part import *
+from material import *
+from section import *
+from assembly import *
+from step import *
+from interaction import *
+from load import *
+from mesh import *
+from optimization import *
+from job import *
+from sketch import *
+from visualization import *
+from connectorBehavior import *
+mdb.jobs['SkewPlate'].submit(consistencyChecking=OFF)
+mdb.jobs['SkewPlate']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'nuomizong', 'handle': 0, 'jobName': 'SkewPlate'})
+mdb.jobs['SkewPlate']._Message(ERROR, {'phase': BATCHPRE_PHASE, 
+    'message': 'in keyword *NSET, file "SkewPlate.inp", line 20: The following sets/ids do not exist: SET-4', 
+    'jobName': 'SkewPlate'})
+mdb.jobs['SkewPlate']._Message(ERROR, {'phase': BATCHPRE_PHASE, 
+    'message': 'in keyword *BOUNDARY, file "SkewPlate.inp", line 43: Unknown assembly node set SET-5', 
+    'jobName': 'SkewPlate'})
+mdb.jobs['SkewPlate']._Message(ERROR, {'phase': BATCHPRE_PHASE, 
+    'message': 'in keyword *BOUNDARY, file "SkewPlate.inp", line 43: Unknown assembly node set SET-5', 
+    'jobName': 'SkewPlate'})
+mdb.jobs['SkewPlate']._Message(ERROR, {'phase': BATCHPRE_PHASE, 
+    'message': 'in keyword *BOUNDARY, file "SkewPlate.inp", line 43: Unknown assembly node set SET-5', 
+    'jobName': 'SkewPlate'})
+mdb.jobs['SkewPlate']._Message(ERROR, {'phase': BATCHPRE_PHASE, 
+    'message': 'in keyword *BOUNDARY, file "SkewPlate.inp", line 43: Unknown assembly node set SET-5', 
+    'jobName': 'SkewPlate'})
+mdb.jobs['SkewPlate']._Message(ERROR, {'phase': BATCHPRE_PHASE, 
+    'message': 'in keyword *BOUNDARY, file "SkewPlate.inp", line 43: Unknown assembly node set SET-5', 
+    'jobName': 'SkewPlate'})
+mdb.jobs['SkewPlate']._Message(ERROR, {'phase': BATCHPRE_PHASE, 
+    'message': 'in keyword *BOUNDARY, file "SkewPlate.inp", line 43: Unknown assembly node set SET-5', 
+    'jobName': 'SkewPlate'})
+mdb.jobs['SkewPlate']._Message(ERROR, {'phase': BATCHPRE_PHASE, 
+    'message': 'in keyword *BOUNDARY, file "SkewPlate.inp", line 51: Unknown assembly node set SET-4', 
+    'jobName': 'SkewPlate'})
+mdb.jobs['SkewPlate']._Message(ERROR, {'phase': BATCHPRE_PHASE, 
+    'message': 'in keyword *BOUNDARY, file "SkewPlate.inp", line 51: Unknown assembly node set SET-4', 
+    'jobName': 'SkewPlate'})
+mdb.jobs['SkewPlate']._Message(ERROR, {'phase': BATCHPRE_PHASE, 
+    'message': 'in keyword *BOUNDARY, file "SkewPlate.inp", line 51: Unknown assembly node set SET-4', 
+    'jobName': 'SkewPlate'})
+mdb.jobs['SkewPlate']._Message(ERROR, {'phase': BATCHPRE_PHASE, 
+    'message': 'in keyword *BOUNDARY, file "SkewPlate.inp", line 51: Unknown assembly node set SET-4', 
+    'jobName': 'SkewPlate'})
+mdb.jobs['SkewPlate']._Message(ERROR, {'phase': BATCHPRE_PHASE, 
+    'message': 'in keyword *BOUNDARY, file "SkewPlate.inp", line 51: Unknown assembly node set SET-4', 
+    'jobName': 'SkewPlate'})
+mdb.jobs['SkewPlate']._Message(HEADING, {'phase': BATCHPRE_PHASE, 
+    'heading': 'Linear Elastic Skew Plate. 20kPa Load.', 
+    'jobName': 'SkewPlate'})
+mdb.jobs['SkewPlate']._Message(ERROR, {'phase': BATCHPRE_PHASE, 
+    'message': 'SURFACE DEFINITION ASSEMBLY_SURF-1 NOT FOUND.', 
+    'jobName': 'SkewPlate'})
+mdb.jobs['SkewPlate']._Message(ERROR, {'phase': BATCHPRE_PHASE, 
+    'message': 'A TRANSFORMATION HAS BEEN SPECIFIED FOR NODE SET ASSEMBLY__T-Plate-1-Datum csys-1.  THIS NODE SET IS NOT ACTIVE IN THE MODEL', 
+    'jobName': 'SkewPlate'})
+mdb.jobs['SkewPlate']._Message(ERROR, {'phase': BATCHPRE_PHASE, 
+    'message': 'THIS MODEL HAS EITHER INCORRECT OR NO ELEMENT DEFINITIONS.', 
+    'jobName': 'SkewPlate'})
+mdb.jobs['SkewPlate']._Message(ABORTED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase failed due to errors', 'jobName': 'SkewPlate'})
+mdb.jobs['SkewPlate']._Message(ERROR, {
+    'message': 'Analysis Input File Processor exited with an error.', 
+    'jobName': 'SkewPlate'})
+mdb.jobs['SkewPlate']._Message(JOB_ABORTED, {
+    'message': 'Analysis Input File Processor exited with an error.', 
+    'jobName': 'SkewPlate'})
+mdb.models['Model-1'].parts['Plate'].setElementType(elemTypes=(ElemType(
+    elemCode=S8R5, elemLibrary=STANDARD), ElemType(elemCode=STRI65, 
+    elemLibrary=STANDARD)), regions=(
+    mdb.models['Model-1'].parts['Plate'].faces.getSequenceFromMask(('[#3 ]', ), 
+    ), ))
+mdb.models['Model-1'].parts['Plate'].generateMesh()
+mdb.models['Model-1'].rootAssembly.regenerate()
+mdb.jobs['SkewPlate'].submit(consistencyChecking=OFF, datacheckJob=True)
+mdb.jobs['SkewPlate']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'nuomizong', 'handle': 0, 'jobName': 'SkewPlate'})
+mdb.jobs['SkewPlate']._Message(HEADING, {'phase': BATCHPRE_PHASE, 
+    'heading': 'Linear Elastic Skew Plate. 20kPa Load.', 
+    'jobName': 'SkewPlate'})
+mdb.jobs['SkewPlate']._Message(ODB_FILE, {'phase': BATCHPRE_PHASE, 
+    'file': 'C:\\Windows\\system32\\SkewPlate.odb', 'jobName': 'SkewPlate'})
+mdb.jobs['SkewPlate']._Message(COMPLETED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'SkewPlate'})
+mdb.jobs['SkewPlate']._Message(STARTED, {'phase': STANDARD_PHASE, 
+    'clientHost': 'nuomizong', 'handle': 19192, 'jobName': 'SkewPlate'})
+mdb.jobs['SkewPlate']._Message(STEP, {
+    'stepName': 'Uniform pressure (20 kPa) load', 'phase': STANDARD_PHASE, 
+    'stepId': 1, 'jobName': 'SkewPlate'})
+mdb.jobs['SkewPlate']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 0, 'jobName': 'SkewPlate'})
+mdb.jobs['SkewPlate']._Message(STATUS, {'totalTime': 0.0, 'attempts': 0, 
+    'timeIncrement': 1.0, 'increment': 0, 'stepTime': 0.0, 'step': 1, 
+    'jobName': 'SkewPlate', 'severe': 0, 'iterations': 0, 
+    'phase': STANDARD_PHASE, 'equilibrium': 0})
+mdb.jobs['SkewPlate']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'SkewPlate', 'memory': 8.49289703369141})
+mdb.jobs['SkewPlate']._Message(COMPLETED, {'phase': STANDARD_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'SkewPlate'})
+mdb.jobs['SkewPlate']._Message(JOB_COMPLETED, {
+    'time': 'Sun Jan 18 21:16:17 2015', 'jobName': 'SkewPlate'})
+mdb.jobs['SkewPlate'].submit(consistencyChecking=OFF)
+mdb.jobs['SkewPlate']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'nuomizong', 'handle': 0, 'jobName': 'SkewPlate'})
+mdb.jobs['SkewPlate']._Message(HEADING, {'phase': BATCHPRE_PHASE, 
+    'heading': 'Linear Elastic Skew Plate. 20kPa Load.', 
+    'jobName': 'SkewPlate'})
+mdb.jobs['SkewPlate']._Message(ODB_FILE, {'phase': BATCHPRE_PHASE, 
+    'file': 'C:\\Windows\\system32\\SkewPlate.odb', 'jobName': 'SkewPlate'})
+mdb.jobs['SkewPlate']._Message(COMPLETED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'SkewPlate'})
+mdb.jobs['SkewPlate']._Message(STARTED, {'phase': STANDARD_PHASE, 
+    'clientHost': 'nuomizong', 'handle': 5124, 'jobName': 'SkewPlate'})
+mdb.jobs['SkewPlate']._Message(STEP, {
+    'stepName': 'Uniform pressure (20 kPa) load', 'phase': STANDARD_PHASE, 
+    'stepId': 1, 'jobName': 'SkewPlate'})
+mdb.jobs['SkewPlate']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 0, 'jobName': 'SkewPlate'})
+mdb.jobs['SkewPlate']._Message(STATUS, {'totalTime': 0.0, 'attempts': 0, 
+    'timeIncrement': 1.0, 'increment': 0, 'stepTime': 0.0, 'step': 1, 
+    'jobName': 'SkewPlate', 'severe': 0, 'iterations': 0, 
+    'phase': STANDARD_PHASE, 'equilibrium': 0})
+mdb.jobs['SkewPlate']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'SkewPlate', 'memory': 25.1102151870728})
+mdb.jobs['SkewPlate']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 1, 'jobName': 'SkewPlate'})
+mdb.jobs['SkewPlate']._Message(STATUS, {'totalTime': 1.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 1, 
+    'jobName': 'SkewPlate', 'severe': 0, 'iterations': 1, 
+    'phase': STANDARD_PHASE, 'equilibrium': 1})
+mdb.jobs['SkewPlate']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'SkewPlate'})
+mdb.jobs['SkewPlate']._Message(COMPLETED, {'phase': STANDARD_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'SkewPlate'})
+mdb.jobs['SkewPlate']._Message(JOB_COMPLETED, {
+    'time': 'Sun Jan 18 21:16:36 2015', 'jobName': 'SkewPlate'})
+# Save by Anzong on 2015_01_18-21.26.02; build 6.12-1 2012_03_13-20.44.39 119612
+from part import *
+from material import *
+from section import *
+from assembly import *
+from step import *
+from interaction import *
+from load import *
+from mesh import *
+from optimization import *
+from job import *
+from sketch import *
+from visualization import *
+from connectorBehavior import *
+mdb.jobs['SkewPlate'].submit(consistencyChecking=OFF)
+mdb.jobs['SkewPlate']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'nuomizong', 'handle': 0, 'jobName': 'SkewPlate'})
+mdb.jobs['SkewPlate']._Message(HEADING, {'phase': BATCHPRE_PHASE, 
+    'heading': 'Linear Elastic Skew Plate. 20kPa Load.', 
+    'jobName': 'SkewPlate'})
+mdb.jobs['SkewPlate']._Message(ODB_FILE, {'phase': BATCHPRE_PHASE, 
+    'file': 'C:\\Windows\\system32\\SkewPlate.odb', 'jobName': 'SkewPlate'})
+mdb.jobs['SkewPlate']._Message(COMPLETED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'SkewPlate'})
+mdb.jobs['SkewPlate']._Message(STARTED, {'phase': STANDARD_PHASE, 
+    'clientHost': 'nuomizong', 'handle': 19728, 'jobName': 'SkewPlate'})
+mdb.jobs['SkewPlate']._Message(STEP, {
+    'stepName': 'Uniform pressure (20 kPa) load', 'phase': STANDARD_PHASE, 
+    'stepId': 1, 'jobName': 'SkewPlate'})
+mdb.jobs['SkewPlate']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 0, 'jobName': 'SkewPlate'})
+mdb.jobs['SkewPlate']._Message(STATUS, {'totalTime': 0.0, 'attempts': 0, 
+    'timeIncrement': 1.0, 'increment': 0, 'stepTime': 0.0, 'step': 1, 
+    'jobName': 'SkewPlate', 'severe': 0, 'iterations': 0, 
+    'phase': STANDARD_PHASE, 'equilibrium': 0})
+mdb.jobs['SkewPlate']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'SkewPlate', 'memory': 25.1102151870728})
+mdb.jobs['SkewPlate']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 1, 'jobName': 'SkewPlate'})
+mdb.jobs['SkewPlate']._Message(STATUS, {'totalTime': 1.0, 'attempts': 1, 
+    'timeIncrement': 1.0, 'increment': 1, 'stepTime': 1.0, 'step': 1, 
+    'jobName': 'SkewPlate', 'severe': 0, 'iterations': 1, 
+    'phase': STANDARD_PHASE, 'equilibrium': 1})
+mdb.jobs['SkewPlate']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'SkewPlate'})
+mdb.jobs['SkewPlate']._Message(COMPLETED, {'phase': STANDARD_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'SkewPlate'})
+mdb.jobs['SkewPlate']._Message(JOB_COMPLETED, {
+    'time': 'Sun Jan 18 21:33:05 2015', 'jobName': 'SkewPlate'})
+# Save by Anzong on 2015_01_18-21.37.01; build 6.12-1 2012_03_13-20.44.39 119612

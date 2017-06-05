@@ -1,0 +1,249 @@
+% !Mode:: "TeX:UTF-8"	% read in as utf8 file.
+
+\chapter{Mel}
+
+\section{Basic types}
+\subsection{int}
+
+\subsection{float}
+
+\subsection{string}
+
+\subsection{vector}
+
+\begin{lstlisting}
+// default:
+<<0.0,0.0,0.0>> 
+
+// usage:
+.x .y .z
+\end{lstlisting}
+
+\subsection{array}
+dynamic array, use size to get length, the first index is 0.
+
+use clear to clear.
+
+\subsection{matrix}
+
+\begin{lstlisting}
+matrix $mat[2][4] = <<1,2,3,4;5,6,7,8>>;
+\end{lstlisting}
+
+\section{usage of mel}
+
+\subsection{add to path or put in default folder}
+This method doesn't work even if I add corresponding paths to \lstinline|MAYA_SCRIPT_PATH|
+\begin{lstlisting}[language=C++]
+# locate Maya.env
+about -environmentFile;
+
+# add user script path in Maya.env
+MAYA_SCRIPT_PATH = D:/Git/libnuomi/tutorial/14_maya/scripts
+
+# show MAYA_SCRIPT_PATH
+getenv MAYA_SCRIPT_PATH
+getenv MAYA_PLUG_IN_PATH
+\end{lstlisting}
+
+\subsection{system environment}
+Finally, I put \lstinline|MAYA_SCRIPT_PATH| and \lstinline|MAYA_PLUG_IN_PATH| into system variables, then \textbf{Source} and \textbf{Mel} commands can work.
+
+\begin{figure}[tbh]
+	\centering
+	\begin{subfigure}[b]{0.45\textwidth}
+		\includegraphics[width=\linewidth]{figures/Mel/system_env}
+		\caption{system environments}
+		\label{fig:systemenv}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.45\textwidth}
+		\includegraphics[width=\linewidth]{figures/Mel/all_plugins}
+		\caption{plug ins}
+		\label{fig:allplugins}	
+	\end{subfigure}
+\end{figure}
+
+\textbf{In Mac}
+
+\begin{lstlisting}[language=C++]
+sudo vi ~/.bash_profile
+setenv MAYA_SCRIPT_PATH=/path/to/scripts
+setenv MAYA_PLUG_IN_PATH=/path/to/plugins
+\end{lstlisting}
+
+\subsection{Source}
+Can be used to update modified mel files.
+\begin{lstlisting}
+source "e:/kfq/mel/mel_test.mel";  
+test_proc;  
+\end{lstlisting}
+
+
+\section{rename}
+\subsection{Synopsis}
+
+\begin{lstlisting}
+	rename [-ignoreShape] [object] string
+\end{lstlisting}
+
+rename is undoable, \textbf{NOT queryable}, and \textbf{NOT editable}.
+
+Renames the given object to have the new name. If only one argument is supplied the command will rename the (first) selected object. If the new name conflicts with an existing name, the object will be given a unique name based on the supplied name. It is not legal to rename an object to the empty string.
+
+
+When a transform is renamed then any shape nodes beneath the transform that have the same prefix as the old transform name are renamed. For example, "rename nurbsSphere1 ball" would rename \lstinline!"nurbsSphere1|nurbsSphereShape1"! to \lstinline!"ball|ballShape"!.
+
+
+If the new name ends in a single '\#' then the rename command will replace the trailing '\#' with a number that ensures the new name is unique.
+
+
+\textbf{Notes}
+
+If the name has an absolute namespace part, it will be considered. Namespaces that do not exist will be created automatically as needed. If the name has a relative namespace part, it will be ignored. In that case, the object will be put under the current namespace. (see example below).
+
+
+\textbf{Return value}
+
+
+\textit{string}	The new name. When undone returns original name.
+
+
+\textbf{Flags}
+\begin{description}
+	\item[-ignoreShape(-is)] 	Indicates that renaming of shape nodes below transform nodes should be prevented.
+\end{description}
+
+\textbf{Mel Examples}
+\begin{lstlisting}
+// create two namespaces under the root namespace and create
+// a sphere under the root namespace and a sphere under one
+// of the new namespaces.
+namespace -set ":";
+sphere -n sphere1;
+namespace -add nsA;
+namespace -add nsB;
+namespace -set nsA;
+sphere -n sphere2;
+namespace -set ":";
+
+// change name of sphere1
+rename sphere1 spinning_ball;
+// result: spinning_ball //
+
+// change name of spinning_ball back to sphere1
+select -r spinning_ball;
+rename sphere1;
+// Result: sphere1 //
+
+// move sphere2 to namespace nsB
+rename nsA:sphere2 nsB:sphere2;
+// Result: nsB:sphere2 //
+
+// move sphere2 back to namespace nsA when not in the root namespace
+// Note the ":" appearing in front of the new name to indicate
+// we want to move the object to namespace nsA under the root namespace.
+namespace -set nsB;
+rename nsB:sphere2 :nsA:sphere2;
+// Result: nsA:sphere2 //
+
+// Let's try this without the leading ":" in the new name.
+// Since we are namespace nsA, in affect, what we are trying to do
+// is rename :nsB:sphere2 to :nsA:nsB:sphere3. Since there isn't a
+// nsB namespace under the namespace nsA, the namespace specification
+// on new name is ignored and a warning is issued.
+namespace -set ":nsA";
+rename nsA:sphere2 nsB:sphere3;
+// Warning: Removing invalid characters from name. //
+// Result: nsA:sphere3 //
+
+// rename an object when not in the root namespace
+// and move the object to current namespace
+namespace -set ":nsB";
+rename nsA:sphere3 sphere4;
+// Result: nsB:sphere4 //
+
+// rename an object with an absolute name to move it into a new namespace.
+// The namespace does not exist so will be created.
+namespace -set ":nsB";
+rename nsA:sphere3 :nsC:sphere4;
+// Result: nsC:sphere4 //
+\end{lstlisting}
+
+\section{polyInfo}
+\textbf{Synopsis}
+polyInfo is NOT undoable, NOT queryable, and NOT editable.
+
+Command query's topological information on polygonal objects and components. So, the command will require the following to be specified: - selection list to query
+
+
+\textbf{Return value}
+
+string	Components
+
+
+\textbf{Keywords}
+
+query, polygons, information, topology
+
+
+\textbf{Flags}
+\begin{description}
+	\item[-nonManifoldVertices(-nmv)	] Find all non-manifold vertices in the specified objects.
+	\item[-nonManifoldEdges(-nme)] Find all non-manifold edges in the specified objects.
+	\item[-laminaFaces(-lf)] Find all lamina faces in the specified objects.
+	\item[-edgeToFace(-ef)] Returns the faces that share the specified edge. Requires edges to be selected.
+	\item[-vertexToFace(-vf)] Returns the faces that share the specified vertex. Requires vertices to be selected.
+	\item[-faceToEdge(-fe)] Returns the edges defining a face. Requires faces to be selected.
+	\item[-faceToVertex(-fv)] Returns the vertices defining a face. Requires faces to be selected.
+	\item[-edgeToVertex(-ev)] Returns the vertices defining an edge. Requires edges to be selected.
+	\item[-vertexToEdge(-ve)] Returns the Edges connected to a vertex. Requires vertices to be selected.
+	\item[-faceNormals(-fn)] Returns face normals of the specified object. If faces are selected the command returns the face normals of selected faces. Else it returns the face normals of all the faces of the object.
+\end{description}
+
+\textbf{MEL examples}
+\begin{lstlisting}[language=C++]
+// To find all non-manifold edges on a polygonal object called pPlane1
+polyInfo -nme;
+// Result: pPlane1.e[74] //
+// To find all non-manifold vertices on a polygonal object called pPlane1
+polyInfo -nmv;
+// Result: pPlane1.vtx[38] pPlane1.vtx[49] //
+\end{lstlisting}
+
+\section{Using system()}
+Maya is rarely used on its own, there are normally a whole host of command line utilities associated with the development of 3D assets. At some point or other, we may find that we need one of those external programs to be called from inside Maya. To do this we use the system call.
+
+\subsection{using DIR/ls}
+This simple example uses system to read the contents of the current working directory. Please don't use this for reading directories though, use the portable mel command getFileList instead.
+
+\begin{lstlisting}
+{
+	// for windows
+	string $files[] = system( "DIR" );
+	
+	// for linux
+	string $files[] = system( "ls" );
+	
+	// loop through the returned files and print
+	for( $file in $files )
+	{
+		// print file
+		print( $file + "\n" );
+	}
+}
+\end{lstlisting}
+
+\subsection{spawning GUI based App's}
+A big problem with system is that mel will wait for it to finish execution of the command before control will be returned to the script. This is fine for simple programs such as ls or pwd where we actually want the returned results. However an application with a GUI normally doesn't terminate for a long time after the initial system call was made.
+
+In effect, we need to spawn GUI based App's in the background so that our script can continue running. Under linux we need to redirect the output of the application (normally to dev/null). Under Windows you need to use either shell or start before the executable name.
+
+\begin{lstlisting}
+{
+	// spawning fcheck as a background process under WIN32
+	system("start C:/aw/Maya/bin/fcheck.exe " + $filename);
+	
+	// spawning fcheck as a background process under linux
+	system("fcheck " + $filename + " >/dev/null 2>&1 &");
+}
+\end{lstlisting}

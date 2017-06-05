@@ -1,0 +1,5 @@
+
+
+1. maya Vector Render can render edges.
+2. the Image Size cannot exceed 3200, so the maximum is 3200 times 3200.
+3. toggle on Include edges, and under Edge style: choose Entire Mesh.

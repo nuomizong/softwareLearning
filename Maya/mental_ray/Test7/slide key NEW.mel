@@ -1,0 +1,32 @@
+//本程序实现马撒气多个连续obj文件的关键帧动画效果
+
+int $startNumber = 1;
+
+int $totalNumber = 25;
+
+for ($i=$startNumber;$i<=$totalNumber;$i++)   // 首先调入所有场景文件，使其编号从polySurface1到polySurface53
+{
+	string $index = $i;	
+	file -i ("C:/Users/kshlkd/Desktop/result/不同参数下的平滑优化效果/torus_demo/"+$index+".obj");
+	rename "Mesh" ("polySurface"+$index);   // 注意，这一句是针对Maya2009的，有可能有问题
+}
+
+for ($i=1;$i<=$totalNumber-$startNumber+1;$i++) 
+{
+	string $index = $i;	
+	select -r ("polySurface"+$index);
+	setKeyframe ("polySurface"+$index+".visibility");
+}
+
+for ($timeindex=0;$timeindex<$totalNumber-$startNumber+1;$timeindex++)
+{
+	currentTime (1+$timeindex*2);
+	for ($i=1;$i<=$totalNumber-$startNumber+1;$i++)
+	{
+		string $index = $i;
+		if ($i==($timeindex+1))
+			setAttr ("polySurface"+$index+".visibility") on;
+		else
+			setAttr ("polySurface"+$index+".visibility") off;
+	}
+}

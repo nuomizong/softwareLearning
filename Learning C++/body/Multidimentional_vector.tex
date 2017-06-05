@@ -1,0 +1,21 @@
+% !Mode:: "TeX:UTF-8"	% read in as utf8 file.
+
+\chapter{Multidimentional vector}
+
+\begin{lstlisting}[language=C++]
+std::vector< std::vector< int > > a; // as Ari pointed
+\end{lstlisting}
+
+Using this for a growing matrix can become complex, as the system will not guarantee that all internal vectors are of the same size. Whenever you grow on the second dimension you will have to explicitly grow all vectors.
+
+\begin{lstlisting}[language = C++]
+// grow twice in the first dimension
+a.push_back( std::vector<int>() );
+a.push_back( std::vector<int>() );
+
+a[0].push_back( 5 ); // a[0].size() == 1, a[1].size() == 0
+\end{lstlisting}
+
+If that is fine with you (it is not really a matrix but a vector of vectors), you should be fine. Else you will need to put extra care to keep the second dimension stable across all the vectors.
+
+If you are planing on a fixed size matrix, then you should consider encapsulating in a class and overriding operator() instead of providing the double array syntax. Read the C++ FAQ regarding this.

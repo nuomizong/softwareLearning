@@ -1,0 +1,52 @@
+% !Mode:: "TeX:UTF-8"	% read in as utf8 file.
+\section{How Do I Make a Layer Mask}
+Now that we have a strong grasp of exactly what masks are and how the two different types of masks differ, let’s see how to create and work with a layer mask.
+
+The first thing we need is two layers. I grabbed the two images below from photographers Adrian Durlea and Erik Soderstrom. The shack image is on the bottom and the fire is on the top.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\linewidth]{Photos/masking_begin}
+\caption{Initial images}
+\label{fig:masking_begin}
+\end{figure}
+
+The general idea here is to take some, not all, of the fire and apply it to the shack. The first step is to stack the two images as we see above and set the fire layer’s blending mode to Screen. This will make all of the black pixels transparent, which blends the two images together nicely.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\linewidth]{Photos/masking_final}
+\caption{final image}
+\label{fig:masking_final}
+\end{figure}
+
+With that one change, this is already a pretty decent image! Let’s say though that we want to only have fire near the door of the shack. To accomplish this, we’ll need to add a mask to the fire layer. Select the fire layer and click the mask icon shown in the image below.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\linewidth]{Photos/masking_addMask}
+\caption{add mask}
+\label{fig:masking_addMask}
+\end{figure}
+
+Now, with the mask selected in the layers palette, we grab a soft, black brush and paint out the portions of the fire that we don’t want to see. As we do this, the fire begins to disappear. To bring it back, we simply paint white.
+
+As you can see in the image below, with just a little painting, our fire is now much more centralized to the portion of the image that’s already lit up and therefore looks decently natural.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\linewidth]{Photos/masking_editingMask}
+\caption{editing mask}
+\label{fig:masking_editingMask}
+\end{figure}
+
+To see the actual mask, Option-Click (Alt-Click on a PC) on the little mask preview in the layers palette (Shift-click to hide the mask completely). After painting out some of our fire, this brings up the following:
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\linewidth]{Photos/masking_details}
+\caption{detailed mask}
+\label{fig:masking_details}
+\end{figure}
+
+Notice that we’re not just constrained to hard edges. The beauty of masks is that you can do anything you want with them as long as you can pull it off in values of gray. This means you can paint, clone, create and fill selections, copy and paste, and all kinds of other actions you perform on the main canvas.

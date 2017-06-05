@@ -1,0 +1,87 @@
+% !Mode:: "TeX:UTF-8"	% read in as utf8 file.
+
+\chapter{Memory management}
+\section{Realloc}
+\url{http://www.cplusplus.com/reference/cstdlib/realloc/}
+\subsection{function realloc \lstinline[language=c++]|<cstdlib>|}
+\begin{lstlisting}[language=c++]
+void* realloc (void* ptr, size_t size);
+\end{lstlisting}
+
+\subsection{Reallocate memory block}
+Changes the size of the memory block pointer to by \textit{ptr}.
+
+The function may move the mermory block to a new location ( whose address is returned by the function).
+
+The content of the memory block is preserved up to the lesser of the new and old sizes, \textcolor{red}{even if the block is moved to a new location}. If the new \textit{size} is larger, the value of the newly allocated portion in indeterminate.
+
+In case that \textit{ptr} is a null pointer, the function behaves like malloc, assigning a new block of \textit{size} bytes and returning a pointer to its beginning.
+
+\subsection{C99/C11(C++11)}
+If \textit{size} is zero, the return value depends on the particular library implementation: it may either be a \textit{null} pointer or some other location that shall not be dereferenced.
+
+If the function fails to allocate the requested block of memory, a null pointer is returned, and the memory block pointed to by argument \textit{ptr} is not deallocated (it is still valid, and with its contents unchanged).
+
+\subsection{Parameters}
+
+\begin{description}
+\item[ptr] Pointer to a memory block previously allocated with malloc, calloc or realloc. Alternatively, this can be a \textit{null pointer}, in which case a new block is allocated (as if malloc was called).
+\item[size] New size for the memory block, in bytes. \lstinline[language=c++]|size_t| is an unsigned integer type.
+\end{description}
+
+\subsection{Return Value}
+A pointer to the reallocated memory block, which may be either the same as \textit{ptr} or a new location. The type of this pointer is void*, which can be cast to the desired type of data pointer in order to be dereferenceable.
+
+\fbox{A \textit{null-pointer} indicates that the function failed to allocate storage, and thus the block pointed by \textit{ptr} was not modified.}
+
+\subsection{Example}
+\begin{lstlisting}[language=c++]
+/* realloc example: rememb-o-matic */
+#include <cstdio>      /* printf, scanf, puts */
+#include <cstdlib>     /* realloc, free, exit, NULL */
+
+int main ()
+{
+	int input, n;
+	int count = 0;
+	int * numbers = NULL;
+	int * more_numbers = NULL;
+
+	do
+	{
+		std::printf ("Enter an integer value (0 to end): ");
+		std::scanf ("%d", &input);
+		count++;
+
+		more_numbers = (int*) std::realloc (numbers, count * sizeof(int));
+
+		if (more_numbers!=NULL)
+		{
+			numbers=more_numbers;
+			numbers[count-1]=input;
+		}
+		else
+		{
+			std::free (numbers);
+			std::puts ("Error (re)allocating memory");
+			exit (1);
+		}
+	} while (input!=0);
+
+	std::printf ("Numbers entered: ");
+	for (n=0;n<count;n++) std::printf ("%d ",numbers[n]);
+	std::free (numbers);
+
+	return 0;
+}
+\end{lstlisting}
+
+The program prompts the user for numbers until a zero character is entered. Each time a new value is introduced the memory block pointed by numbers is increased by the size of an int.
+
+\subsection{Data races}
+Only the storage reference by \textit{ptr} and the returned pointer are modified. No other storage locations are accessed by the call.
+
+If the function releases or reuses a unit of storage that is reused or released by another \textit{allocation or deallocation function}, the functions are synchronized in such a way that the deallocation happens entirely before the next allocation.
+
+\subsection{Exceptions(C++)}
+\textbf{No-throw guarantee:} this function never throws exceptions.

@@ -1,0 +1,10 @@
+
+\chapter{Casting pointers}
+There are no rules on casting pointers in C! The language lets you cast any pointer to any other pointer without comment.
+
+But the thing is: there is no data conversion or whatever done! Its solely your own responsibility that the system does not misinterpret the data after the cast - which would generally be the case, leading to runtime error.
+
+So when casting its totally up to you to take care that if data is used from a casted pointer the data is compatible!
+
+C is optimized for performance, so it lacks runtime reflexivity of pointers/references. But that has a price - you as a programmer have to take better care of what you are doing. You have to know on your self if what you want to do is "legal".
+

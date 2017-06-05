@@ -1,0 +1,310 @@
+	\chapter{Programming}
+
+	\section{Difference between return 0, return 1, exit(0), EXIT\_FAILURE and EXIT\_SUCCESS}
+	\subsection{return value and exit}
+	\newcounter{seq}
+	\addtocounter{seq}{1}
+	
+	\arabic{seq} \textbf{return from main()}\\
+	
+	\textbf{return} from \textbf{main()} is equivalent to \textbf{exit}. The program terminates immediately execution with \textbf{exit status} set as the value passed to \textbf{return} or \textbf{exit}.\\
+	
+	\stepcounter{seq}
+	\arabic{seq} \textbf{return from an inner function}\\
+	
+	\textbf{return} in an inner function (not \textbf{main}) will terminate immediately the execution of the specific function returning the given result to the calling function.\\
+	
+	\stepcounter{seq}
+	\arabic{seq} \textbf{exit}\\
+	
+	\textbf{exit} from anywhere on your code will terminate execution immediately.\\
+	
+	\begin{itemize}
+		\item \textbf{Status 0} means the program succeeded.
+		\item \textbf{status different than 0} means the program exited due to error or anomaly. If you exit with a status different from 0 you're supposed to print an error message to \textbf{stderr} so instead of using \textbf{printf} better something like:
+		\begin{verbatim}
+		if(errorOccurred)
+		{
+		fprintf(stderr, "meaningful message here\n");
+		return -1;
+		}
+		\end{verbatim}
+		
+		Note that (depending on the OS you're on) there are some conventions about return codes.\\
+		Also the OS may terminate your program with specific exit status codes if you attempt to do some invalid operations like reading memory you have no access to.
+	\end{itemize}
+	
+	\subsection{Exit codes C and macros EXIT\_SUCCESS and EXIT\_FAILURE}
+	The C programming language allows programs exiting or returning from the \textbf{main function} to signal success or failure by returning an integer, or returning the \textbf{macros} \textbf{EXIT\_SUCCESS} and \textbf{EXIT\_FAILURE}. On Unix-like systems these are equal to 0 and 1 respectively. A C program may also use the \textbf{exit()} function specifying or exit macro as the first parameter.\\
+	
+	Apart from the macros \textbf{EXIT\_SUCCESS} and \textbf{EXIT\_FAILURE}, the C standard does not define the meaning of return codes. Rules for the use of return codes vary on different platforms.
+	
+	\textbf{NOTE} that the two macros are defined in \textbf{\textless cstdlib\textgreater}
+	
+	\section{Difference between using namespace std and std::}
+	\textbf{Using namespace std;} is considered \textbf{bad practice}. This is not related to performance at all. But consider this: You are using two libraries called Foo and Bar:\\
+	
+	\textcolor{blue}{using namespace} foo;\\
+	\textcolor{blue}{using namespace} bar;\\
+	
+	Everything works fine, you can call \textbf{Blah()} from Foo and \textbf{Quux()} from Bar without problems. But one day you upgrade to a new version of Foo 2.0, which now offers a function called \textbf{Quux()}. Now you've got a conflict: Both Foo 2.0 and Bar import \textbf{Quux()} into your global namespace. This is going to take some effort to fix, especially if the function parameters happen to match.\\
+	
+	If you have used \textbf{foo::Blah()} and \textbf{bar::Quux()} then the introduction of \textbf{foo::Quux()} would have been a non-event.\\
+	
+	\textbf{std::} is not harmful at all. It carries very important information (namely "whatever comes after is part of the standard library", and it is still a pretty short and compact prefix). Most of the time, it's no problem at all. 
+	
+	
+	\section{Difference between . and -\textgreater} 
+	The difference between \textbf{Structure reference .} and \textbf{Structure dereference -\textgreater} is quite obvious. For example, in a simple structure point:
+	\begin{verbatim}
+	tepedef struct point
+	{
+	float a,b;
+	} point;
+	\end{verbatim}
+	
+	If we use the definition point a. Then operation \textbf{.} should be used to visit members, such as \textbf{p1.a}. It means ("member a of object p1").\\
+	
+	Otherwise, if the definition point *a is adopted, then operation \textbf{-\textgreater} should be used, such as \textbf{p1-\textgreater a}. It means ("member a of object pointed to by p1")
+	
+	
+	\section{Meaning of `*\&`}
+	\textbf{Question:}
+	I wrote a function along the lines of this:
+	
+	\begin{verbatim}
+	void myFunc(myStruct *&out)
+	{
+	out = new myStruct;
+	out->field1 = 1;
+	out->field2 = 2;
+	}
+	\end{verbatim}
+	
+	Now in a calling function, I might write something like this:
+	
+	\begin{verbatim}
+	myStruct *data;
+	myFunc(data);
+	\end{verbatim}
+	
+	which will fill all the fields in \textbf{data}. If I omit the `\&` in the declaration, this will not work.
+	
+	\textbf{Answer:}
+	
+	The \& symbol in a C++ variable declaration means it's a \textbf{reference}.
+	
+	It happens to be a reference to a pointer, which explains the semantics you are seeing; the called function can change the pointer in the calling context, since it has a reference to it.
+	
+	So, to reiterate, the \textbf{operative symbol} here is not \textbf{*\&}, that combination in itself doesn't mean a whole lot. The \textbf{*} is part of the type \textbf{myStruct *}, i.e. "\textbf{pointer to myStruct}, and the \textbf{\&} makes it a reference, so you'd read it as \textbf{out is a reference to a pointer to myStruct}.
+	
+	The original programmer could have helped, in my opinion, by writing it as:
+	\begin{verbatim}
+	void myFunc(myStruct* &out)
+	\end{verbatim}
+	
+	\section{Get time and date}
+	C++ shares its date/time functions with C. The \textcolor{blue}{tm structure} is probably the easiest for a C++ programmer to work with - the following prints today's date:
+	
+	\begin{verbatim}
+	#include <ctime>
+	#include <iostream>
+	using namespace std;
+	
+	int main()
+	{
+	time_t t = time(0);   // get time now
+	struct tm * now = localtime( & t );
+	cout << (now->tm_year + 1900) << '-' 
+	<< (now->tm_mon + 1) << '-'
+	<<  now->tm_mday
+	<< endl;
+	}
+	\end{verbatim}
+	
+	
+	\section{Difference between Continue and Break}
+	\textbf{Continue} jumps straight to the top of the \textbf{innermost loop}, where the per-iteration code and continuance check will be carried out.\\
+	
+	\textbf{Break} jumps straight to immediately after the \textbf{innermost loop} without changing anything.\\
+	
+	It may be easier to think of the former jumping to the \textbf{closing brace of the innermost loop} while the latter jumps just \textbf{beyond} it.
+	
+	\section{New and delete in C++}
+	\begin{enumerate}
+		\item New a single space
+		\begin{verbatim}
+		int *a = new int(89);
+		delete a;
+		\end{verbatim}
+		
+		\item New a consecutive spaces
+		\begin{verbatim}
+		int *a = new[10];
+		delete []a;
+		\end{verbatim}
+		
+		\item New a 2d array spaces
+		A dynamic 2D array is basically an array of pointers to arrays. You should initialize it using a loop:
+		\begin{verbatim}
+		int **a = new int *[sizeX];
+		for( int i=0; i<sizeX; i++)
+		a[i] = new int [siezeY];
+		\end{verbatim}
+		The above, for \textbf{sizeX = 4} and \textbf{sizeY = 5}, would produce the following:
+		
+		\begin{figure}[htb]
+			\centering
+			\includegraphics[width=0.7\linewidth]{New2DArray}
+			\caption{New 2D Array}
+			\label{fig:New2DArray}
+		\end{figure}
+		
+		and then clean up would be:
+		\begin{verbatim}
+		for(int i = 0; i < sizeY; ++i) 
+		{
+		delete [] a[i];
+		}
+		delete [] a;
+		\end{verbatim}
+		
+		\textbf{NOTE:} as Dietrich Epp pointed out in the comments this is not exactly a light weight solution. An alternative approach would be to use one large block of memory:
+		
+		\begin{verbatim}
+		int *ary = new int[sizeX*sizeY];
+		
+		// ary[i][j] is then rewritten as
+		ary[i*sizeY+j]
+		\end{verbatim}
+		
+	\end{enumerate}
+	
+	
+	\section{Use Function Pointer}
+	\subsection{Basis}
+	A \textbf{Function Pointer}, internally, is just the \textbf{numerical address} for the code for a function. When a function name is used by itself without parentheses, the vaule is a pointer to the function, just as the name of an array by itself is a pointer to its zeroth element. Function pointers can be stored in \textbf{variables, structs, unions, and arrays} and passed to and from functions just like any other type. They can also be called: a variable of type function pointer can be used in place of a function name.
+	
+	\subsection{Function pointer declarations}
+	A function pointer declaration looks like a function declaration, except that the function name is wrapped in parentheses and preceded by an asterisk. For example:
+	
+	\noindent\vspace{1em}\hrule
+	\begin{verbatim}
+	/* a function taking two int arguments and returning an int */
+	int function(int x, int y);
+	
+	/* a pointer to such a function */
+	int (*pointer)(int x, int y);
+	\end{verbatim}
+	\noindent\hrule\vspace{1em}
+	
+	As with function declarations, the names of the arguments can be omitted.
+	
+	Here's a short program that uses function pointers:
+	
+	\noindent\vspace{1em}\hrule
+	\begin{verbatim}
+	void SimpleExample()
+	{
+	/* Step 1: function pointer definition. function for emitting text */
+	int (*say)(const char *);
+	
+	// Step 2: set function puts's address to function pointer say.
+	say = puts;
+	
+	// Step 3: pass variables to function pointer say.
+	say("hello world");
+	}
+	\end{verbatim}
+	\noindent\hrule\vspace{1em}
+	
+	\textbf{Note} it is convenient to declare a type definition for function pointers like:
+	
+	\colorbox{yellow}{\textcolor{blue}{typedef int} (*func)(\textcolor{blue}{int} a, \textcolor{blue}{int} b);}
+	
+	\subsection{Using Function Pointer inside Struct}
+	In order to make a \textbf{struct variable} like \textbf{Matrix} to use in ways such as \textbf{a.size(), a.zeros()}, we need encapsulate function pointers inside struct.
+	
+	There are several ways to set function pointer address. One is using the \textbf{Default List}:
+	
+	\noindent\vspace{1em}\hrule
+	\begin{verbatim}
+	void addMSG(unsigned char *data, int size, struct linkedList *self);
+	
+	struct linkedList {
+	int count;
+	struct msgNode *front;
+	struct msgNode *back;
+	void (*addMSG)(unsigned char *, int, struct linkedList *);
+	} DefaultList = {0, NULL, NULL, addMSG};
+	\end{verbatim}
+	\noindent\hrule\vspace{1em}
+	
+	Another way which I prefer is to initialize in an initialization function:
+	
+	\noindent\vspace{1em}\hrule
+	\begin{verbatim}
+	typedef struct pstring_t
+	{
+	char * chars;
+	int (*length)(struct pstring_t * self);
+	} PString;
+	
+	int length(PString * self)
+	{
+	return std::strlen(self->chars);
+	}
+	
+	PString * initializeString(int n)
+	{
+	PString *str=(PString*)malloc(sizeof(PString));
+	str->chars = (char *)malloc(sizeof(char)*n);
+	str->length = length; // use initialize function to let function pointer length point to function length
+	return str;
+	}
+	
+	int main(int argc, char **argv)
+	{
+	PString *p = initializeString(30);
+	std::strcpy(p->chars,"Hello");
+	std::printf("\n%d",p->length(p));
+	
+	return 0;
+	}
+	\end{verbatim}
+	\noindent\vspace{1em}\hrule
+	
+	\section{Return a string pointer}
+	\textbf{Simple Example:}\\
+	
+	\noindent\vspace{1em}\hrule
+	\begin{verbatim}
+	char* CreateCommandLineForTetA(char* commandLine, char* fp)
+	{
+	    size_t size = std::strlen(commandLine) + std::strlen(fp) + 1;
+	
+	    char* ret = new char [size];
+	
+	    std::strcpy(ret, commandLine);
+	    std::strcat(ret, fp);
+	
+	    return ret;
+	}
+	\end{verbatim}
+	\noindent\hrule\vspace{1em}
+	
+	\section{Reuturn a struct pointer}
+	The variable defined in the function (in "auto" storage class) will disappear as the function exits, and you'll return a dangling pointer.
+	
+	YOu could \textit{accept} a pointer to a \textbf{MyStruct} (caller's responsibility to allocate that) and fill it in; or, you can use \textbf{malloc} to create a new one (caller's responsibility to free it when it's done). The second option at least lets you keep the function signature you seem to be keen on:
+	
+	\noindent\vspace{1em}\hrule
+	\begin{verbatim}
+	MyStruct* myStruct(int num, int size)
+	{
+	MyStruct* p = (MyStruct*) malloc(sizeof(MyStruct));
+	....
+	return p;
+	}
+	\end{verbatim}
+	\noindent\hrule\vspace{1em}

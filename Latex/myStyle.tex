@@ -1,0 +1,124 @@
+% !Mode:: "TeX:UTF-8"	% read in as utf8 file.
+\usepackage{microtype}
+
+% ---- Math packages. ----
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}	% thm = theorem
+% \usepackage{mathtools}
+% \usepackage{array}
+
+\usepackage{siunitx} % standard unit
+\DeclareSIUnit\rotation{r}
+
+% ---- Figures and Captions. ----
+\usepackage{graphicx}
+
+
+\usepackage{caption}
+% captionof command. when inserting graphics without figure environment, captionof can produce the caption.
+
+\usepackage{subcaption} % subfigure environment.
+
+% ---- Tables. ----
+\usepackage{booktabs} % three-line tables: toprule, midrule, bottomrule
+\usepackage{longtable}
+\usepackage{multirow}
+
+% ---- References. ----
+\usepackage[square,sort,comma,numbers]{natbib}
+%\usepackage{biblatex}
+
+\usepackage{hyperref} % url command
+
+%======================================================
+%	Color
+%======================================================
+\usepackage{color}
+\usepackage{colortbl}
+\definecolor{bkg}{rgb}{0.95,0.95,0.92}
+
+%======================================================
+%	Todo
+%======================================================
+\usepackage{todonotes}
+\newcommand{\TODO}[1]{{\color{red}{[TODO: #1]}}}
+
+
+\RequirePackage[l2tabu, orthodox]{nag}
+
+%\usepackage{tikz}
+
+\usepackage[width=21.00cm, height=29.70cm, left=2.54cm, right=2.54cm, top=2.54cm, bottom=2.54cm]{geometry}
+
+\usepackage[utf8]{inputenc}
+
+\usepackage{verbatim}
+\usepackage{listings} % can print various codes including listings itself and LaTeX. can also use lstinline command.
+% ====== set styles for listings. ======
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+
+\lstdefinestyle{zstyle}{
+	backgroundcolor=\color[rgb]{0.95,0.95,0.92},
+	commentstyle=\color{codegreen},
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{codepurple},
+	numberstyle=\tiny\color{codegray},
+	numbersep=5pt,
+	stringstyle=\color{red},
+	showspaces=false,
+	showstringspaces=false,
+	showtabs=false,
+	numbers=left,
+	prebreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+	captionpos=b,
+	frame=single,
+	breakatwhitespace=false,
+	breaklines=true,
+	keepspaces=true,
+	tabsize=4,
+	%escapeinside,
+}
+
+\lstset{style=zstyle}
+% ====== set styles for listings. ======
+
+\usepackage{tabularx} % tabularx environment. equivalent lenth?
+
+\usepackage{CJKutf8} % Chinese, Japanese, Korean input with utf-8 encoding. it loads \usepackage[utf8]{inputenc} internally
+
+
+
+%\usepackage{fancyvrb} % not familiar with
+
+\usepackage{cleveref}
+%% \crefname{ <type> }{ <singular> }{ <plural> }
+%% \Cref{ key} capitalize the first letter.
+%\crefname{table}{table}{tables} 
+%\crefname{figure}{fig.}{figs.}
+%\crefname{equation}{eq.}{eqs.}
+
+\usepackage{newverbs} % if listings package doesn't work, use this one to highlight.
+\newverbcommand{\cverb}{\color{red}}{} % colored vertb with red
+\newverbcommand{\bverb}	% verbatim with gray background
+{\begin{lrbox}{\verbbox}}
+	{\end{lrbox}\colorbox{gray}{\box\verbbox}}
+
+%======================== separator
+
+\usepackage{txfonts} % piup
+\usepackage{xfrac} % more beautiful and standard fractions. \sfrac{1}{2}
+
+%\usepackage{enumerate}
+
+\numberwithin{equation}{section} % number equation with section number.
+
+%\usepackage[numbers,sort]{natbib} % [1,3,2] => [1,2,3]
+%\usepackage[numbers,sort & compress]{natbib} % [1,3,2] => [1-3]
+
+%\setlength{\parindent}{0pt}
+
+\usepackage{enumerate} % [i], [ii]...

@@ -1,0 +1,322 @@
+% !Mode:: "TeX:UTF-8"	% read in as utf8 file.
+\documentclass[10pt,a4paper]{article}
+
+\input{D:/Git/softwareLearning/Latex/myStyle.tex}
+%\input{/Users/nuomizong/Dropbox/myStyle.tex}
+
+
+\begin{document}
+\author{Anzong Zheng}
+\title{Ambient Occlusion tutorial}
+\date{April 11, 2017}
+\maketitle
+
+\tableofcontents
+
+\newpage\clearpage\setcounter{page}{1}
+
+\url{http://wiki.bk.tudelft.nl/toi-pedia/Mental_Ray_Ambient_Occlusion_tutorial}
+Introduction
+There are two main choices when using Ambient Occlusion: you can enable it as an effect in your shaders (using \lstinline{mia_material}), or you can render a separate pass which you blend with your render in the compositing stage, using Photoshop for instance.
+\\
+\\
+The benefit of the former is that the results will be more accurate and that you only need to make one scene-setup and render. The downside is that is difficult to 'tune' the effect. Re-rendering your entire image just to change the Ambient Occlusion effect may take quite some time. When using a separate AO-pass, it's quicker to tune your AO effect because rendering an OA-pass is typically pretty fast. Furthermore it allows more artistic freedom; you can fine-tune the AO effect during compositing (e.g.: in Photoshop).
+
+\section{Full Render with Final Gather and Ambient Occlusion}
+When using the \lstinline{mia_material}, you can include Ambient Occlusion in your shader. This requires that you use the \lstinline{mia_material_x} or \lstinline{mia_material_x} shader. Although it's possible to add Ambient Occlusion to standard Maya shaders, this is quite laborious. If you're using non-mia shaders, it's recommended to render a separate AO-pass.
+
+\colorbox{red}{You need to enable either Global Illumination or Final Gather (or both) to work with the mia material.}
+
+In the Hypershade select your material and check the properties box:
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=0.5\linewidth]{figure/Mia_material_amb_occlusion}
+\caption{Mia material amb occlusion}
+\label{fig:miamaterialambocclusion}
+\end{figure}
+
+Locate the Ambient Occlusion section and open it. Enable Ambient Occlusion.
+
+\subsection{Distance}
+Change the Distance value:
+
+\begin{figure}[tbh]
+\centering
+\includegraphics[width=0.5\linewidth]{figure/Mia_material_ao_distance}
+\caption{Mia material ao distance}
+\label{fig:miamaterialaodistance}
+\end{figure}
+
+\begin{figure}[tbh]
+\centering
+\includegraphics[width=0.5\linewidth]{figure/Amb_occlusion_example_distance8}
+\caption{Ambient Occlusion render with max distance 8}
+\label{fig:ambocclusionexampledistance8}
+\end{figure}
+
+\begin{figure}[tbh]
+\centering
+\includegraphics[width=0.5\linewidth]{figure/Amb_occlusion_example_distance2}
+\caption{Ambient Occlusion render with max distance 2}
+\label{fig:ambocclusionexampledistance2}
+\end{figure}
+
+The setting really depends on the size of your scene end the scale of the effect you're looking for. Just try different settings to get the right settings. You can render at low resolution to improve speed while doing this.
+
+\subsection{Samples}
+The quality is controlled by the number of samples. The default setting will produce pretty coarse results.
+
+\begin{figure}[tbh]
+\centering
+\includegraphics[width=0.5\linewidth]{figure/Mia_material_ao_samples}
+\caption{Mia material ao samples}
+\label{fig:miamaterialaosamples}
+\end{figure}
+
+\begin{figure}[tbh]
+\centering
+\includegraphics[width=0.5\linewidth]{figure/Amb_occlusion_example_16samples}
+\caption{Ambient Occlusion render with 16 samples}
+\label{fig:ambocclusionexample16samples}
+\end{figure}
+
+\begin{figure}[tbh]
+\centering
+\includegraphics[width=0.5\linewidth]{figure/Amb_occlusion_example_128samples}
+\caption{Ambient Occlusion render with 128 samples}
+\label{fig:ambocclusionexample128samples}
+\end{figure}
+
+Increase the number of samples. 64 seems to be reasonable in most cases.
+
+\section{Rendering an Ambient Occlusion pass for compositing}
+Getting the amount of Ambient Occlusion just right may prove to be quite laborious. For maximum flexibility with low render times, it's a good idea to create a separate Ambient Occlusion pass that you can blend in during the compositing phase (for instance, using Photoshop).
+\\
+\\
+To do this, you need to create a special shader that will just produce the Ambient Occlusion effect.
+
+\subsection{Creating a shader for the AO pass}
+We won't use any of the default shaders you normally work with, because they'll render other effects (such as diffuse or reflection components) as well. We're going to construct our own using a plain surface shader and an \lstinline{ambient_occlusion} shader.
+\\
+\\
+In the Hypershade, create a new \textbf{Surface Shader}:
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=0.5\linewidth]{figure/Hypershade_new_surface_shader}
+\caption{Hypershade new surface shader}
+\label{fig:hypershadenewsurfaceshader}
+\end{figure}
+
+Next, we need to create the Mental Ray \lstinline{mib_amb_occlusion} node. Switch to Create mental ray Nodes to access the Mental Ray nodes.
+
+\begin{figure}[tbh]
+\centering
+\includegraphics[width=0.5\linewidth]{figure/Hypershade_new_mr_ao_shader}
+\caption{Hypershade new mr ao shader}
+\label{fig:hypershadenewmraoshader}
+\end{figure}
+
+Next connect the \lstinline{mib_amb_occlusion} node to the surface shader by \textbf{MMB} draging it onto the surface shader1SG. 
+Choose Surface Shader. The outValue should now be connected to the outColor of the surface shader.
+
+\begin{figure}[tbh]
+\centering
+\includegraphics[width=0.5\linewidth]{figure/Amb_occl_surface_shader}
+\caption{Amb occl surface shader}
+\label{fig:ambocclsurfaceshader}
+\end{figure}
+
+\subsection{Rendering the Ambient Occlusion pass}
+First, assign the surface shader to all objects in your scene.
+\\
+\\
+Rendering an Ambient Occlusion pass is fairly simple: it \textbf{doesn't require any light setup}. 
+So you can disable Global Illumination and Final Gather and remove all lights from your scene.
+
+\subsection{Tuning the Ambient Occlusion}
+You might want to tune the ambient occlusion shader you've created. First of all to to tune the distance of the occlusion effect. Secondly you may want improve the quality.
+\\
+\\
+If your shader is not in Work Area of the Hypershade anymore, select the surface Shader in the Materials tab and click the Input and Output Connections in the toolbar:
+\begin{figure}[tbh]
+\centering
+\includegraphics[width=0.5\linewidth]{figure/Hypershade_show_input_output_connections}
+\caption{Hypershade show input output connections}
+\label{fig:hypershadeshowinputoutputconnections}
+\end{figure}
+
+Select the \lstinline{mib_amb_occlusion} node in your Work Area. Check the \textbf{Property Editor} in the Hypershade.
+
+\begin{figure}[tbh]
+\centering
+\includegraphics[width=0.5\linewidth]{figure/Mib_amb_occlusion_attributes}
+\caption{Mib amb occlusion attributes}
+\label{fig:mibambocclusionattributes}
+\end{figure}
+
+\subsection{Max distance}
+Fine-tuning of the occlusion distance can be done in Photoshop (using Levels), but you may want to do some rough tuning in Maya.
+Change the \lstinline{max_distance} value:
+
+\begin{figure}[tbh]
+\centering
+\includegraphics[width=0.5\linewidth]{figure/Mib_amb_occlusion_maxdistance_attribute}
+\caption{Mib amb occlusion maxdistance attribute}
+\label{fig:mibambocclusionmaxdistanceattribute}
+\end{figure}
+
+\begin{figure}[tbh]
+\centering
+\includegraphics[width=0.5\linewidth]{figure/Amb_occlusion_example_distance0}
+\caption{Ambient Occlusion render with max distance 0 (auto)}
+\label{fig:ambocclusionexampledistance0}
+\end{figure}
+
+\begin{figure}[tbh]
+\centering
+\includegraphics[width=0.5\linewidth]{figure/Amb_occlusion_example_distance8}
+\caption{Ambient Occlusion render with max distance 8}
+\label{fig:ambocclusionexampledistance8}
+\end{figure}
+
+
+\begin{figure}[tbh]
+\centering
+\includegraphics[width=0.5\linewidth]{figure/Amb_occlusion_example_distance2}
+\caption{Ambient Occlusion render with max distance 2}
+\label{fig:ambocclusionexampledistance2}
+\end{figure}
+
+The setting really depends on the size of your scene end the scale of the effect you're looking for. Just try different settings to get the right settings. You can render at low resolution to improve speed while doing this.
+\\
+\\
+If you render an interior scene increase your Max Distance. This way you prevent getting a dark render
+
+\subsection{Samples}
+The quality is controlled by the number of samples. The default setting will produce pretty coarse results.
+
+\begin{figure}[tbh]
+\centering
+\includegraphics[width=0.5\linewidth]{figure/Mib_amb_occlusion_samples_attribute}
+\caption{Mib amb occlusion samples attribute}
+\label{fig:mibambocclusionsamplesattribute}
+\end{figure}
+
+\begin{figure}[tbh]
+\centering
+\includegraphics[width=0.5\linewidth]{figure/Amb_occlusion_example_16samples}
+\caption{Ambient Occlusion render with 16 samples}
+\label{fig:ambocclusionexample16samples}
+\end{figure}
+
+\begin{figure}[tbh]
+\centering
+\includegraphics[width=0.5\linewidth]{figure/Amb_occlusion_example_128samples}
+\caption{Ambient Occlusion render with 128 samples}
+\label{fig:ambocclusionexample128samples}
+\end{figure}
+
+Increase the number of samples. 128 seems to be reasonable in most cases.
+
+\subsection{Render Settings for the AO-pass render}
+We're going to use the render as a layer in Photoshop. Therefore we don't want the background included. When using an alpha channel, you may get some artefacts at the edge between the objects and the background. To get a clean alpha mask, we need to change a few settings in the render settings:
+
+\begin{figure}[tbh]
+\centering
+\includegraphics[width=0.5\linewidth]{figure/Rendersettings_mr_alpha_channel}
+\caption{Rendersettings mr alpha channel}
+\label{fig:rendersettingsmralphachannel}
+\end{figure}
+
+\begin{itemize}
+	\item Disable premultiply under Framebuffer > Primary Framebuffer
+	\item Enable Pass Custom Alpha Channel under Custom Entities
+\end{itemize}
+
+This will disable 'blending' the background with the objects in the anti-aliasing phase, keeping your edges clean.
+\\
+\\
+To improve quality, you may want to increase your Anti-Aliasing settings. Example settings are given in the image below:
+
+\begin{figure}[tbh]
+\centering
+\includegraphics[width=0.5\linewidth]{figure/Rendersettings_mr_aa_for_ao}
+\caption{Rendersettings mr aa for ao}
+\label{fig:rendersettingsmraaforao}
+\end{figure}
+
+Once you're satisfied with the result, save your image as PSD. Alternatively you can use TIFF, but than you have to load your alpha channel manually in Photoshop.
+
+\subsection{Compositing the AO pass with your image in Photoshop}
+You should have two images:
+
+\begin{itemize}
+	\item The render with color information (also called color-pass). Preferably in TIFF format
+	\item An image with the Ambient Occlusion pass (AO-pass). Preferably in PSD format (or TIFF)
+\end{itemize}
+
+\begin{figure}[tbh]
+\centering
+\includegraphics[width=0.5\linewidth]{figure/Photoshop_color-pass}
+\caption{Photoshop color-pass}
+\label{fig:photoshopcolor-pass}
+\end{figure}
+
+\begin{figure}[tbh]
+\centering
+\includegraphics[width=0.5\linewidth]{figure/Photoshop_ao-pass}
+\caption{Photoshop ao-pass}
+\label{fig:photoshopao-pass}
+\end{figure}
+
+Open both images in Photoshop. Drag the layer from the AO-pass (from the Layers panel) to the color-pass image and position it. You can rename the layer to something more useful (eg: 'AO-pass').
+\\
+\\
+Next we have to blend this layer with the color-pass:
+
+\begin{itemize}
+	\item Select the layer with the AO-pass.
+	\item Open the Blend-mode pull-down in the layers panel.
+	\item Choose \textbf{Multiply}. Alternatively you could choose Darken; the effect will be more subtle.
+\end{itemize}
+
+\begin{figure}[tbh]
+\centering
+\includegraphics[width=0.5\linewidth]{figure/Amb_occl_tutorial_layers_multiply}
+\caption{Amb occl tutorial layers multiply}
+\label{fig:amboccltutoriallayersmultiply}
+\end{figure}
+
+You can tune the effect by changing the Opacity of the AO-pass layer.
+\\
+\\
+You can also change the levels of the AO-pass layer using an adjustment layer:
+
+\begin{itemize}
+	\item Select the layer with the AO-pass.
+	\item Alt + LMB-click the 'Create Adjustment Layer' button at the bottom of your layers panel: \includegraphics[width=0.5\linewidth]{figure/Photoshop_add_adjustment_layer} (keep you mouse button down)
+	\item Choose Levels...
+	\item In the popup, check \textbf{Use previous Layer to create Clipping Mask}. This will create a mask so the Levels will only applied to that part of the image where there is color in the AO-pass (effectively keeping the background unaffected). Close with OK.
+	\item You can tune the AO-pass using levels to get the desired effect.
+\end{itemize}
+
+\begin{figure}[tbh]
+\centering
+\includegraphics[width=0.5\linewidth]{figure/Amb_occl_tutorial_layers_with_levels}
+\caption{Amb occl tutorial layers with levels}
+\label{fig:amboccltutoriallayerswithlevels}
+\end{figure}
+
+The final result of the image used in this tutorial:
+
+\begin{figure}[tbh]
+\centering
+\includegraphics[width=0.5\linewidth]{figure/Amb_occl_tutorial_result}
+\caption{Final result - composited from the Color- and the AO-pass}
+\label{fig:amboccltutorialresult}
+\end{figure}
+
+
+\end{document}
