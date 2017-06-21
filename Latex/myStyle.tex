@@ -2,14 +2,18 @@
 \usepackage{microtype}
 
 % ---- Math packages. ----
+\usepackage{amssymb}
 \usepackage{amsmath}
 \usepackage{amsfonts}
-\usepackage{amssymb}
 \usepackage{amsthm}	% thm = theorem
+\usepackage{enumerate} % [i], [ii]...
 % \usepackage{mathtools}
 % \usepackage{array}
 
-\usepackage{siunitx} % standard unit
+%======================================================
+%	standard unit
+%======================================================
+\usepackage{siunitx}
 \DeclareSIUnit\rotation{r}
 
 % ---- Figures and Captions. ----
@@ -21,14 +25,25 @@
 
 \usepackage{subcaption} % subfigure environment.
 
-% ---- Tables. ----
+%======================================================
+%	Tables
+%======================================================
 \usepackage{booktabs} % three-line tables: toprule, midrule, bottomrule
 \usepackage{longtable}
 \usepackage{multirow}
 
-% ---- References. ----
+
+%======================================================
+%	References
+%======================================================
 \usepackage[square,sort,comma,numbers]{natbib}
 %\usepackage{biblatex}
+
+%======================================================
+%	Pseudo code
+%======================================================
+% must follow natbib, don't know why.
+\usepackage[ruled]{algorithm2e} % add three rules to pseudo code.
 
 \usepackage{hyperref} % url command
 
@@ -46,6 +61,7 @@
 \newcommand{\TODO}[1]{{\color{red}{[TODO: #1]}}}
 
 
+
 \RequirePackage[l2tabu, orthodox]{nag}
 
 %\usepackage{tikz}
@@ -55,6 +71,10 @@
 \usepackage[utf8]{inputenc}
 
 \usepackage{verbatim}
+
+%======================================================
+%	Code listing.
+%======================================================
 \usepackage{listings} % can print various codes including listings itself and LaTeX. can also use lstinline command.
 % ====== set styles for listings. ======
 \definecolor{codegreen}{rgb}{0,0.6,0}
@@ -88,6 +108,7 @@
 
 \usepackage{tabularx} % tabularx environment. equivalent lenth?
 
+
 \usepackage{CJKutf8} % Chinese, Japanese, Korean input with utf-8 encoding. it loads \usepackage[utf8]{inputenc} internally
 
 
@@ -120,5 +141,3 @@
 %\usepackage[numbers,sort & compress]{natbib} % [1,3,2] => [1-3]
 
 %\setlength{\parindent}{0pt}
-
-\usepackage{enumerate} % [i], [ii]...
