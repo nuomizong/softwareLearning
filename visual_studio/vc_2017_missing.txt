@@ -1,0 +1,10 @@
+
+
+For Visual Studio 2017 I had to:
+
+1. Run Visual Studio Installer.
+2. Select Modify button.
+3. Go to "Individual Components" tab.
+4. Scroll down to "Compilers, build tools and runtimes".
+5. Tick "Windows Universal CRT SDK".
+6. Install.
