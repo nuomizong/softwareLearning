@@ -14,4 +14,99 @@ This is a simple example, {\tiny this will show different font sizes} and also \
 This is a simple example, {\tiny this will show different font sizes} and also \textsc{different font styles}.
 
 \section{Font sizes}
-Font sizes are identified by special names, the actual size
+Font sizes are identified by special names, the actual size is not absolute but relative to the font size declared in the \lstinline[language={[LaTeX]TeX}]|\documentclass| statement.
+
+\begin{lstlisting}[language={[LaTeX]TeX}]
+In this example the {\huge huge font size} is set and the {\footnotesize Foot note size also}. There's a fairly large set of font sizes.
+\end{lstlisting}
+
+In this example the {\huge huge font size} is set and the {\footnotesize Foot note size also}. There's a fairly large set of font sizes.
+
+In the example, \lstinline[language = {[LaTeX]TeX}]|{\huge huge font size}| declares that the next text inside the braces must be formatted in a \textit{huge} font size.
+
+\section{Font families}
+By default, in standard \LaTeX classes the serif typeface (a.k.a. roman) font is used. The other font typefaces (sans serif and typewriter, a.k.a. monospace) can be used by entering some specific commands.
+
+\begin{lstlisting}[language={[LaTeX]TeX}]
+In this example command and switches are used.
+\texttt{A command is used to change the tyle of a setence}
+
+\sffamily
+A switch changes the style from this point to the end of the document unless other switch is used
+\end{lstlisting}
+
+In this example command and switches are used.
+\texttt{A command is used to change the tyle of a setence}
+
+{\sffamily
+A switch changes the style from this point to the end of the document unless other switch is used}
+
+You can set up the use of sans font as a default in \LaTeX document by using command:
+
+\begin{lstlisting}[language={[LaTeX]TeX}]
+\renewcommand{\familydefault}{\sfdefault}
+\end{lstlisting}
+
+Similarly, for using roman font as a default:
+
+\begin{lstlisting}[language={[LaTeX]TeX}]
+\renewcommand{\familydefault}{\rmdefault}
+\end{lstlisting}
+
+\section{Font styles}
+The most common font styles in \LaTeX are bold, italics and underlined, but there are a few more.
+
+\begin{lstlisting}[language={[LaTeX]TeX}]
+Part of this text is written \textsl{in different font style} to highlight it.
+\end{lstlisting}
+
+Part of this text is written \textsl{in different font style} to highlight it.
+
+In the example at the introduction the \textit{small caps} style was used. In this case the \lstinline[language={[LaTeX]TeX}]|\textsl| command sets the \textit{slanted} style which makes the text look a bit like \textit{italics} but not quite.
+
+If you want to go back to "normal" font style (default for the \LaTeX class you are using), this can be done by using the \lstinline[{language=[LaTeX]TeX}]|\textnormal{...}| command or the \lstinline[language={[LaTeX]TeX}]|\normalfont| switch command.
+
+\section{Reference sizes}
+
+\begin{table}[h]
+\caption{Font sizes}
+\begin{tabular}{cc}
+\hline \textbf{Command} & \textbf{Output} \\ 
+\hline \lstinline[language={[LaTeX]TeX}]|\tiny| & \tiny Lorem ipsum \\ 
+\hline \lstinline[language={[LaTeX]TeX}]|\scriptsize| & \scriptsize Lorem ipsum \\ 
+\hline \lstinline[language={[LaTeX]TeX}]|\footnotesize| & \footnotesize Lorem ipsum \\ 
+\hline \lstinline[language={[LaTeX]TeX}]|\small| & \small Lorem ipsum \\ 
+\hline \lstinline[language={[LaTeX]TeX}]|\normalsize| & \normalsize Lorem ipsum \\ 
+\hline \lstinline[language={[LaTeX]TeX}]|\large| & \large Lorem ipsum \\ 
+\hline \lstinline[language={[LaTeX]TeX}]|\Large| & \Large Lorem ipsum \\ 
+\hline \lstinline[language={[LaTeX]TeX}]|\LARGE| & \LARGE Lorem ipsum \\ 
+\hline \lstinline[language={[LaTeX]TeX}]|\huge| & \huge Lorem ipsum \\ 
+\hline \lstinline[language={[LaTeX]TeX}]|\Huge| & \Huge Lorem ipsum \\ 
+\hline 
+\end{tabular} 
+\end{table}
+
+\begin{table}[h]
+\caption{Default font families}
+\begin{tabular}{cccc}
+\hline \textbf{typeface=family} & \textbf{command} & \textbf{switch command} & \textbf{output} \\ 
+\hline serif(roman) & \lstinline[language={[LaTeX]TeX}]|\textrm{Sample Text 0123}| & \lstinline[language={[LaTeX]TeX}]|\rmfamily| & \textrm{Sample Text 0123} \\ 
+\hline sans serif & \lstinline[language={[LaTeX]TeX}]|\textsf{Sample Text 0123}| & \lstinline[language={[LaTeX]TeX}]|\textsf| & \textsf{Sample Text 0123} \\ 
+\hline typewriter(monospace) & \lstinline[language={[LaTeX]TeX}]|\texttt{Sample Text 0123}| & \lstinline[language={[LaTeX]TeX}]|\texttt| & \texttt{Sample Text 0123} \\ 
+\hline 
+\end{tabular} 
+\end{table}
+
+\begin{table}[h]
+\caption{Font styles}
+\begin{tabular}{cccc}
+\hline \textbf{style} & \textbf{command} & \textbf{switch command} & \textbf{output} \\ 
+\hline medium & \lstinline[language={[LaTeX]TeX}]|\textmd{Sample Text 0123}| & \lstinline[language={[LaTeX]TeX}]|\mdseries| & \textmd{Sample Text 0123} \\ 
+\hline bold & \lstinline[language={[LaTeX]TeX}]|\textbf{Sample Text 0123}| & \lstinline[language={[LaTeX]TeX}]|\bfseries| & \textbf{Sample Text 0123} \\ 
+\hline upright & \lstinline[language={[LaTeX]TeX}]|\textup{Sample Text 0123}| & \lstinline[language={[LaTeX]TeX}]|\upshape| & \textup{Sample Text 0123} \\ 
+\hline italic & \lstinline[language={[LaTeX]TeX}]|\textit{Sample Text 0123}| & \lstinline[language={[LaTeX]TeX}]|\itshape| & \textit{Sample Text 0123} \\ 
+\hline slanted & \lstinline[language={[LaTeX]TeX}]|\textsl{Sample Text 0123}| & \lstinline[language={[LaTeX]TeX}]|\slshape| & \textsl{Sample Text 0123} \\ 
+\hline small caps & \lstinline[language={[LaTeX]TeX}]|\textsc{Sample Text 0123}| & \lstinline[language={[LaTeX]TeX}]|\scshape| & \textsc{Sample Text 0123} \\ 
+\hline 
+\end{tabular} 
+\end{table}
