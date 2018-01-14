@@ -1,8 +1,0 @@
-
-
-Open the Approximation Editor (Window > Rendering Editors > mental ray > Approximation Editor).
-Click the Create button beside the Subdivision approx. (Poly, Subdiv) attribute to create and assign a subdivision approximation to your polygon.
-Render the scene in mental ray.
-
-Note:
-You can also smooth polygon meshes by selecting Mesh > Smooth. This method creates denser geometry in the scene view and can increase the number of data calculations for interactive manipulation.
