@@ -1,0 +1,120 @@
+\documentclass[a4paper, 12pt]{article}
+%\usepackage{palatino}
+\usepackage{pifont}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage[margin=1.5cm,vmargin={0pt, 1cm},includefoot]{geometry}
+\title{More Trips for Wilderness:~A Comprehensive Solution}
+\author{Mengchao Cao\\Nan Zhou\\
+Lantao Yu}
+\date{Feburary 14, 2012}
+\begin{document}
+\maketitle
+\section{Introduction}
+\subsection{Mathematics in simple line}
+
+If the expected goal of the schedule is just the maximal number of boat trips, then your solution is to launch the 6-night-duration boats only. The number of the launched boats per day is $\frac{Y}{6}$. The boat could be either motorized one or oar.
+
+If the expected goal of this schedule is to offer the flexibility to the campers while adaptive modifying the arrangement for the river administration, you can consider our second model and refer to the schedule attached in the Appendix.
+
+\subsection{Mathematics in complex environment}
+
+The objective of Integer Programming yields\\
+\begin{equation}
+Maximize~~~S_{13}=\sum_{i=1}^{13} a_i 
+\end{equation}
+subject to: \\
+\begin{equation}
+\textcircled{\scriptsize 1}~~
+\sum_{i=1}^{180}P(i,j,k)\leq1;~for~any~1\leq j\leq Y,1\leq k\leq S_{13}
+\end{equation}
+For each boat, it can mostly stay one single night at one single campsite.
+\begin{equation}
+\textcircled{\scriptsize 2}~~
+\sum_{j=1}^Y P(i,j,k)\leq1;~for~any~1\leq i\leq180,1\leq k\leq S_{13}
+\end{equation}
+For each boat, it can mostly occupy only one campsite on one single night.
+\begin{equation}
+\textcircled{\scriptsize 3}~~
+\sum_{j=1}^{S_{13}} P(i,j,k)\leq1;~for~any~1\leq i\leq180,1\leq j\leq Y
+\end{equation}
+For each campsite, it can accommodate only one boat at most on one single night.
+\begin{equation}
+\begin{split}
+\mbox{\textcircled{\scriptsize 4}}~~&\sum_{i=1}^{180}\sum_{j=1}^YP(i,j,k)=6;~for~any~ 1\leq k\leq S_1\\
+\mbox{\textcircled{\scriptsize 5}}~~&\sum_{i=1}^{180}\sum_{j=1}^YP(i,j,k)=7;~for~any~S_1\leq k\leq S_2\\
+\mbox{\textcircled{\scriptsize 6}}~~&\sum_{i=1}^{180}\sum_{j=1}^YP(i,j,k)=18;~for~any~S_{12}\leq k\leq S_{13}
+\end{split}
+\end{equation}
+
+\begin{equation}
+\textcircled{\scriptsize 7}~~N_{max}\cdot d_0\leq64;
+\end{equation}
+$N_{max}$ denotes the largest index shift in $Y$ axis between adjacent continuous days.
+
+\begin{equation}
+\textcircled{\scriptsize 8}~~6a_1+7a_2+\ldots+18a_{13}\leq180Y;
+\end{equation}
+
+The sum of the all the boats with the different duration varying from $6$ days to $18$ days cannot exceed the accommodation ability the campsites during $180$ days.
+
+Considering the same polynomial exists both in the constraints and the objective function, it seems to be to an unsolvable integer optimization problem. However, we consider that there could be an upper bound for $S_{13}$, i.e., $a_1+a_2+a_3+\ldots+a_{13}$.
+
+We propose this upper bound to be $30Y$ since if the manager arranges each trip to be a 6-night-duration one, with zero idle rate of the campsite for $180$ days. Thus, the number of the trip is $180\cdot     {\frac{Y}{6}}=30Y$.
+
+In order to solve this problem, we will find the optimal solution (the largest number of the trip) in the three-dimensional matrix, whose dimensions in three axes are $180$, $Y$, $30Y$. Meanwhile, since each point in the matrix is binary, the value of  could be either $0$ or $1$. That is to say, if we could enumerate all the possible conditions that subject to the constraints of the Integer Optimization Program, we can theoretically obtain the optimal solution when the $z$ is the largest.
+
+\begin{equation}
+P(i,j,k)=\left\{\begin{aligned}
+1;&~the~{\bf{k}}th~boat~occupied~the~{\bf{j}}th~campsite~on~{\bf{i}}th~night \\
+0;&~otherwise
+\end{aligned}\right.
+\end{equation}
+%There are special rules for entering math, and many commands that only exist in math mode. An
+%in-line math formula like $ x^2 +\beta $
+%has automatic spacing between variables and operators, while displayed equations like
+%\begin{equation}
+%\vec{A} \times (\vec{B}\times\vec{C})=
+%(\vec{A}\cdot\vec{C})\vec{B}-
+%(\vec{A}\cdot\vec{B})\vec{C}
+%\end{equation}
+%
+%\[\sum\limits_{i = 1}^n {{X_i}} \]
+%
+%\[ \sum\limits_{i = 1}^n {X_i^2} \]
+%
+%\[\sum\limits_{i = 1}^n {{X_i}} \]
+%
+%\[\frac{a^5}{5} - \frac{a^4}{4} + \frac{a^3}{3} - \frac{a^2}{2} + a\]
+%$ \frac{x^5}{5} - \frac{x^4}{4} + \frac{x^3}{3} - \frac{x^2}{2} + x $
+%
+The equation of kernel density estimation is indicated as follows:
+
+\begin{equation} %\label{eq:Gauss}
+  \hat{p}_n(x) = \frac{1}{\sqrt{2\pi}nh}\sum_{i=1}^n\exp(-\frac{(x-x_i)^T(x-x_i)}{2h})
+\end{equation}
+
+
+\begin{equation}
+\vec{A}\cdot(\vec{B}\times\vec{C})=
+\begin{vmatrix}
+A_x & A_y & A_z \\
+B_x & B_y & B_z \\
+C_x & C_y & C_z
+\end{vmatrix}
+\end{equation}
+%are given automatic numbers.
+%\[\sum\limits_{i = 1}^n {{A_i}{\rm{ + }}{B_i}} \]
+%\subsection{Lists}
+%
+%\begin{enumerate}
+%\item Various lists are able to numerate,
+%\item to itemize with bullets,
+%\item or to make descriptive lists.
+%\end{enumerate}
+%
+\subsection{Adding graphics}
+Pictures and graphics
+\includegraphics[width= 1cm]{r}
+produced by other programs are easily inserted.
+\end{document}

@@ -1,0 +1,54 @@
+
+
+\chapter{\LaTeX~Counters}
+
+Everything \LaTeX~numbers for you has a counter associated with it. The name of the counter is the same as the name of the environment or command that produces the number, except with no \. Bellow is a list of the counters used \LaTeX 's standard document styles to control numbering.
+
+\noindent\vspace{1em}
+\begin{tabular}[0em]{@{} l l l l}
+	part       & part         & figure     & enumi\\
+	chapter    & subparagraph & table      & enumii\\
+	section    & page         & footnate   & enumiii\\
+	subsection & equation     & mpfootnote & enumiv\\
+	subsubsection
+\end{tabular}
+\vspace{1em}
+
+Here are the commands to be used with counters:
+\begin{itemize}
+	\item \lstinline[language={[LaTeX]TeX}]|\addtocounter{counter}{value}|\\
+	The command increments the counter by the amount specified by the value argument. The value argument can be negative.
+	
+	\item \lstinline[language={[LaTeX]TeX}]|\alph{counter}, \Alph{counter}|\\
+	This command causes the value of the counter to be printed in alphabetic characters. The \lstinline[language={[LaTeX]TeX}]|\alph| command causes lower case alphabetic characters, i.e., a, b, c... while the \lstinline[language={[LaTeX]TeX}]|\Alph| causes upper case alphabetic characters, i.e., A, B, C...
+	
+	\item \lstinline[language={[LaTeX]TeX}]|\arabic{counter}|\\
+	This command causes the value of the counter to be printer in arabic numbers, i.e., 3.
+	
+	\item \lstinline[language={[LaTeX]TeX}]|\fnsymbol{counter}|\\
+	This command causes the value of the counter to be printed in a specific sequence of nine symbols that can be used for numbering \textcolor{blue}{footnotes}.
+	
+	\item \lstinline[language={[LaTeX]TeX}]|\newcounter{foo}[counter]|\\
+	This command defines a new counter named foo. The optional argument [counter] causes the counter foo to be reset whenever the counter named in the counter named in the optional argument is incremented.
+	
+	\item \lstinline[language={[LaTeX]TeX}]|\roman{counter}, \Roman{counter}|\\
+	This command causes the value of the counter to be printer in roman numerals. The \lstinline[language={[LaTeX]TeX}]|\roman| cammand causes lowr case roman numerals, i.e., i, ii, iii..., while the \lstinline[language={[LaTeX]TeX}]|\roman| command causes upper case roman numerals, i.e., I, II, III...
+	
+	\item \lstinline[language={[LaTeX]TeX}]|\setcounter{counter}{value}|\\
+	This command sets the value of the counter to that specified by the value argument.
+	
+	\item \lstinline[language={[LaTeX]TeX}]|\usecounter{counter}|\\
+	This command is used in the second argument of the \textcolor{blue}{list} environment to allow the counter specified to be used to number the list items.
+	
+	\item \lstinline[language={[LaTeX]TeX}]|\value{counter}|\\
+	This command produces the value of the counter named in the mandatory argument. It can be used where \LaTeX expects an integer or number, such as the second argument of a \lstinline[language={[LaTeX]TeX}]|\setcounter| or \lstinline[language={[LaTeX]TeX}]|\addtocounter| command, or in\\
+	\lstinline[language={[LaTeX]TeX}]|\hspace{\value{foo}\parindent}|
+\end{itemize}
+
+Example codes of using \cverb|counter|:
+
+\begin{lstlisting}[language={[LaTeX]TeX}]
+\setcounter{enumi}{1}
+\arabic{enumi}
+\addtocounter{enumi}{1} or \stepcounter{enumi}
+\end{lstlisting}

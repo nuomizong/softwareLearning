@@ -1,0 +1,179 @@
+% !Mode:: "TeX:UTF-8"	% read in as utf8 file.
+
+\usepackage{microtype}
+\usepackage[utf8]{inputenc}
+%\usepackage{CJKutf8} % Chinese, Japanese, Korean input with utf-8 encoding. it loads \usepackage[utf8]{inputenc} internally
+%\usepackage[width=21.00cm, height=29.70cm, left=2.54cm, right=2.54cm, top=2.54cm, bottom=2.54cm]{geometry}
+
+%======================================================
+%	Math packages
+%======================================================
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}	% thm = theorem
+\usepackage{enumerate} % [i], [ii]...
+% \usepackage{mathtools}
+% \usepackage{array}
+% \usepackage{alltt}
+% \usepackage{gensymb}
+
+%======================================================
+%	standard unit
+%======================================================
+\usepackage{siunitx}
+\DeclareSIUnit\rotation{r}
+
+%======================================================
+%	Pseudo code
+%======================================================
+% must follow natbib, don't know why.
+\usepackage[ruled]{algorithm2e} % add three rules to pseudo code.
+
+%\renewcommand{\algorithmicrequire} {\textbf{Input:}}
+%\renewcommand{\algorithmicensure}{\textbf{Output:}}
+
+%======================================================
+%	Equations
+%======================================================
+\numberwithin{equation}{section} % number equation with section number.
+
+%======================================================
+%	Figures and Captions
+%======================================================
+\usepackage{graphicx}
+
+\usepackage{caption}
+% captionof command. when inserting graphics without figure environment, captionof can produce the caption.
+
+\usepackage{subcaption} % subfigure environment.
+
+%======================================================
+%	Tables
+%======================================================
+\usepackage{booktabs} % three-line tables: toprule, midrule, bottomrule
+\usepackage{longtable}
+\usepackage{multirow}
+
+\usepackage{tabularx} % tabularx environment. equivalent lenth?
+
+%======================================================
+%	References
+%======================================================
+%\usepackage[square,sort,comma,numbers]{natbib}
+\usepackage{natbib}
+% \bibliographystyle{agsm} harvard type.
+
+%\usepackage[numbers,sort]{natbib} % [1,3,2] => [1,2,3]
+%\usepackage[numbers,sort & compress]{natbib} % [1,3,2] => [1-3]
+%\usepackage{biblatex}
+
+%======================================================
+%	Link
+%======================================================
+\usepackage{hyperref} % url command
+
+%======================================================
+%	Color
+%======================================================
+\usepackage{color}
+\usepackage{colortbl}
+\definecolor{bkg}{rgb}{0.95,0.95,0.92}
+
+%======================================================
+%	Todo
+%======================================================
+\usepackage{todonotes}
+% Hide or show comments
+\newif\ifshowcomments
+\showcommentstrue
+%\showcommentsfalse
+\ifshowcomments
+\newcommand{\TODO}[1]{{\color{red}{[TODO: #1]}}}
+\else
+\newcommand{\TODO}[1]{}
+\fi
+
+%======================================================
+%	Corrections.
+%======================================================
+%\usepackage{ulem} % support for strikethrough \sout
+
+% show or hide deleted words or sentences
+\newif\ifShowDeleted
+\ShowDeletedtrue
+%\ShowDeletedfalse
+\ifShowDeleted
+\newcommand{\delete}[1]{{\color[rgb]{0.2,0.8,0.2}{\sout{#1}}}}
+\else
+\newcommand{\delete}[1]{}
+\fi
+
+% highlight or not added words or sentences
+\newif\ifHighlightAdded
+\HighlightAddedtrue
+%\HighlightAddedfalse
+\ifHighlightAdded
+\newcommand{\add}[1]{{\color{red}{#1}}}
+\else
+\newcommand{\add}[1]{#1}
+\fi
+
+% replace words by another words
+\newif\ifHighlightReplaced
+\HighlightReplacedtrue
+%\HighlightReplacedfalse
+\ifHighlightReplaced
+\newcommand{\replace}[2]{{\color{red}{#1}}{\color{green}{ (\sout{#2})}}}
+\else
+\newcommand{\replace}[2]{#1}
+\fi
+
+\RequirePackage[l2tabu, orthodox]{nag}
+
+\usepackage{verbatim}
+
+%======================================================
+%	track of changes.
+%======================================================
+\usepackage{changes}
+
+%======================================================
+%	Code listing.
+%======================================================
+\usepackage{listings} % can print various codes including listings itself and LaTeX. can also use lstinline command.
+% ====== set styles for listings. ======
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+
+\lstdefinestyle{zstyle}{
+	backgroundcolor=\color[rgb]{0.95,0.95,0.92},
+	commentstyle=\color{codegreen},
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{codepurple},
+	numberstyle=\tiny\color{codegray},
+	numbersep=5pt,
+	stringstyle=\color{red},
+	showspaces=false,
+	showstringspaces=false,
+	showtabs=false,
+	numbers=left,
+	prebreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+	captionpos=b,
+	frame=single,
+	breakatwhitespace=false,
+	breaklines=true,
+	keepspaces=true,
+	tabsize=4,
+	%escapeinside,
+}
+
+\lstset{style=zstyle}
+% ====== set styles for listings. ======
+
+\usepackage{newverbs} % if listings package doesn't work, use this one to highlight.
+\newverbcommand{\cverb}{\color{red}}{} % colored vertb with red
+\newverbcommand{\bverb}	% verbatim with gray background
+{\begin{lrbox}{\verbbox}}
+	{\end{lrbox}\colorbox{gray}{\box\verbbox}}

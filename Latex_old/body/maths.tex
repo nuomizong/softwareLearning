@@ -1,0 +1,406 @@
+% !Mode:: "TeX:UTF-8"
+
+\chapter{Maths}
+\section{Math fonts}
+Under math mode, commonly used math fonts are listed bellow:
+
+\begin{verbatim}
+Roman - \mathrm{text}
+Italic - \mathit{text}
+Bold - \mathbf{text}
+Sans Serif - \mathsf{text}
+Typewriter - \mathtt{text}
+Calligraphic - \mathcal{text} % hand writing
+Blackboard Bold - \mathbb{text}
+Fraktur - \mathfrak{text}
+\end{verbatim}
+
+\textbf{\textbackslash mathit}, \textbf{\textbackslash mathbf} and \textbf{\textbackslash mathrm} are required math font styles in writing academic articles. If \textbf{Times New Roman} is needed, include \textbf{txfonts} package (actually \textbf{Nimbus Roman No9 L} which looks almost the same as \textbf{Times New Roman} in Open Source systems is used); If bold math font is needed, include \textbf{bm}. Table~\ref{table: math fonts} gives all the commands for using Arabic numerals, Latin letters and Greek Letters.
+
+\begin{table}[htbp]
+\caption{Common Math Fonts}\label{table: math fonts}
+\vspace{-1em}\centering
+\begin{tabular}{llll}
+\toprule
+ & Arabic numerals\&upper-case greek letter & Latin letter & lower-case Greek letter  \\
+\midrule
+Italic & \textbackslash mathit{} &  & \\
+Bold Italic & \textbackslash bm{\textbackslash mathit{}} & \textbackslash bm{} & \textbackslash bm{}\\
+Upright &  & \textbackslash mathrm{} & add up after letters\\
+Bold & \textbackslash mathbf{} or \textbackslash bm{} & \textbackslash mathbf{} & add up after letters\\
+\bottomrule
+\end{tabular}
+\vspace{\baselineskip}
+\end{table}
+
+\noindent following shows some \textbf{upright} math font contants and symbols.
+
+\vspace{-0.5em}
+\begin{flushleft}
+\begin{tabularx}{0.7\textwidth}{XX}
+$\mathrm{d}$ $\text{d,D,p,e,i,j}$, $\mathrm{D}$, $\mathrm{p}$~----differential operator & $\mathrm{e}$~----radix of natural logarithm\\
+$\mathrm{i}$, $\mathrm{j}$~----imaginary unit & $\piup$\\
+\end{tabularx}
+\end{flushleft}
+
+\section{\textbackslash mathrm and \textbackslash text}
+\textbf{From the Internet:} I do not use \textbf{\textbackslash mathrm} very much, but I do tend to use it for differentiable operators such as \textbf{dx} or \textbf{dy} or \textbf{dz}, \textbf{\textbackslash ldots} etc.
+
+
+\section{Inline equations}
+The simplest way to insert \textbf{Inline equations} like $ f(x)=\int_{a}^{b}\frac{\sin{x}}{x}\mathrm{d}x $ is to use \$ \$ provided by \TeX{}.
+
+\noindent\vspace{1em}\hrule
+\begin{verbatim}
+$ f(x)=\int_{a}^{b}\frac{\sin{x}}{x}\mathrm{d}x $
+\end{verbatim}
+\noindent\hrule\vspace{1em}
+
+\section{Display equations}
+\begin{table}[htbp]
+\caption{Display equations marks}\label{tab:eqtag}
+\vspace{0.5em}\centering
+\begin{tabularx}{\textwidth}{cll}
+\toprule
+& no numbering & automatic numbering\\
+\midrule
+one line equation& \verb|\begin{displaymath}... \end{displaymath}|& \verb|\begin{equation}... \end{equation}|\\
+        & or~\verb|\[...\]| & \\
+multi-line equation array& \verb|\begin{eqnarray*}... \end{eqnarray*}|& \verb|\begin{eqnarray}... \end{eqnarray}|\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Note that if add \textbf{\textbackslash nonumber} at the end of \textbf{automatic numering equation}, this line will change to be \textbf{no numbering}.
+
+Display equation of \textbf{multi-line equation array} usually adopt~\textbf{eqnarray}~or~\textbf{eqnarray*}~environment. By default, it is a 3-column matrix with column format of \textbf{rcl}, and the font of the middle column is slightly smaller, so normally put align operators (like "=") in the middle column.
+
+\section{Automatic adjustment delimiter}
+Automatic adjustment delimiter~\textbf{\textbackslash left} and~\textbf{\textbackslash right} are used to adjust delimiter automatically according to encapsulated equation size, as can be seen from equation(\ref{nodelimiter}) and equation(\ref{delimiter}).
+
+\begin{equation}\label{nodelimiter}
+(\sum_{k=\frac12}^{N^2})
+\end{equation}
+
+\begin{equation}\label{delimiter}
+\left(\sum_{k=\frac12}^{N^2}\right)
+\end{equation}
+
+equation(\ref{nodelimiter}) and equation(\ref{delimiter}) can be obtained in~\LaTeX~using follow codes.
+
+\noindent\vspace{1em}\hrule
+\begin{verbatim}
+(\sum_{k=\frac12}^{N^2})
+\left(\sum_{k=\frac12}^{N^2}\right)
+\end{verbatim}
+\noindent\hrule\vspace{1em}
+
+\section{Math accents}
+Math accents are normally used to distinct different variables using the same letter. The way to use math accents is shown following( need \textbf{amsmath} package):
+
+\vspace{0.5em}\noindent
+\begin{tabularx}{\textwidth}{Xc|Xc|Xc}
+ \verb|\acute| & $\acute{a}$ & \verb|\mathring| & $\mathring{a}$ & \verb|\underbrace| & $\underbrace{a}$ \\
+ \verb|\bar| & $\bar{a}$ & \verb|\overbrace| & $\overbrace{a}$ & \verb|\underleftarrow| & $\underleftarrow{a}$ \\
+ \verb|\breve| & $\breve{a}$ & \verb|\overleftarrow| & $\overleftarrow{a}$ & \verb|\underleftrightarrow| & $\underleftrightarrow{a}$ \\
+ \verb|\check| & $\check{a}$ & \verb|\overleftrightarrow| & $\overleftrightarrow{a}$ & \verb|\underline| & $\underline{a}$ \\
+ \verb|\dddot| & $\dddot{a}$ & \verb|\overline| & $\overline{a}$ & \verb|\underrightarrow| & $\underrightarrow{a}$ \\
+ \verb|\ddot| & $\ddot{a}$ & \verb|\overrightarrow| & $\overrightarrow{a}$ & \verb|\vec| & $\vec{a}$ \\
+ \verb|\dot| & $\dot{a}$ & \verb|\tilde| & $\tilde{a}$ & \verb|\widehat| & $\widehat{a}$ \\
+ \verb|\grave| & $\grave{a}$ & \verb|\underbar| & $\underbar{a}$ & \verb|\widetilde| & $\widetilde{a}$ \\
+ \verb|\hat| & $\hat{a}$
+\end{tabularx}\vspace{0.5em}
+
+In order to add \textbf{math accents} for letter~$i$~and~$j$~and meanwhile get rid of dots on top of those two letters ($\bar{\imath}$ and $\bar{\jmath}$), use~\textbf{\textbackslash imath}~and~\textbf{\textbackslash jmath} instead. 
+
+\section{Tips: \textbackslash dfrac, \textbackslash frac and \textbackslash tfrac}
+\begin{itemize}
+	\item \textbf{\textbackslash dfrac} forces the fraction into display mode, no matter which mode it is in already
+	\item \textbf{\textbackslash tfrac} forces the fraction into text mode. (so it will be only as high as text, and little good-looking)
+	\item with \textbf{\textbackslash frac}: the actual context implies the decision above.
+\end{itemize}
+
+Usually \textbf{\textbackslash tfrac} is used much more than \textbf{\textbackslash dfrac}. Of course \textbf{\textbackslash frac} should be used in almost every case but \textbf{\textbackslash tfrac} is handy for coefficients, as shown by the code below.
+
+$
+f(x) =  \frac{1}{2} x^2 = \dfrac{1}{2} x^2 = \tfrac{1}{2} x^2
+$
+
+\noindent\vspace{1em}\hrule
+\begin{verbatim}
+$
+f(x) =  \frac{1}{2} x^2 = \dfrac{1}{2} x^2 = \tfrac{1}{2} x^2
+$
+\end{verbatim}
+\noindent\hrule\vspace{1em}
+
+\begin{equation*}
+f(x) =  \frac{1}{2} x^2 = \dfrac{1}{2} x^2 = \tfrac{1}{2} x^2
+\end{equation*}
+
+\noindent\vspace{1em}\hrule
+\begin{verbatim}
+\begin{equation*}
+f(x) =  \frac{1}{2} x^2 = \dfrac{1}{2} x^2 = \tfrac{1}{2} x^2
+\end{equation*}
+\end{verbatim}
+\noindent\hrule\vspace{1em}
+
+For example, if you have a complicated mathematical expression in the middle of the text, you can use \textbf{\textbackslash dfrac} to force its display mode to formula.
+
+(\textbf{\textbackslash dfrac} and \textbf{\textbackslash tfrac} are from \textbf{amsmath} package).
+
+\section{Matrices}
+Here are few exemples to write quickly matrices. \textbf{\textbackslash amsmath} package must be used.
+
+Exemple:
+
+$$
+\begin{matrix} 
+a & b \\
+c & d 
+\end{matrix}
+\quad
+\begin{pmatrix} 
+a & b \\
+c & d 
+\end{pmatrix}
+\quad
+\begin{bmatrix} 
+a & b \\
+c & d 
+\end{bmatrix}
+\quad
+\begin{vmatrix} 
+a & b \\
+c & d 
+\end{vmatrix}
+\quad
+\begin{Vmatrix} 
+a & b \\
+c & d 
+\end{Vmatrix}
+$$
+
+\begin{lstlisting}[language={[LaTeX]TeX}]
+$$
+\begin{matrix} 
+a & b \\
+c & d 
+\end{matrix}
+\quad
+\begin{pmatrix} % parenthese
+a & b \\
+c & d 
+\end{pmatrix}
+\quad
+\begin{bmatrix} % brace
+a & b \\
+c & d 
+\end{bmatrix}
+\quad
+\begin{vmatrix} % vertical
+a & b \\
+c & d 
+\end{vmatrix}
+\quad
+\begin{Vmatrix} 
+a & b \\
+c & d 
+\end{Vmatrix}
+$$
+\end{lstlisting}
+
+\section{Equation numbering}
+To number equations by sections, i.e. in section 1 they should go 1.1, 1.2, ..., in section 2 they should go 2.1, 2.2 use command \textbf{\textbackslash numberwithin} from \textbf{amsmath} package in this way:
+
+\noindent\vspace{1em}\hrule
+\verb|\numberwithin{equation}{section}|
+\noindent\hrule\vspace{1em}
+
+\section{typeset an arbitrary fraction the same way as $ ^1/_2 $}
+Use \textbf{xfrac} package.
+
+$ 0.5 = ^1/_2 = \sfrac{1}{2} $, much better!
+
+\noindent\vspace{1em}\hrule
+\begin{verbatim}
+$ 0.5 = ^1/_2 = \sfrac{1}{2} $
+\end{verbatim}
+\noindent\hrule\vspace{1em}
+
+\section{Aligning equations with amsmath}
+
+\textbf{Align} is from \textbf{amsmath}, while \textbf{eqnarray} is from base \LaTeX{}, so the former is better. some differences:
+
+\begin{itemize}
+	\item \textbf{eqnarray} has two alignment points (it's basically just \textbf{array} with a default preamble);\\
+			\textbf{align} has one. x + y \&=\& z versus x + y \&= z
+	\item \textbf{eqnarray} changes the spacing at the alignment points depending on different factors;\\
+			\textbf{align} keeps it fixed (which is generally what you want)
+	\item \textbf{eqnarray} allows page breaks between lines; \\
+			\textbf{align} doesn't
+	\item \textbf{\textbackslash \textbackslash~*} is treated the same as \textbf{\textbackslash \textbackslash *} in \textbf{eqnarray}, but won't work in \textbf{align} (since \textbf{*} shows up commonly in equations)
+\end{itemize}
+The \textbf{amsmath} package provides a handful of options for displaying equations. You can choose the layout that better suits your document, even if the equations are really long, or if you have to include several equations in the same line.
+
+\subsection{Introduction}
+The stand \LaTeX{} tools for equations may lack some flexibility, causing overlapping or even trimming part of the equation when it's too long. We can surpass this difficulities with \textbf{amsmath}. Let's check an example:
+
+\begin{equation} \label{eq1}
+\begin{split}
+A &= \frac{\pi r^2}{2} \\
+  &= \frac{1}{2} \pi r^2
+\end{split}
+\end{equation}
+
+\noindent\vspace{1em}\hrule
+\begin{verbatim}
+\begin{equation} \label{eq1}
+\begin{split}
+A &= \frac{\pi r^2}{2} \\
+&= \frac{1}{2} \pi r^2
+\end{split}
+\end{equation}
+\end{verbatim}
+\noindent\hrule\vspace{1em}
+
+You have to wrap you equation in the \textbf{equation} environment if you want it to be numbered, use \textbf{equation*} (with an asterisk) otherwise. Inside the \textbf{equation} environment use the \textbf{split} environment to split the equations into smaller pieces, these smaller pieces will be aligned accordingly. The double backslash works as a newline character. Use the \textbf{ampersand character \&}, to set the points where the equations are vertically aligned.
+
+\subsection{Display long equations}
+For equations longer than a line use the \textbf{multline} environment. Insert a \textbf{double backslash} to set a point for the equation to be broken. The first part will be aligned \textbf{to the left} and the second will be displayed in the next line and \textbf{aligned to the right}.
+
+Again, the use of an \textbf{asterisk *} in the environment name determines whether the equation is numbered or not.
+
+\begin{multline*}
+p(x) = 3x^6 + 14x^5y + 590x^4y^2 + 19x^3y^3\\ 
+- 12x^2y^4 - 12xy^5 + 2y^6 - a^3b^3
+\end{multline*}
+
+\noindent\vspace{1em}\hrule
+\begin{verbatim}
+\begin{multline*}
+p(x) = 3x^6 + 14x^5y + 590x^4y^2 + 19x^3y^3\\ 
+- 12x^2y^4 - 12xy^5 + 2y^6 - a^3b^3
+\end{multline*}
+\end{verbatim}
+\noindent\hrule\vspace{1em}
+
+\subsection{Splitting and aligning an equation}
+\textbf{Split} is very similar to \textbf{multline}. Use the \textbf{split} environment to break an equation and to align it in columns, just as if the parts of the equation were in a table. This environment must be used inside an \textbf{equation} environment.
+
+\subsection{Aligning several equations}
+if there are several equations that you need to align vertically, the \textbf{align} environment will do it:
+
+\begin{align*}
+2x - 5y &= 8\\
+3x + 9y &= -12
+\end{align*}
+
+\noindent\vspace{1em}\hrule
+\begin{verbatim}
+\begin{align*}
+2x - 5y &= 8\\
+3x + 9y &= -12
+\end{align*}
+\end{verbatim}
+\noindent\hrule\vspace{1em}
+
+Usually the binary operators ($>,< and =$) are the ones aligned for a nice-looking document.
+
+As mentioned before, the \textbf{ampersand character \&} determines where the equations align. Let's check a more complex example:
+
+\begin{align*}
+x &= y           &  w &= z              &  a &= b+c\\
+2x &= -y         &  3w &= \frac{1}{2}z   &  a &= b\\
+-4 + 5x &= 2+y   &  w+2 &= -1+w          &  ab &= cb
+\end{align*}
+
+\noindent\vspace{1em}\hrule
+\begin{verbatim}
+\begin{align*}
+x &= y           &  w &= z              &  a &= b+c\\
+2x &= -y         &  3w &= \frac{1}{2}z   &  a &= b\\
+-4 + 5x &= 2+y   &  w+2 &= -1+w          &  ab &= cb
+\end{align*}
+\end{verbatim}
+\noindent\hrule\vspace{1em}
+
+here we arrange the equations in three columns. \LaTeX~assumes that each equation consists of two parts separated by a \&; also that each equation is separated from the one before by an \&.
+
+\subsection{Grouping and centering equations}
+If you just need to display a set of consecutive equations, centered and with no alignment whatsoever, use the \textbf{gather} environment. The asterisk trick to set/unset the numbering of equations also works here.
+
+\begin{gather*}
+2x - 5y = 8\\
+3x^2 +9y = 3a + c
+\end{gather*}
+
+\noindent\vspace{1em}\hrule
+\begin{verbatim}
+\begin{gather*}
+2x - 5y = 8\\
+3x^2 +9y = 3a + c
+\end{gather*}
+\end{verbatim}
+\noindent\hrule\vspace{1em}
+
+\subsection{Align Equations to the left}
+\textbf{flalign} and \textbf{flalign*} is similar to \textbf{align}, but left aligns first equation column, and right aligns last column. Maybe \textbf{flalign} means \textit{flush left align}.
+\begin{flalign*}
+a &= b+c &\\
+&= l+l &\\
+&= 2 &
+\end{flalign*}
+
+The formula is
+\noindent\vspace{1em}\hrule
+\begin{verbatim}
+\begin{flalign*}
+a &= b+c &\\
+  &= l+l &\\
+  &= 2 &
+\end{flalign*}
+\end{verbatim}
+\noindent\hrule\vspace{1em}
+
+\subsection{Indent math}
+Use \textbf{\textbackslash hspace\{length\}} to indent. For example:
+\begin{flalign*}
+\hspace{2em}a &= b+c &\\
+  &= l+l &\\
+  &= 2 &
+\end{flalign*}
+
+The formula is
+\noindent\vspace{1em}\hrule
+\begin{verbatim}
+\begin{flalign*}
+\hspace{2em}a &= b+c &\\
+  &= l+l &\\
+  &= 2 &
+\end{flalign*}
+\end{verbatim}
+\noindent\hrule\vspace{1em}
+
+\section{Left brace}
+
+\begin{equation}
+\begin{cases}
+xc = rb \cdot cos(\theta) \\
+yc = rb*sin(\theta)
+\end{cases}
+\end{equation}
+
+\begin{verbatim}
+\begin{equation}
+\begin{cases}
+xc = rb \cdot cos(\theta) \\
+yc = rb*sin(\theta)
+\end{cases}
+\end{equation}
+\end{verbatim}
+\noindent\hrule\vspace{1em}
+
+\section{maximum matrix columns}
+\lstinline[language={[LaTeX]TeX}]|\setcounter{MaxMatrixCols}{20}|

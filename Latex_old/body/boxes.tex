@@ -1,0 +1,175 @@
+% !Mode:: "TeX:UTF-8"
+
+
+\section{Use boxes}
+\subsection{parbox}
+\textbf{parbox} packs up a whole paragraph doing like \textbf{line breaking and everything}.
+
+\subsection{minipage and parbox}
+Most standard \LaTeX{} boxes are not \textit{long} commands, i.e., they do not support breaks nor paragraphs. However you can pack a paragraph of your choice into a box with either the \textbf{\textbackslash parbox[pos][height][contentpos]{width}{text}} command or the \textbf{\textbackslash begin{minipage}[pos][height][contentpos]{width} text \textbackslash end{minipage}} environment.
+
+The \textbf{pos} parameter can take one of the letters \textbf{c}enter, \textbf{t}op or \textbf{b}ottom to control the vertical alignment of the box, relative to the baseline of the surrounding text. The \textbf{height} parameters the height of the parbox or minipage. The \textbf{contentpos} parameter is the position of the content and can be one of \textbf{c}enter, \textbf{t}op, \textbf{b}ottom or \textbf{s}pread. \textbf{width} takes a length argument specifying the width of the box. The main difference between a \textbf{minipage} and a \textbf{\textbackslash parbox} is that you cannot use all commands and environments inside a parbox, while almost anything is possible in a minipage.
+
+\noindent
+\fbox{\parbox[b][4em][t]{0.33\textwidth}{some \\text}}
+\fbox{\parbox[c][4em][s]{0.33\textwidth}{Some \vfill text} }
+\fbox{\parbox[t][4em][c]{0.33\textwidth}{Some \\ text} }
+
+\noindent\vspace{1em}\hrule
+\begin{verbatim}
+\fbox{\parbox[b][4em][t]{0.33\textwidth}{some \\text}}
+\fbox{\parbox[c][4em][s]{0.33\textwidth}{Some \vfill text} }
+\fbox{\parbox[t][4em][c]{0.33\textwidth}{Some \\ text} }
+\end{verbatim}
+\noindent\hrule\vspace{1em}
+
+This should print 3 boxes on the same line. Do not put another linebreak between the \textbf{\textbackslash fbox}, otherwise you will put the following \textbf{\textbackslash fbox} on another line.
+
+\subsection{Paragraphs in all boxes}
+You can make use of the \textit{long} capabilities of minipage and parbox to embed paragraphs in non-long boxes. For instance:
+
+\noindent\fbox{\parbox{\textwidth}{some very long text...some very long text...some very long text...some very long text...some very long text...some very long text...some very long text...}}
+
+\noindent\vspace{1em}\hrule
+\begin{verbatim}
+\fbox{\parbox{\textwidth}{some very long text...}}
+\end{verbatim}
+\noindent\hrule\vspace{1em}
+
+This prevents the overfull badness.
+
+\subsection{mbox}
+While \textbf{parbox} packs up a whole paragraph doing like \textbf{line breaking and everything}, there is also a class of boxing commands that operates only on horizontally aligned material. We already know one of them; it's called \textbf{mbox}. It simply packs up a series of boxes into another one, and can be used to \textbf{prevent \LaTeX{} from breaking two words}. As you can put boxes inside boxes, these horizontal box packers give you ultimate flexibility.
+
+\noindent\vspace{1em}\hrule
+\begin{verbatim}
+\mbox{text}
+\makebox[width][pos]{text}
+\end{verbatim}
+\noindent\hrule\vspace{1em}
+
+\emph{width} defines the width of the resulting box as seen from the outside. This means it can be \textbf{smaller} than the material inside the box. You can even set the width to 0pt so that the text inside the box will be typeset without influencing the surrounding boxes. Besides the \textbf{length} expression, you can also use \textbf{\textbackslash width, \textbackslash height, \textbackslash depth} and \textbf{\textbackslash totalheight} in the \textbf{width} parameter. They are set from values obtained by measuring the typeset text. The \textbf{pos} parameter takes a one letter value: \textbf{c}enter, flush\textbf{l}eft, flush\textbf{r}ight, or \textbf{s}pread the text to fill the box.
+
+\makebox[0pt]{some text}
+\makebox[15ex][s]{Censored text} \hspace{-15ex}\makebox[15ex][s]{X X X X X}
+\makebox[2\width][r]{running away}
+
+\noindent\vspace{1em}\hrule
+\begin{verbatim}
+\makebox[0pt]{some text} over this text
+\makebox[15ex][s]{Censored text} \hspace{-15ex}\makebox[15ex][s]{X X X X X}
+Text \makebox[2\width][r]{running away}
+\end{verbatim}
+\noindent\hrule\vspace{1em}
+
+\subsection{fbox}
+The command \textbf{\textbackslash framebox} works exactly the same as \textbf{\textbackslash makebox}, but it draws a box around the text.
+
+\noindent\vspace{1em}\hrule
+\begin{verbatim}
+\fbox{text}
+\framebox[width][position]{text}
+\end{verbatim}
+\noindent\hrule\vspace{1em}
+
+The following example shows you some things you could do with the \textbf{\textbackslash makebox} and \textbf{\textbackslash framebox} commands:
+
+\makebox[\textwidth]{c e n t r a l} \par
+\makebox[\textwidth][s]{s p r e a d} \par
+\framebox[1.1\width]{Guess I'm framed now!} \par
+\framebox[1cm][l]{never mind, so am I}
+
+\noindent\vspace{1em}\hrule
+\begin{verbatim}
+\makebox[\textwidth]{c e n t r a l} \par
+\makebox[\textwidth][s]{s p r e a d} \par
+\framebox[1.1\width]{Guess I'm framed now!} \par
+\framebox[1cm][l]{never mind, so am I}
+\end{verbatim}
+\noindent\hrule\vspace{1em}
+
+can you read this?
+
+You can tweak the following frame lengths.
+\begin{itemize}
+	\item \textbackslash fboxsep: the distance between the frame and the content
+	\item \textbackslash fboxrule: the thickness of the rule.
+\end{itemize}
+
+This prints a thick and more distant frame:
+
+\setlength{\fboxsep}{10pt}
+\setlength{\fboxrule}{5pt}
+\fbox{A frame.}
+
+\noindent\vspace{1em}\hrule
+\begin{verbatim}
+\setlength{\fboxsep}{10pt}
+\setlength{\fboxrule}{5pt}
+\fbox{A frame.}
+\end{verbatim}
+\noindent\hrule\vspace{1em}
+
+\subsection{colorbox}
+\textbf{colorbox} is used for entering \textbf{colored background} for the text.
+
+\noindent\vspace{1em}\hrule
+\begin{verbatim}
+\colorbox{declared-color}{text}
+\end{verbatim}
+\noindent\hrule\vspace{1em}
+
+If the background color and the text color is changed, then:
+
+\noindent\vspace{1em}\hrule
+\begin{verbatim}
+\colorbox{declared-color1}{\color{declared-color2}text}
+\end{verbatim}
+\noindent\hrule\vspace{1em}
+
+\subsection{fcolorbox}
+There is also \textbf{\textbackslash fcolorbox} to make framed background color in yet another color:
+
+\noindent\vspace{1em}\hrule
+\begin{verbatim}
+\fcolorbox{declared-color-frame}{declared-color-background}{text}
+\end{verbatim}
+\noindent\hrule\vspace{1em}
+
+\subsection{Tips: prevent \textbackslash fbox from running off the page}
+You can use a \textbf{\textbackslash parbox} for the content as follows:
+
+\begin{enumerate}
+	\item If you do not care about the precise dimensions I just normally use:
+	
+	\noindent\vspace{1em}\hrule
+	\begin{verbatim}
+	\fbox{\parbox{0.9\linewidth}{...}}
+	\end{verbatim}
+	\noindent\hrule\vspace{1em}
+	
+	\item If you want the text to still occupy the full line width and have the \textbf{\textbackslash fbox} go into the margins then you can use:
+	
+	\noindent\vspace{1em}\hrule
+	\begin{verbatim}
+	\noindent\makebox[\linewidth][l]{\hspace{\dimexpr-\fboxsep-\fboxrule\relax}\fbox{\parbox{\linewidth}{...}}}
+	\end{verbatim}
+	\noindent\hrule\vspace{1em}
+	
+	\item If you want the \textbf{\textbackslash fbox} to stay within margin boundary you can use:
+	
+	\noindent\vspace{1em}\hrule
+	\begin{verbatim}
+	\noindent\fbox{\parbox{\dimexpr\linewidth-2\fboxsep-\fboxrule\relax}{...}}
+	\end{verbatim}
+	\noindent\hrule\vspace{1em}
+	
+\end{enumerate}
+
+Here are the results (see figure \ref{fig:prevent fbox from running off the page}) of these three where I used the \textbf{[showframe]} option to the \textbf{geometry} package to show the margins 
+
+	\begin{figure}[htb]
+		\centering
+		\includegraphics[width=\linewidth]{"prevent fbox from running off the page"}
+		\caption{prevent fbox from running off the page}\label{fig:prevent fbox from running off the page}
+	\end{figure}

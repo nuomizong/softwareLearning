@@ -1,0 +1,11 @@
+% !Mode:: "TeX:UTF-8"
+
+\chapter{Use Chinese Characters in TexStudio}
+There are several thins need to be done before TexStudio displays and compiles Chinese Characters correctly.
+
+\begin{enumerate}
+	\item The very first thing to do is to make sure the \textbf{\% !Mode:: \textquotesingle\textquotesingle TeX:UTF-8\textquotesingle\textquotesingle} at the beginning of each file, so that TexStudio can open file in \textbf{utf-8} encoding mode.
+	\item use CJK package: \textbf{\textbackslash usepackage\{CJKutf8\}}
+	\item use CJK environment:\textbf{ \textbackslash begin\{CJK*\}\{UTF8\}\{song\} and \textbackslash end\{CJK*\}} just after \textbf{\textbackslash begin\{document\}} and \textbf{\textbackslash end\{document\}}
+		
+\end{enumerate}
