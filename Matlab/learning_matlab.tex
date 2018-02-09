@@ -113,8 +113,19 @@ clear global;
 \end{lstlisting}
 
 \section{Mex functions}
+\subsection{Mac SDK support}
+Go to \textcolor{red}{<matlab folder>, bin, maci64, mexopts}, open \lstinline{clang++_maci64.xml}.
+Add sentences like:
+
+\begin{lstlisting}[language=xml]
+<dirExists name="$$/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk" />
+<dirExists name="$$/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk" />
+...
+<cmdReturns name="find $$ -name MacOSX10.12.sdk | egrep 'MacOSX10.13.sdk'" />
+\end{lstlisting}
+
 \subsection{Clear mex functions in workspace}
-\lstinline[language=matlab]{clear functions;}
+\lstinline[language=matlab]{clear mex;}
 
 \begin{lstlisting}[language=matlab]
 nlhs: number of left hand side;
