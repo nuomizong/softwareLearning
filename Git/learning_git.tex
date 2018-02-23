@@ -79,5 +79,26 @@ git mergetool
 
 \url{http://blog.csdn.net/u012150179/article/details/14047183}
 
+\section{git update fork}
+
+\begin{enumerate}
+\item Clone your fork
+\begin{lstlisting}
+git clone git@github.com:YOUR-USERNAME/YOUR-FORKED-REPO.git
+\end{lstlisting}
+
+\item Add remote from original repository in your forked repository
+\begin{lstlisting}
+cd into/cloned/fork-repo
+git remote add upstream git://github.com/ORIGINAL-DEV-USERNAME/REPO-YOU-FORKED-FROM.git
+git fetch upstream
+\end{lstlisting}
+
+\item Updating your fork from original repo to keep up with their changes
+\begin{lstlisting}
+git pull upstream master
+\end{lstlisting}
+\end{enumerate}
+
 
 \end{document}
