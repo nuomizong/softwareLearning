@@ -1,0 +1,12 @@
+
+1. download Python, perl, rugby
+
+2. go to QT source code with configure
+
+3. in Vs command tool type in: configure -static -release -ltcg -confirm-license -opensource -nomake tools -nomake examples -nomake tests -no-compile-examples -opengl desktop -qt-zlib -qt-pcre -qt-libpng -qt-libjpeg -mp -prefix "D:\QT\static" -platform win32-msvc
+
+4. nmake
+5. nmake install
+
+      -no-webkit
+	  
