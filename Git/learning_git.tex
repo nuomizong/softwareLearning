@@ -101,4 +101,15 @@ git pull upstream master
 \end{enumerate}
 
 
+
+% remove all files in .gitignore
+you can remove them from the repository manually:
+
+git rm --cached file1 file2 dir/file3
+Or, if you have a lot of files:
+
+git rm --cached `git ls-files -i --exclude-from=.gitignore`
+But this doesn't seem to work in Git Bash on Windows. It produces an error message. The following works better:
+
+git ls-files -i --exclude-from=.gitignore | xargs git rm --cached  
 \end{document}
