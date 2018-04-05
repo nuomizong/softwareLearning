@@ -1,8 +1,9 @@
 % !Mode:: "TeX:UTF-8"	% read in as utf8 file.
 \documentclass[10pt,a4paper]{book}
 
-\input{"D:/Git/softwareLearning/Latex/LatexHelper.tex"}
-%\input{/Users/anzongzheng/Desktop/Research/softwareLearning/Latex/myStyle.tex}
+\InputIfFileExists{"D:/Git/softwareLearning/Latex/LatexHelper.tex"}
+{} % true condition.
+{/Users/anzongzheng/Desktop/Git/softwareLearning/Latex/LatexHelper.tex} % false condition.
 
 \begin{document}
 
@@ -26,7 +27,7 @@
 %	\setcounter{page}{1}
 %\include{body/shortcuts}
 %\include{body/commnet}
-%	\include{body/packages}
+\include{body/packages}
 %	\include{body/input_chinese}
 \include{body/symbols}
 %	\include{body/counter}

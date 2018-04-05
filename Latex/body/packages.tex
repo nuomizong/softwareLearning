@@ -424,3 +424,32 @@ Use the \lstinline[language={[LaTeX]TeX}]|\enumerate|
 \item Three
 \end{enumerate}
 \end{lstlisting}
+
+\section{platform package}
+
+\begin{lstlisting}[language={[LaTeX]TeX}]
+% packages we need
+\usepackage{pdftexcmds}
+\usepackage{catchfile}
+\usepackage{ifluatex}
+\usepackage{ifplatform}
+\end{lstlisting}
+
+\begin{lstlisting}[language={[LaTeX]TeX}]
+\ifwindows
+% add settings
+\fi
+\iflinux
+% add settings
+\fi
+\ifmacosx
+% add settings
+\if
+\end{lstlisting}
+
+\section{InputIfFileExists}
+\begin{lstlisting}[language={[LaTeX]TeX}]
+\InputIfFileExists{"D:/Git/softwareLearning/Latex/LatexHelper.tex"}
+{} % true condition.
+{/Users/anzongzheng/Desktop/Git/softwareLearning/Latex/LatexHelper.tex} % false condition.
+\end{lstlisting}
